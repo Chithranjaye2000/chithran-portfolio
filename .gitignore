@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.vite/
+.npm-cache/
+artifacts/
+reports-source/
+tmp/pdfs/
+*.local
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store

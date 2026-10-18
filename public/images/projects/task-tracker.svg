@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" fill="none">
+  <path fill="#eff1f9" d="M0 0h800v480H0z"/>
+  <path d="M110 113h580M110 240h580M110 367h580" stroke="#dce0ef" stroke-dasharray="4 7"/>
+  <rect x="177" y="83" width="414" height="309" rx="14" fill="#fff" stroke="#c5cee5" stroke-width="2"/><path d="M177 123h414" stroke="#e0e5f2"/><circle cx="197" cy="103" r="3" fill="#a8b4d2"/><circle cx="209" cy="103" r="3" fill="#a8b4d2"/><circle cx="221" cy="103" r="3" fill="#a8b4d2"/><text x="382" y="108" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing="2" fill="#6e7e9f">TEAM TASK TRACKER</text>
+  <rect x="199" y="146" width="111" height="217" rx="7" fill="#f3f5fb"/><rect x="328" y="146" width="111" height="217" rx="7" fill="#f3f5fb"/><rect x="457" y="146" width="111" height="217" rx="7" fill="#f3f5fb"/>
+  <text x="255" y="169" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="1" fill="#687b9e">ADMIN</text><text x="384" y="169" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="1" fill="#687b9e">DRIVER</text><text x="513" y="169" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="1" fill="#687b9e">USER</text>
+  <g fill="#fff" stroke="#d3dcef"><rect x="208" y="187" width="93" height="58" rx="5"/><rect x="208" y="257" width="93" height="58" rx="5"/><rect x="337" y="187" width="93" height="58" rx="5"/><rect x="337" y="257" width="93" height="58" rx="5"/><rect x="466" y="187" width="93" height="58" rx="5"/><rect x="466" y="257" width="93" height="58" rx="5"/></g>
+  <path d="M220 202h34m-34 10h62m-62 10h47M220 272h34m-34 10h62m-62 10h47M349 202h34m-34 10h62m-62 10h47M349 272h34m-34 10h62m-62 10h47M478 202h34m-34 10h62m-62 10h47M478 272h34m-34 10h62m-62 10h47" stroke="#b5c3df" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="165" cy="228" r="28" fill="#215be2"/><path d="m154 228 8 8 14-16" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="605" cy="326" r="32" fill="#e2eafa" stroke="#b8cbea"/><path d="M591 327h28m-18-10 10 10-10 10" stroke="#527cc4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="400" y="431" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" letter-spacing="3" fill="#6b7ca1">DIFFERENT ROLES · A SHARED WORKFLOW</text>
+</svg>

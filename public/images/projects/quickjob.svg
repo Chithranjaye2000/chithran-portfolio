@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" fill="none">
+  <path fill="#edf2fe" d="M0 0h800v480H0z"/><circle cx="400" cy="239" r="180" fill="#e1e9fc"/><circle cx="400" cy="239" r="153" stroke="#c9d8f7" stroke-dasharray="4 7"/>
+  <rect x="147" y="106" width="398" height="257" rx="13" fill="#fff" stroke="#b9cbee" stroke-width="2"/><path d="M147 140h398" stroke="#d8e1f5"/><circle cx="164" cy="124" r="3" fill="#a2b9e5"/><circle cx="175" cy="124" r="3" fill="#a2b9e5"/><circle cx="186" cy="124" r="3" fill="#a2b9e5"/>
+  <rect x="172" y="162" width="51" height="51" rx="12" fill="#215be2"/><path d="M189 176h17v5m-20 1h24v18h-24zm0 7h24m-14-2h4v5h-4z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/>
+  <text x="238" y="184" fill="#23477f" font-family="Arial,sans-serif" font-size="19" font-weight="700">QuickJob</text><text x="238" y="203" fill="#7086ac" font-family="Arial,sans-serif" font-size="10" letter-spacing="1">OPPORTUNITY, CONNECTED.</text>
+  <rect x="172" y="236" width="231" height="44" rx="7" fill="#f3f6fd" stroke="#dce5f6"/><circle cx="192" cy="258" r="9" fill="#d3e0f8"/><path d="M211 253h87m-87 10h55" stroke="#9cb4de" stroke-width="4" stroke-linecap="round"/>
+  <rect x="172" y="293" width="231" height="44" rx="7" fill="#f3f6fd" stroke="#dce5f6"/><circle cx="192" cy="315" r="9" fill="#d3e0f8"/><path d="M211 310h106m-106 10h61" stroke="#9cb4de" stroke-width="4" stroke-linecap="round"/>
+  <rect x="460" y="155" width="139" height="237" rx="23" fill="#fff" stroke="#7999cf" stroke-width="3"/><path d="M505 168h49" stroke="#b5c8e8" stroke-width="5" stroke-linecap="round"/>
+  <rect x="474" y="192" width="111" height="57" rx="8" fill="#215be2"/><path d="M489 209h49m-49 13h71m-71 13h34" stroke="#d1e0ff" stroke-width="4" stroke-linecap="round"/>
+  <rect x="474" y="262" width="111" height="40" rx="6" fill="#edf3ff"/><circle cx="491" cy="282" r="8" fill="#adc5ef"/><path d="M509 276h61m-61 11h39" stroke="#9db7e4" stroke-width="3" stroke-linecap="round"/>
+  <rect x="474" y="314" width="111" height="40" rx="6" fill="#edf3ff"/><circle cx="491" cy="334" r="8" fill="#adc5ef"/><path d="M509 328h61m-61 11h39" stroke="#9db7e4" stroke-width="3" stroke-linecap="round"/>
+  <rect x="615" y="110" width="52" height="47" rx="12" fill="#fff" stroke="#c4d4f3"/><path d="M629 123h24v16h-14l-6 5v-5h-4Z" fill="#dce7fc" stroke="#658bd0" stroke-width="1.5"/>
+  <text x="371" y="421" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" letter-spacing="3" fill="#5c76a6">WEB + MOBILE · ONE CONNECTED JOURNEY</text>
+</svg>

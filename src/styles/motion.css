@@ -1,0 +1,136 @@
+/* Entrance/reveal styles are applied by the native Web Animations API.
+   Content stays visible when JavaScript, animation support, or motion is absent. */
+:root {
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.button {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 220ms ease,
+    transform 220ms var(--motion-ease);
+}
+
+.button > svg,
+.text-link > svg,
+.project-open,
+.menu-toggle-icon > svg {
+  transition:
+    transform 220ms var(--motion-ease),
+    opacity 180ms ease;
+}
+
+.project-card {
+  transition:
+    transform 280ms var(--motion-ease),
+    border-color 220ms ease,
+    box-shadow 280ms ease;
+}
+
+.project-card:focus-within {
+  border-color: #a8bfe9;
+  box-shadow: 0 8px 28px #203e6c12;
+}
+
+.project-visual img {
+  transition: transform 450ms var(--motion-ease);
+}
+
+.project-filters button,
+.menu-toggle {
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.menu-toggle-icon {
+  display: grid;
+  width: 23px;
+  height: 23px;
+}
+
+.menu-toggle-icon > svg {
+  grid-area: 1 / 1;
+}
+
+.menu-icon-close {
+  opacity: 0;
+  transform: rotate(-45deg) scale(0.8);
+}
+
+.menu-toggle[aria-expanded='true'] .menu-icon-bars {
+  opacity: 0;
+  transform: rotate(45deg) scale(0.8);
+}
+
+.menu-toggle[aria-expanded='true'] .menu-icon-close {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px #203e6c12;
+  }
+
+  .project-card:hover .project-visual img {
+    transform: scale(1.035);
+  }
+
+  .button:hover > svg,
+  .text-link:hover > svg,
+  .project-card:hover .project-open {
+    transform: translate(2px, -2px);
+  }
+}
+
+@media (max-width: 960px) {
+  .primary-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3px;
+    max-height: calc(100dvh - 75px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition:
+      opacity 180ms ease,
+      transform 220ms var(--motion-ease),
+      visibility 0s linear 220ms;
+  }
+
+  .primary-nav.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    transition-delay: 0s;
+  }
+}
+
+@media (max-width: 680px) {
+  .primary-nav {
+    max-height: calc(100dvh - 70px);
+  }
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .button:hover,
+  .project-visual:hover img {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-nav,
+  .menu-toggle-icon > svg {
+    transition: none;
+  }
+}

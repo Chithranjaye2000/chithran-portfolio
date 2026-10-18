@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="480" viewBox="0 0 600 480" fill="none">
+  <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" stroke="#dce6f7" stroke-width=".7"/></pattern></defs>
+  <path fill="#edf3ff" d="M0 0h600v480H0z"/><path fill="url(#grid)" d="M0 0h600v480H0z"/>
+  <circle cx="300" cy="230" r="170" stroke="#d0def6"/><circle cx="300" cy="230" r="142" stroke="#d0def6" stroke-dasharray="3 8"/>
+  <path d="M300 37v29m0 328v29M107 230h29m328 0h29" stroke="#a9c2ec" stroke-width="1.5"/>
+  <circle cx="300" cy="230" r="112" fill="#e2ebfc" stroke="#ceddf6"/>
+  <text x="300" y="264" text-anchor="middle" font-family="Arial,sans-serif" font-size="104" font-weight="700" letter-spacing="-8" fill="#215be2">CJ<tspan fill="#749ce9">.</tspan></text>
+  <rect x="394" y="105" width="28" height="28" rx="7" fill="#fff" stroke="#d0dff7"/><path d="m402 119 4 4 7-8" stroke="#215be2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="163" y="328" width="25" height="25" rx="6" fill="#fff" stroke="#d0dff7"/><path d="m171 337-3 3 3 3m8-6 3 3-3 3" stroke="#6a90d5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="181" cy="109" r="4" fill="#89aceb"/><circle cx="427" cy="352" r="4" fill="#89aceb"/>
+  <text x="300" y="411" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="4" fill="#5e7fb6">THE PERSON BEHIND THE PROCESS</text>
+</svg>
