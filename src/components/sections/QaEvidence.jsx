@@ -89,7 +89,7 @@ export default function QaEvidence() {
             <p className="qa-result-count" role="status" aria-atomic="true">
               Showing {visible.length} {visible.length === 1 ? 'case study' : 'case studies'}
             </p>
-            <div className="qa-report-grid" id="qa-results">
+            <div className="qa-report-grid" id="qa-results" data-stagger>
               {visible.map((report) => (
                 <QaReportCard key={report.id} report={report} />
               ))}

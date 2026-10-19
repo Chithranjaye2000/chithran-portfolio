@@ -34,7 +34,11 @@ function VideoThumbnail({ project }) {
 
 export default function VideoCard({ project, featured = false }) {
   return (
-    <article className={`video-card${featured ? ' video-card--featured' : ''}`} data-reveal>
+    <article
+      className={`video-card${featured ? ' video-card--featured' : ''}`}
+      data-reveal
+      data-tilt="quiet"
+    >
       <VideoThumbnail project={project} />
       <div className="video-card-body">
         {featured && <p className="video-feature-label">Featured video</p>}

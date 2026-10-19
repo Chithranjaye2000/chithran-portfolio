@@ -4,6 +4,7 @@ import { certifications } from '../../data/certifications'
 import CertificateCard from '../ui/CertificateCard'
 import CertificateLightbox from '../ui/CertificateLightbox'
 import { SectionHeading } from '../ui/Primitives'
+import { TimelineRail } from '../ui/MotionDecor'
 
 const availableImages = new Set(__CERTIFICATE_IMAGES__)
 
@@ -48,7 +49,8 @@ export default function Certifications() {
             </span>
           </p>
         )}
-        <div className="certification-grid">
+        <div className="certification-grid milestone-track" data-timeline data-stagger>
+          <TimelineRail />
           {certifications.map((certificate) => (
             <CertificateCard
               key={certificate.id}

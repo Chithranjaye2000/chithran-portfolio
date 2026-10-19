@@ -62,7 +62,7 @@ export default function Content() {
         </p>
         <div id="video-results">
           {featured && <VideoCard key={featured.id} project={featured} featured />}
-          <div className="video-grid">
+          <div className="video-grid" data-stagger>
             {remaining.map((project) => (
               <VideoCard key={project.id} project={project} />
             ))}

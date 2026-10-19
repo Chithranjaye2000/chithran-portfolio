@@ -31,6 +31,7 @@ This avoids changing your global Node/npm installation. The same workaround work
 
 ```powershell
 npm run lint
+npm run test
 npm run format:check
 npm run build
 npm run preview
@@ -67,13 +68,13 @@ Configure Drive sharing permissions separately and test the link in a signed-out
 
 ### Video thumbnails and project data
 
-The 13 video projects, four categories, descriptions, thumbnail paths, and featured selection live in **`src/data/videoProjects.js`**. The Content section reuses the existing scroll-reveal hook, external-link safety, and filter styling. Category filters include the featured entry only when it belongs to the selected category.
+The 12 video projects, four categories, descriptions, thumbnail paths, and featured selection live in **`src/data/videoProjects.js`**. The Content section reuses the existing scroll-reveal hook, external-link safety, and filter styling. Category filters include the featured entry only when it belongs to the selected category.
 
 No video thumbnail folder or images were present at implementation time. **`public/images/videos/`** is now prepared for your actual files. Preserve the original filenames and match each image using its filename and visible content. Set the matching project's **`thumbnailPath`** to **`/images/videos/<exact original filename>`**, including the extension and case. URL-encode reserved characters (for example, `#` becomes `%23`). Leave uncertain matches as **`null`** for review. No filenames or images are invented.
 
-The featured entry is currently **Digital Platform Division Video**, one of the preferred projects; its selection is provisional until actual thumbnails can be inspected. Set **`featured: true`** on exactly one project to change it. Images use a 16:9 display crop with `object-fit: cover`; source files are never modified. Missing or unreadable thumbnails show a labeled text-only state. Refresh the local browser after editing the data file; rebuild before distributing a production build.
+The featured entry is **Digital Platform Division Video**, using its owner-mapped original thumbnail. Set **`featured: true`** on exactly one project to change it. Images use a 16:9 display crop with `object-fit: cover`; source files are never modified. Missing or unreadable thumbnails show a labeled text-only state. Refresh the local browser after editing the data file; rebuild before distributing a production build.
 
-Check all five filters at desktop, tablet, and mobile widths. Expected counts are **13 / 2 / 3 / 3 / 5** in filter order. Each video appears once; **All Videos** restores the featured entry and the full grid. Tab through the filter buttons and Drive actions to check focus visibility. No player or individual-video URL is configured.
+Check all five filters at desktop, tablet, and mobile widths. Expected counts are **12 / 1 / 3 / 3 / 5** in filter order. Each video appears once; **All Videos** restores the featured entry and the full grid. Tab through the filter buttons and Drive actions to check focus visibility. No player or individual-video URL is configured.
 
 ### Verify the connected assets locally
 
@@ -137,15 +138,20 @@ src/
 
 ## Motion and interactions
 
-Animations use native browser APIs, with no additional dependency. `src/hooks/usePortfolioMotion.js` manages the staggered hero entrance and one-time Intersection Observer reveals. `src/styles/motion.css` contains card, image, button, and mobile-menu transitions.
+Motion uses native browser APIs and CSS; no animation dependency was installed. **`src/hooks/usePortfolioMotion.js`** coordinates the whole portfolio, **`src/styles/motion.css`** defines the visual effects, and **`src/utils/motion.js`** holds the tested calculations. See **`docs/motion-upgrade.md`** for the full change list and verification record.
 
-- `data-hero-step="0"` through `"5"` controls the short hero stagger. Entrances last 620 ms, with 60 ms between steps.
-- Add `data-reveal` to a content block for a 520 ms reveal with a 16 px vertical offset. Shared section headings already opt in. Newly mounted project cards are observed automatically; removed cards are released.
-- Content is visible by default; animation support and JavaScript never gate access to text. Entrance and reveal effects only animate opacity and transforms, with no layout-changing animation or continuous scroll handler.
-- Reduced-motion preferences skip entrances/reveals and disable movement effects. Changing the preference during a running animation cancels it immediately. Keyboard focus also reveals its animated container immediately.
-- The mobile menu animates within its existing absolute panel. Closed links are `inert`, so they cannot receive focus during the closing transition. Escape, outside pointer input, link selection, and desktop resizing preserve the existing closing behavior.
+- The hero has three soft gradient orbs, six ambient light points, a fine grid, and restrained desktop pointer lighting. Ambient animation pauses offscreen and when the document is hidden. Mobile/coarse-pointer layouts use a static background.
+- `data-hero-step` controls line/role entrances over 680 ms, with 65 ms between steps. The original name, roles, description, actions, and portrait remain intact. The accent underline has a single entrance; there is no rotating or typing text.
+- `data-reveal` opts into a one-time 520 ms reveal; section headings use 650 ms. `data-stagger` groups children with bounded 55 ms offsets. Rendered content is visible by default. Native entrance **translate** composes with CSS hover **transform** so the two effects do not override one another.
+- `data-tilt` enables delegated desktop pointer tilt (up to 5 degrees per axis); `data-tilt="quiet"` caps QA/video cards at 3 degrees. It uses one delegated handler and scheduled frame, preserves image zoom, and returns to neutral on exit/focus/resize. Tilt is disabled at widths of 768px and below, on unsuitable pointers, and for reduced motion.
+- Decorative timeline rails track viewport progress through the existing internship, project, education, and certification layouts. They preserve all original entries, ordering, and dates. Their highlighted entry indicates viewport position, not employment status or a new chronological claim.
+- The **In this portfolio** count-ups derive from the existing project, approved QA-summary, certification, and video data arrays. They count once, reserve number space, and expose stable final values to screen readers. They are collection sizes, not success rates or skill levels. Historical report findings are never animated.
+- A thin header reading-progress line uses the same scheduled frame as pointer/counter updates. There is one passive window scroll listener, no per-card scroll listeners, and no idle requestAnimationFrame loop. Active navigation, native hash/history behaviour, offsets, and menu controls remain intact.
+- Reduced motion skips/cancels entrances and count-ups, stops ambient motion, disables tilt, and shows complete static timeline rails. Focus cancels an entrance on the focused content. Closed mobile navigation remains `inert`; Escape, outside clicks, and link selection close it.
 
-To review, refresh the local page, scroll through the sections, try project filters, and open/close the menu at a narrow width. Use your browser's reduced-motion emulation or operating-system setting to verify that content stays visible without movement. Certification cards reuse the existing `data-reveal` approach; project and certificate dialogs share keyboard/focus behavior through `src/hooks/useDialog.js`.
+To inspect locally, run **`npm run dev`**, open **http://127.0.0.1:5173/**, and refresh to watch the hero. Move a mouse across project card bodies, scroll through the rails and collection counts, try filters and dialogs, and follow the page to the footer. Narrow the window to test navigation. In Chromium DevTools → Rendering, emulate **prefers-reduced-motion: reduce** and repeat with the keyboard. Project/certificate dialogs retain the shared focus/Escape handling in **`src/hooks/useDialog.js`**.
+
+Run **`npm run test`** for the five dependency-free Node tests covering bounds, tilt, page/timeline progress, and integer counters. The standard production command remains **`npm run build`** with output in **`dist/`**; deployment configuration is unchanged. This upgrade has not been committed, pushed, or deployed.
 
 ## Accuracy and editorial backlog
 

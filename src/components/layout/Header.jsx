@@ -53,11 +53,15 @@ export default function Header() {
 
   return (
     <header className="site-header">
+      <div className="reading-progress" aria-hidden="true">
+        <span data-scroll-progress />
+      </div>
       <div className="container header-inner">
         <a
           href="#home"
           className="brand"
           aria-label="Chithran Jayathunga — home"
+          aria-current={activeSection === 'home' ? 'location' : undefined}
           onClick={() => setMenuOpen(false)}
         >
           <span className="brand-mark" aria-hidden="true">
@@ -96,7 +100,12 @@ export default function Header() {
               {item.label}
             </a>
           ))}
-          <a className="button button--small" href="#contact" onClick={() => setMenuOpen(false)}>
+          <a
+            className="button button--small"
+            href="#contact"
+            aria-current={activeSection === 'contact' ? 'location' : undefined}
+            onClick={() => setMenuOpen(false)}
+          >
             Let’s talk
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>

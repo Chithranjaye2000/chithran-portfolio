@@ -5,7 +5,7 @@ import { siteConfig } from '../../data/siteConfig'
 export default function Footer() {
   return (
     <footer className="site-footer">
-      <div className="container footer-top">
+      <div className="container footer-top" data-reveal>
         <div>
           <a className="footer-name" href="#home">
             {siteConfig.name}
@@ -22,7 +22,7 @@ export default function Footer() {
         </nav>
         <SocialLinks />
       </div>
-      <div className="container footer-bottom">
+      <div className="container footer-bottom" data-reveal>
         <p>
           © {new Date().getFullYear()} {siteConfig.name}
         </p>

@@ -54,10 +54,10 @@ export default function About() {
           </div>
           <TextLink href="#experience">Get to know my experience</TextLink>
         </div>
-        <div className="approach-list" data-reveal>
+        <div className="approach-list" data-stagger>
           <p className="micro-label">HOW I APPROACH THE WORK</p>
           {approaches.map(({ Icon, title, text }) => (
-            <div className="approach" key={title}>
+            <div className="approach" key={title} data-reveal>
               <span className="icon-tile">
                 <Icon size={23} strokeWidth={1.7} aria-hidden="true" />
               </span>

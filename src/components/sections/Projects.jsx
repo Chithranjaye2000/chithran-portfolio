@@ -4,10 +4,11 @@ import { Github } from '../ui/BrandIcons'
 import { projects } from '../../data/portfolio'
 import { ExternalLink, SectionHeading } from '../ui/Primitives'
 import useDialog from '../../hooks/useDialog'
+import { TimelineRail } from '../ui/MotionDecor'
 
 function ProjectCard({ project, onSelect }) {
   return (
-    <article className="project-card" data-reveal>
+    <article className="project-card" data-reveal data-tilt data-timeline-entry>
       <button
         className="project-visual"
         onClick={() => onSelect(project)}
@@ -179,7 +180,8 @@ export default function Projects() {
         <p className="sr-only" role="status">
           Showing {visible.length} projects for {filter}
         </p>
-        <div className="project-grid">
+        <div className="project-grid milestone-track" data-stagger data-timeline>
+          <TimelineRail />
           {visible.map((project) => (
             <ProjectCard key={project.id} project={project} onSelect={setSelected} />
           ))}

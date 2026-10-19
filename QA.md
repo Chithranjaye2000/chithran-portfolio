@@ -144,3 +144,16 @@ No dependency changes, repository creation, Git push, or deployment were perform
 - A request to an existing file under reports-source returns HTTP 403. Original source files are absent from dist, and the source Drive identifier/private source paths do not appear in the frontend bundle.
 - npm lint, production build, and repository formatting checks pass using the installed npm CLI path documented in README. No additional package was installed.
 - Public report access and PDF redactions cannot be verified without original/sanitised files; no active report buttons are published. See docs/qa-evidence-review.md for the publication checklist.
+
+# Creative motion upgrade verification — 19 October 2026
+
+- Extended the existing native motion hook/CSS without adding a dependency. Added ambient hero layers, line/role entrances, delegated desktop tilt, timeline rails, data-derived count-ups, and a reading-progress/header treatment.
+- Native browser inspection captured staggered 680ms hero animations and nine ambient animations. Hero text retains the complete accessible name and approved roles. Ambient animation pauses when the hero is offscreen; at <=768px it becomes static.
+- Verified actual 3D matrices and reset behaviour on all four main project cards; also checked the quieter Bell Pepper Monitor QA card and featured video. All 23 eligible cards use the shared delegated system.
+- Counter observation recorded values progressing from 0 to the actual 4/7/9/12 totals. A second visit produced no new counter text writes. Accessible final values stay stable; report metrics are not animated.
+- Responsive checks at 320, 375, 768, 1024, and 1440px found no horizontal overflow, clipped hero name, or desktop navigation overlap. Mobile Tab/Enter/Escape and link selection preserved the closed menu's inert state.
+- Reduced-motion emulation showed zero hero animations, no tilt, visible name lines, static complete rails, and final collection values. Dynamic project/QA/video filters still worked.
+- All four project dialogs and six image-certificate dialogs opened, closed on Escape, and restored focus. Certificate Shift+Tab stayed contained. All 23 displayed images decoded; internal anchors resolve and all new-tab links retain noopener/noreferrer.
+- Download CV triggered a real download; its SHA-256 matches public/documents/Chithran-CV.pdf. Email and telephone hrefs were checked without sending email or placing a call. Reading progress reaches scaleX(1) at the footer; Contact now exposes its active location.
+- Five Node tests cover bounds, tilt, reading/timeline progress, and integral bounded counters. Lint, tests, formatting, and the Vite production build are run against the final code. See docs/motion-upgrade.md for the full file inventory and verification limits.
+- The five portfolio data modules are byte-for-byte unchanged from the start of this task. Pre-existing image replacements/data edits remain intact. No commit, push, dependency install, or deployment was performed.

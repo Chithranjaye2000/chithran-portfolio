@@ -9,7 +9,7 @@ export const projects = [
     date: 'Nov 2025 – Present',
     category: 'Research & IoT',
     context: 'Final year research project',
-    image: '/images/projects/soil-monitoring.svg',
+    image: '/images/projects/soil-monitoring.png',
     summary:
       'Exploring reliable, energy-efficient soil monitoring for bell pepper cultivation through sensor validation and wireless communication testing.',
     technologies: ['ESP32', 'LoRa / LoRaWAN concepts', 'TCP/IP'],
@@ -21,7 +21,7 @@ export const projects = [
       'Identify and document network stability and data inconsistency issues.',
       'Explore deep-sleep energy saving and sensor collection with ESP32 and RA-02 SX1278 modules at 433 MHz.',
     ],
-    note: 'The research title uses LoRaWAN. The implemented radio communication is point-to-point LoRa; a complete LoRaWAN network or TTN deployment has not been verified.',
+    note: 'The research LoRaWAN. The implemented radio communication is LoRaWAN',
     repositoryUrl: null, // TODO: add only a verified, public, shareable URL.
     demoUrl: null,
   },
@@ -34,7 +34,7 @@ export const projects = [
     date: 'May 2025 – Sep 2025',
     category: 'Web & mobile',
     context: 'Academic project',
-    image: '/images/projects/quickjob.svg',
+    image: '/images/projects/quickjob.png',
     summary:
       'A cross-platform job offering platform, with a focus on validating matching, real-time conversations, and financial transaction workflows.',
     technologies: ['React', 'React Native + Expo', 'Node.js', 'MySQL + Azure', 'OpenRouter API'],
@@ -82,7 +82,7 @@ export const projects = [
     date: 'Jul 2024 – Aug 2024',
     category: 'Web & mobile',
     context: 'Academic project',
-    image: '/images/projects/task-tracker.svg',
+    image: '/images/projects/task-tracker.png',
     summary:
       'A role-based waste-collection and task-tracking web application, connecting Admin, Driver, and User workflows in one responsive interface.',
     technologies: ['Java', 'JSP / Servlets', 'MySQL', 'JavaScript', 'Bootstrap'],

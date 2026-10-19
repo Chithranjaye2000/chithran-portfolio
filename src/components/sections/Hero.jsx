@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import {
   ArrowDown,
   ArrowUpRight,
@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { siteConfig } from '../../data/siteConfig'
 import { SocialLinks } from '../ui/Primitives'
+import { AmbientBackground } from '../ui/MotionDecor'
 
 const disciplines = [
   { Icon: ShieldCheck, title: 'Quality assurance', subtitle: 'Confidence in every release' },
@@ -24,25 +25,37 @@ export default function Hero() {
 
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
+      <AmbientBackground />
       <div className="container hero-grid">
         <div className="hero-copy">
           <p className="eyebrow" data-hero-step="0">
             <span className="eyebrow-line" />
             Quality. Code. Clarity.
           </p>
-          <h1 id="hero-title" data-hero-step="1">
-            Chithran
+          <h1 id="hero-title">
+            <span className="hero-name-line" data-hero-step="1">
+              Chithran
+            </span>
             <br />
-            <span>Jayathunga.</span>
+            <span className="hero-name-line hero-name-accent" data-hero-step="2">
+              Jayathunga.
+            </span>
           </h1>
-          <p className="hero-headline" data-hero-step="2">
-            {siteConfig.headline}
+          <p className="hero-headline">
+            {siteConfig.headline.split(' | ').map((role, index, roles) => (
+              <Fragment key={role}>
+                <span className="hero-role" data-hero-step={3 + index * 0.5}>
+                  {role}
+                </span>
+                {index < roles.length - 1 && ' | '}
+              </Fragment>
+            ))}
           </p>
-          <p className="hero-intro" data-hero-step="3">
+          <p className="hero-intro" data-hero-step="4">
             I build thoughtful software, test the details that matter, and turn technical ideas into
             stories people understand.
           </p>
-          <div className="hero-actions" data-hero-step="4">
+          <div className="hero-actions" data-hero-step="5">
             <a className="button" href="#projects">
               View projects
               <ArrowUpRight size={18} aria-hidden="true" />
@@ -52,7 +65,7 @@ export default function Hero() {
               <ArrowUpRight size={18} aria-hidden="true" />
             </a>
           </div>
-          <div className="hero-secondary" data-hero-step="5">
+          <div className="hero-secondary" data-hero-step="6">
             <SocialLinks />
             <span className="vertical-divider" aria-hidden="true" />
             {__CV_AVAILABLE__ ? (

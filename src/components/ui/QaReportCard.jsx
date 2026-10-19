@@ -12,7 +12,7 @@ export default function QaReportCard({ report }) {
     (availableReports.has(report.reportUrl) || /^https:\/\//.test(report.reportUrl ?? ''))
 
   return (
-    <article className="qa-report-card" data-reveal>
+    <article className="qa-report-card" data-reveal data-tilt="quiet">
       <div className="qa-report-heading">
         <span className="qa-tool-icon" aria-hidden="true">
           <FileCheck2 size={22} strokeWidth={1.6} />
