@@ -9,7 +9,6 @@ import Projects from './components/sections/Projects'
 import QaEvidence from './components/sections/QaEvidence'
 import Skills from './components/sections/Skills'
 import Content from './components/sections/Content'
-import Education from './components/sections/Education'
 import Certifications from './components/sections/Certifications'
 import Contact from './components/sections/Contact'
 
@@ -31,7 +30,6 @@ export default function App() {
         <QaEvidence />
         <Skills />
         <Content />
-        <Education />
         <Certifications />
         <Contact />
       </main>

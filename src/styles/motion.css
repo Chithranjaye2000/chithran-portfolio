@@ -29,6 +29,18 @@
     box-shadow 280ms ease;
 }
 
+.education-card {
+  transition:
+    transform 280ms var(--motion-ease),
+    border-color 220ms ease,
+    box-shadow 280ms ease;
+}
+
+.about-focus svg,
+.education-card-icon {
+  transition: transform 260ms var(--motion-ease);
+}
+
 .hero {
   position: relative;
   isolation: isolate;
@@ -418,6 +430,17 @@ main > section[id] {
     transform: translateY(-3px);
   }
 
+  .education-card:hover {
+    transform: translateY(-4px);
+    border-color: #9fbcee;
+    box-shadow: 0 20px 42px #193d7018;
+  }
+
+  .about-focus li:hover svg,
+  .education-card:hover .education-card-icon {
+    transform: translateY(-2px);
+  }
+
   .skill-group:hover > svg {
     transform: translateY(-2px) rotate(-5deg);
   }
@@ -472,6 +495,9 @@ main > section[id] {
 @media (prefers-reduced-motion: reduce) {
   .hero-ambient,
   .hero-name-accent::after,
+  .about-focus svg,
+  .education-card,
+  .education-card-icon,
   .skill-group,
   .skill-group > svg,
   .certificate-expand,

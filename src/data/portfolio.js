@@ -179,6 +179,14 @@ export const education = {
   degree: 'BSc (Hons) in Industrial Information Technology',
   institution: 'Uva Wellassa University',
   location: 'Sri Lanka',
+  expectedGraduation: 2027,
+  coursework: [
+    'Software Quality Assurance',
+    'IT Project Management',
+    'Business Analytics',
+    'System Analysis and Design',
+    'Technical Content Creation',
+  ],
   description:
     'An academic foundation connecting software development, quality assurance, and applied technology research.',
 }

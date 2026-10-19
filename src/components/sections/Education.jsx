@@ -1,48 +1,42 @@
-import { ArrowUpRight, GraduationCap, MapPin } from 'lucide-react'
+import { CalendarDays, GraduationCap } from 'lucide-react'
 import { education } from '../../data/portfolio'
-import { SectionHeading } from '../ui/Primitives'
-import { TimelineRail } from '../ui/MotionDecor'
+import { TextLink } from '../ui/Primitives'
 
 export default function Education() {
   return (
-    <section id="education" className="section education-section" aria-labelledby="education-title">
-      <div className="container education-grid">
-        <SectionHeading
-          eyebrow="06 / Education"
-          title={
-            <>
-              A foundation for
-              <br />
-              what comes next.
-            </>
-          }
-          id="education-title"
-        >
-          Connecting academic learning with hands-on exploration.
-        </SectionHeading>
-        <div className="milestone-track" data-timeline>
-          <TimelineRail />
-          <article className="education-card" data-reveal data-timeline-entry>
-            <span className="icon-tile">
-              <GraduationCap size={27} strokeWidth={1.6} aria-hidden="true" />
-            </span>
-            <div>
-              <p className="micro-label">UNIVERSITY EDUCATION</p>
-              <h3>{education.degree}</h3>
-              <p className="university-name">{education.institution}</p>
-              <p className="education-location">
-                <MapPin size={14} aria-hidden="true" />
-                {education.location}
-              </p>
-              <p>{education.description}</p>
-              <a href="#projects" className="text-link">
-                Explore my academic work
-                <ArrowUpRight size={16} aria-hidden="true" />
-              </a>
-            </div>
-          </article>
-        </div>
+    <article
+      id="education"
+      className="education-card"
+      aria-labelledby="education-title"
+      data-reveal
+    >
+      <div className="education-card-top">
+        <p className="micro-label">MY FOUNDATION</p>
+        <GraduationCap
+          className="education-card-icon"
+          size={27}
+          strokeWidth={1.6}
+          aria-hidden="true"
+        />
       </div>
-    </section>
+      <div className="education-card-content">
+        <h3 id="education-title">{education.degree}</h3>
+        <p className="university-name">{education.institution}</p>
+        <p className="education-location">{education.location}</p>
+        <p className="graduation-badge">
+          <CalendarDays size={14} aria-hidden="true" />
+          Expected Graduation: {education.expectedGraduation}
+        </p>
+        <div className="education-coursework">
+          <h4>Selected coursework</h4>
+          <ul>
+            {education.coursework.map((course) => (
+              <li key={course}>{course}</li>
+            ))}
+          </ul>
+        </div>
+        <TextLink href="#projects">Explore my academic work</TextLink>
+      </div>
+    </article>
   )
 }

@@ -538,9 +538,12 @@ ul {
 /* About and experience */
 .about-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 100px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 80px;
   align-items: center;
+}
+.about-introduction {
+  min-width: 0;
 }
 .about-copy {
   margin: 23px 0;
@@ -551,25 +554,28 @@ ul {
   margin-bottom: 14px;
   line-height: 1.9;
 }
-.approach-list {
-  border-top: 1px solid var(--border);
-  padding-top: 23px;
+.about-copy .about-lead {
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.85;
+  margin-bottom: 23px;
 }
-.approach {
+.about-focus {
   display: flex;
-  gap: 18px;
-  padding: 27px 0;
-  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 15px 22px;
+  list-style: none;
+  margin: 27px 0 24px;
 }
-.approach h3 {
-  font-size: 15px;
-  letter-spacing: -0.025em;
-  margin: 2px 0 8px;
+.about-focus li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #374e70;
+  font-size: 11px;
 }
-.approach p {
-  color: var(--muted);
-  font-size: 12px;
-  max-width: 325px;
+.about-focus svg {
+  color: var(--blue);
 }
 .experience-section {
   background: #13253f;
@@ -1226,55 +1232,103 @@ ul {
 }
 
 /* Education, contact, footer */
-.education-section {
-  padding-top: 0;
-}
-.education-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  align-items: center;
-  gap: 80px;
-  padding-top: 65px;
-  border-top: 1px solid var(--border);
-}
 .education-card {
-  display: flex;
-  gap: 22px;
-  padding: 28px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #fafbfe;
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  padding: 32px;
+  scroll-margin-top: 12px;
+  border: 1px solid #d1def6;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f7faff, #eaf2ff);
+  box-shadow: 0 14px 36px #193d7010;
 }
-.education-card .icon-tile {
-  background: #e9f0fd;
+.education-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 100% 40%, transparent 77px, #bdd2f266 78px 79px, transparent 80px),
+    radial-gradient(circle at 100% 40%, #d5e5fc33 119px, transparent 120px);
+}
+.education-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.education-card-top .micro-label {
+  color: var(--blue-dark);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+.education-card-icon {
+  color: var(--blue);
+}
+.education-card-content {
+  min-width: 0;
 }
 .education-card h3 {
-  font-size: 19px;
+  font-size: 20px;
   letter-spacing: -0.035em;
   line-height: 1.5;
-  margin-top: 10px;
+  margin-top: 0;
 }
 .university-name {
   font-size: 13px;
   font-weight: 550;
   color: #374e70;
-  margin-top: 9px;
+  margin-top: 14px;
 }
 .education-location {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 10px;
-  color: #61718a;
-  margin-top: 4px;
-}
-.education-card p:not([class]) {
   font-size: 12px;
   color: var(--muted);
-  margin: 14px 0 17px;
+}
+.graduation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  margin-top: 20px;
+  padding: 7px 11px;
+  border: 1px solid #c7d9fb;
+  border-radius: 30px;
+  background: #ffffffbd;
+  color: var(--blue-dark);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.5;
 }
 .education-card .text-link {
   font-size: 11px;
+}
+.education-coursework {
+  margin: 24px 0 23px;
+  padding-top: 23px;
+  border-top: 1px solid #cfdcf3;
+}
+.education-coursework h4 {
+  margin: 0 0 10px;
+  color: #374e70;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.education-coursework ul {
+  display: grid;
+  gap: 2px;
+  list-style: none;
+}
+.education-coursework li {
+  max-width: 100%;
+  color: #374e70;
+  font-size: 12px;
+  line-height: 1.9;
 }
 .contact-section {
   padding: 80px 0;
@@ -1447,9 +1501,6 @@ a.contact-row:hover strong {
   .skill-group + .skill-group {
     padding-left: 18px;
   }
-  .education-grid {
-    gap: 45px;
-  }
 }
 @media (max-width: 960px) {
   .header-inner {
@@ -1542,7 +1593,8 @@ a.contact-row:hover strong {
     padding-block: 80px;
   }
   .about-grid {
-    gap: 40px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
   }
   .experience-grid {
     gap: 36px;
@@ -1602,20 +1654,6 @@ a.contact-row:hover strong {
   }
   .video-window-bar > div {
     font-size: 6px;
-  }
-  .education-section {
-    padding-top: 0;
-  }
-  .education-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    padding-top: 45px;
-  }
-  .education-card {
-    max-width: 650px;
-  }
-  .education-grid .section-intro {
-    max-width: none;
   }
   .contact-grid {
     gap: 40px;
@@ -1745,17 +1783,13 @@ a.contact-row:hover strong {
     margin-bottom: 16px;
   }
   .about-grid {
-    grid-template-columns: 1fr;
     gap: 36px;
   }
   .about-copy p {
     font-size: 13px;
   }
-  .approach {
-    padding-block: 24px;
-  }
-  .approach p {
-    max-width: none;
+  .about-copy .about-lead {
+    font-size: 17px;
   }
   .experience-section {
     padding-block: 58px;
@@ -1880,28 +1914,11 @@ a.contact-row:hover strong {
   .content-action strong {
     font-size: 12px;
   }
-  .education-section {
-    padding-top: 0;
-  }
-  .education-grid {
-    padding-top: 40px;
-  }
   .education-card {
     padding: 23px;
-    gap: 16px;
-  }
-  .education-card .icon-tile {
-    width: 39px;
-    height: 41px;
-  }
-  .education-card .micro-label {
-    font-size: 8px;
   }
   .education-card h3 {
-    font-size: 17px;
-  }
-  .education-card p:not([class]) {
-    font-size: 11px;
+    font-size: 19px;
   }
   .contact-section {
     padding-block: 60px;
@@ -1977,9 +1994,6 @@ a.contact-row:hover strong {
   .skill-group {
     border-bottom: 1px solid var(--border);
     padding-bottom: 25px;
-  }
-  .education-card {
-    flex-direction: column;
   }
   .footer-top nav {
     flex-basis: 100%;
