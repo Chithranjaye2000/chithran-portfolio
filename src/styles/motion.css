@@ -176,6 +176,9 @@ html[data-motion-paused='true'] .hero-ambient > span {
 
 .hero-name-accent {
   position: relative;
+  /* Extend the gradient paint area for descenders without shifting the layout. */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
   background: linear-gradient(100deg, #1648bc, #176eab, #215be2);
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -186,7 +189,7 @@ html[data-motion-paused='true'] .hero-ambient > span {
   position: absolute;
   left: 1%;
   right: 1%;
-  bottom: -0.04em;
+  bottom: -0.1em;
   height: 3px;
   border-radius: 3px;
   background: linear-gradient(90deg, #215be2, #36a6ca, transparent);
