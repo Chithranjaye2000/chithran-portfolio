@@ -20,6 +20,7 @@ const icons = {
   mobile: Smartphone,
   security: ShieldCheck,
   analysis: Code2,
+  reports: FileSearch,
 }
 
 export default function QaEvidence() {
@@ -40,15 +41,17 @@ export default function QaEvidence() {
           evidence-based analysis, and clear defect investigation.
         </SectionHeading>
         <ul className="qa-focus-areas" aria-label="QA areas of focus" data-reveal>
-          {qaCategories.map((category) => {
-            const Icon = icons[category.icon]
-            return (
-              <li key={category.id}>
-                <Icon size={19} strokeWidth={1.6} aria-hidden="true" />
-                {category.label}
-              </li>
-            )
-          })}
+          {qaCategories
+            .filter((category) => category.id !== 'reports')
+            .map((category) => {
+              const Icon = icons[category.icon]
+              return (
+                <li key={category.id}>
+                  <Icon size={19} strokeWidth={1.6} aria-hidden="true" />
+                  {category.label}
+                </li>
+              )
+            })}
         </ul>
         <p className="qa-provenance" data-reveal>
           <strong>{qaEvidenceSource.label}.</strong> {qaEvidenceSource.description}
@@ -87,7 +90,7 @@ export default function QaEvidence() {
               ))}
             </div>
             <p className="qa-result-count" role="status" aria-atomic="true">
-              Showing {visible.length} {visible.length === 1 ? 'case study' : 'case studies'}
+              Showing {visible.length} QA {visible.length === 1 ? 'entry' : 'entries'}
             </p>
             <div className="qa-report-grid" id="qa-results" data-stagger>
               {visible.map((report) => (

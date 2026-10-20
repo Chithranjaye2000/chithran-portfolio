@@ -5,6 +5,7 @@ export const qaCategories = [
   { id: 'mobile', label: 'Mobile Testing', icon: 'mobile' },
   { id: 'security', label: 'Security Testing', icon: 'security' },
   { id: 'analysis', label: 'Static Code Analysis', icon: 'analysis' },
+  { id: 'reports', label: 'Additional Reports', icon: 'reports' },
 ]
 
 export const testingApproach = [
@@ -17,13 +18,13 @@ export const testingApproach = [
 ]
 
 export const qaEvidenceSource = {
-  label: 'Owner-supplied work summaries',
+  label: 'Evidence sources',
   description:
-    'These case studies are based on my supplied summaries of previous testing work. Original report PDFs have not been reviewed for this portfolio; public report copies are not available yet.',
+    'BrowserStack and Allure entries are based on reviewed, owner-supplied PDFs; the other seven use owner-supplied work summaries. Recorded results have not been independently rerun. Report links are supplied by the portfolio owner.',
 }
 
 // The owner approved these summaries as source material on 18 October 2026.
-// Summary approval does not authorise publication of the original PDFs or Drive folder.
+// Source review is separate from the owner's approval to display supplied report links.
 const summarySource = {
   summaryApproved: true,
   sourceReviewed: false,
@@ -36,6 +37,9 @@ export const qaReports = [
   {
     ...summarySource,
     id: 'jmeter-talenthub',
+    reportUrl:
+      'https://drive.google.com/file/d/1hAXMtMY0IYMwKKd4SWbSrfQDMQthwZwj/view?usp=drive_link',
+    publicReportApproved: true,
     title: 'TalentHub Performance Testing',
     category: 'performance',
     primaryTool: 'Apache JMeter',
@@ -56,6 +60,8 @@ export const qaReports = [
   {
     ...summarySource,
     id: 'playwright-myslt',
+    reportUrl: 'https://drive.google.com/file/d/1KpY3WYghDkWQLGpU31j93B8KV1xEmQvd/view?usp=sharing',
+    publicReportApproved: true,
     title: 'MySLT Portal Automation',
     category: 'automation',
     primaryTool: 'Playwright',
@@ -77,6 +83,9 @@ export const qaReports = [
   {
     ...summarySource,
     id: 'rest-assured-api',
+    reportUrl:
+      'https://drive.google.com/file/d/1UJhjuG4Xsbr6SnXSKz-sfwWVDoDtSD4Z/view?usp=drive_link',
+    publicReportApproved: true,
     title: 'API Checks with REST Assured',
     category: 'api',
     primaryTool: 'REST Assured',
@@ -97,6 +106,8 @@ export const qaReports = [
   {
     ...summarySource,
     id: 'appium-android',
+    reportUrl: 'https://drive.google.com/file/d/1Is1MiWgQRucojhvnXPzzJF18hRL5k94e/view?usp=sharing',
+    publicReportApproved: true,
     title: 'Android Settings Automation & Troubleshooting',
     category: 'mobile',
     primaryTool: 'Appium',
@@ -118,6 +129,9 @@ export const qaReports = [
   {
     ...summarySource,
     id: 'sonarqube-bell-pepper',
+    reportUrl:
+      'https://drive.google.com/file/d/1D_roScySpSvPwO6NSPex8kOqAYHK2EMV/view?usp=drive_link',
+    publicReportApproved: true,
     title: 'Bell Pepper Monitor Static Analysis',
     category: 'analysis',
     primaryTool: 'SonarQube Community Build',
@@ -139,6 +153,8 @@ export const qaReports = [
   {
     ...summarySource,
     id: 'zap-web-security',
+    reportUrl: 'https://drive.google.com/file/d/1m9WnqAjWrXB7x2fVXXOxHrF7xxJj5of3/view?usp=sharing',
+    publicReportApproved: true,
     title: 'Web Security Scanning & Alert Review',
     category: 'security',
     primaryTool: 'OWASP ZAP',
@@ -160,6 +176,9 @@ export const qaReports = [
   {
     ...summarySource,
     id: 'selenium-data-driven-login',
+    reportUrl:
+      'https://drive.google.com/file/d/1IxzKtnLBHlPMu6Gu7fmGjPax9rz7Wzvx/view?usp=drive_link',
+    publicReportApproved: true,
     title: 'Data-Driven Login Automation with Selenium',
     category: 'automation',
     primaryTool: 'Selenium WebDriver',
@@ -176,5 +195,70 @@ export const qaReports = [
     ],
     limitations:
       'Facebook detected or restricted automation in the expected-success cases. Successful Facebook authentication was not achieved; no credentials or personal information are published.',
+  },
+  {
+    id: 'browserstack-report',
+    title: 'BrowserStack Cross-Browser Automation Testing',
+    category: 'reports',
+    primaryTool: 'BrowserStack Automate',
+    technologies: ['Java 17', 'Selenium RemoteWebDriver', 'TestNG', 'Maven', 'IntelliJ IDEA'],
+    context: 'Selenium Web Form / desktop cross-browser exercise',
+    summary:
+      'Ran one reusable form-submission workflow across Chrome, Edge, and Firefox through BrowserStack Automate, checking the page title and submission confirmation.',
+    scope:
+      'Three browser executions of the Selenium Web Form on Windows 11, validating the “Web form” title, text entry, submission, and “Received!” confirmation.',
+    result:
+      'The report records 3 tests and 3 passes, with 0 failures, 0 errors, and 0 skipped tests for the selected workflow.',
+    implementation: [
+      'Used a TestNG DataProvider to run the same test method on Chrome, Edge, and Firefox.',
+      'Configured Windows 11 remote browser capabilities and Selenium RemoteWebDriver sessions.',
+      'Asserted the page title and submission confirmation, and updated the BrowserStack session status.',
+      'Executed the suite through Maven and reviewed console output alongside BrowserStack session evidence.',
+      'Read connection credentials from environment variables and closed remote sessions in a finally block.',
+    ],
+    limitations:
+      'This recorded result covers only the selected desktop web-form workflow. It does not establish whole-site compatibility, mobile coverage, or visual-regression testing. Tests were not independently rerun.',
+    summaryApproved: true,
+    sourceReviewed: true,
+    sourceNote:
+      'Based on the supplied BrowserStack PDF report and its result screenshots. The reported execution was reviewed, not independently rerun.',
+    publicReportApproved: true,
+    reportUrl: 'https://drive.google.com/file/d/1rQNz1V44eTi1gbwfRDfTEvjOoKnZqXUu/view?usp=sharing',
+  },
+  {
+    id: 'allure-report',
+    title: 'Allure Reporting for Automated Facebook Login Testing',
+    category: 'reports',
+    primaryTool: 'Allure Report',
+    technologies: [
+      'Python',
+      'Selenium WebDriver',
+      'Pytest',
+      'Chrome / ChromeDriver',
+      'PyCharm',
+      'Allure CLI',
+    ],
+    context: 'Facebook negative-login automation and reporting exercise',
+    summary:
+      'Integrated Selenium and Pytest with Allure to capture negative-login execution results and review test status, diagnostic views, and step-level evidence.',
+    scope: 'Three negative Facebook login scenarios using invalid inputs in Google Chrome.',
+    result:
+      'The supplied report records 3 passed negative-login tests, with a displayed 100% pass rate for that selected suite.',
+    implementation: [
+      'Refactored procedural Python scripts into discoverable Pytest tests with explicit assertions.',
+      'Collected execution results with pytest --alluredir=allure-results and served them with the Allure CLI.',
+      'Reviewed overview, category, suite, graph, timeline, behavior, and package views.',
+      'Investigated individual test steps and attachments, including validation of failed login attempts.',
+      'Used XPath locators and test_*.py naming to support element targeting and batch discovery.',
+    ],
+    limitations:
+      'Passing negative checks means invalid login attempts were rejected; it does not demonstrate successful authentication, cross-browser coverage, or a security audit. The report includes retry history, so no first-attempt pass rate is claimed. Tests were not independently rerun.',
+    summaryApproved: true,
+    sourceReviewed: true,
+    sourceNote:
+      'Based on the supplied Allure PDF report and its result screenshots. The reported execution was reviewed, not independently rerun.',
+    publicReportApproved: true,
+    reportUrl:
+      'https://drive.google.com/file/d/1vkCMdseZSlUQACUEZ209lRM6zVGy1Hlu/view?usp=drive_link',
   },
 ]
