@@ -1,4 +1,4 @@
-import { ArrowUpRight, Braces, Bug, ClipboardList, Code2, FileText, ScanLine } from 'lucide-react'
+import { ArrowUpRight, Braces, Bug, ClipboardList, Code2, ScanLine } from 'lucide-react'
 import { ExternalLink } from './Primitives'
 
 const icons = {
@@ -36,7 +36,7 @@ export default function AiProjectCard({ project }) {
         ))}
       </ul>
       <div className="ai-project-action">
-        {isHttpsUrl(project.linkUrl) ? (
+        {isHttpsUrl(project.linkUrl) && (
           <ExternalLink
             href={project.linkUrl}
             className="text-link"
@@ -45,11 +45,6 @@ export default function AiProjectCard({ project }) {
             {project.linkLabel}
             <ArrowUpRight size={16} aria-hidden="true" />
           </ExternalLink>
-        ) : (
-          <span className="ai-project-pending">
-            <FileText size={15} aria-hidden="true" />
-            Documentation link pending
-          </span>
         )}
       </div>
     </article>
