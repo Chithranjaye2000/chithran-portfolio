@@ -32,7 +32,7 @@ export default function QaReportCard({ report, inCarousel = false }) {
       ) : (
         <>
           <p className="qa-report-context">{report.context}</p>
-          <p className="qa-report-summary">{report.summary}</p>
+          <p className="qa-report-summary qa-report-preview">{report.summary}</p>
           <ul className="tags" aria-label="Supporting technologies">
             {report.technologies.map((technology) => (
               <li key={technology}>{technology}</li>
@@ -41,11 +41,11 @@ export default function QaReportCard({ report, inCarousel = false }) {
           <dl className="qa-report-findings">
             <div>
               <dt>Scope</dt>
-              <dd>{report.scope}</dd>
+              <dd className="qa-report-preview">{report.scope}</dd>
             </div>
             <div>
               <dt>Recorded result</dt>
-              <dd>{report.result}</dd>
+              <dd className="qa-report-preview">{report.result}</dd>
             </div>
           </dl>
           <p className="qa-report-caveat">{report.limitations}</p>
@@ -55,6 +55,18 @@ export default function QaReportCard({ report, inCarousel = false }) {
               <ChevronDown size={16} aria-hidden="true" />
             </summary>
             <div>
+              <h4>Full description</h4>
+              <p className="qa-report-full-summary">{report.summary}</p>
+              <dl className="qa-report-findings qa-report-full-findings">
+                <div>
+                  <dt>Scope</dt>
+                  <dd>{report.scope}</dd>
+                </div>
+                <div>
+                  <dt>Recorded result</dt>
+                  <dd>{report.result}</dd>
+                </div>
+              </dl>
               <h4>Implementation & investigation</h4>
               <ul>
                 {report.implementation.map((item) => (

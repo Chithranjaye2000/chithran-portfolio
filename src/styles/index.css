@@ -1935,10 +1935,10 @@ a.contact-row:hover strong {
     font-size: 19px;
   }
   .contact-section {
-    padding-block: 60px;
+    padding-block: 48px 32px;
   }
   .contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 30px;
   }
   .contact-section h2 {
@@ -1952,39 +1952,70 @@ a.contact-row:hover strong {
     font-size: 13px;
   }
   .contact-details {
-    padding-top: 5px;
+    min-width: 0;
+    padding: 8px 16px 16px;
+  }
+  .contact-row {
+    display: grid;
+    grid-template-columns: 21px minmax(0, 1fr) 18px;
+    gap: 12px;
+    padding-block: 16px;
+  }
+  a.contact-row > svg:last-child {
+    width: 18px;
+    height: 18px;
   }
   .contact-socials {
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    padding-top: 12px;
+  }
+  .contact-socials a {
+    min-height: 44px;
+    padding-block: 6px;
   }
   .footer-top {
-    flex-wrap: wrap;
-    padding-top: 32px;
-    gap: 25px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    padding-block: 20px;
+    gap: 12px;
   }
-  .footer-top > div:first-child {
-    flex-basis: 100%;
+  .footer-name {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
   .footer-top nav {
-    gap: 19px;
-    font-size: 10px;
-    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px 8px;
+    font-size: 11px;
+  }
+  .footer-top nav a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding-block: 6px;
   }
   .footer-top .social-links {
-    gap: 7px;
+    gap: 10px;
   }
   .footer-top .social-links > a {
-    width: 30px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
   }
   .footer-top .social-links svg {
-    width: 16px;
+    width: 18px;
   }
   .footer-bottom {
     flex-wrap: wrap;
-    gap: 12px;
-    font-size: 8px;
-    padding-block: 18px;
+    gap: 8px 12px;
+    font-size: 9px;
+    padding-block: 12px;
+  }
+  .footer-bottom a {
+    min-height: 44px;
   }
   .footer-bottom > p:nth-child(2) {
     display: none;
@@ -2001,6 +2032,14 @@ a.contact-row:hover strong {
   .hero h1 {
     font-size: 45px;
   }
+  .contact-row {
+    grid-template-columns: 21px minmax(0, 1fr) 16px;
+    gap: 8px;
+  }
+  a.contact-row > svg:last-child {
+    width: 16px;
+    height: 16px;
+  }
   .skills-grid {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -2008,9 +2047,6 @@ a.contact-row:hover strong {
   .skill-group {
     border-bottom: 1px solid var(--border);
     padding-bottom: 25px;
-  }
-  .footer-top nav {
-    flex-basis: 100%;
   }
   .experience-card {
     padding: 20px;
