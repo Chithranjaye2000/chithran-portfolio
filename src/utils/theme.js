@@ -2,7 +2,7 @@
 export const THEME_STORAGE_KEY = 'portfolio-theme'
 
 export function resolveTheme(value) {
-  return value === 'dark' ? 'dark' : 'light'
+  return value === 'light' ? 'light' : 'dark'
 }
 
 export function getInitialTheme() {

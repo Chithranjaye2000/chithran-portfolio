@@ -151,9 +151,9 @@ Review both themes at narrow and wide widths, pause/resume the marquee, emulate 
 
 ## Light and Dark themes
 
-Use the moon/sun button in the header to switch themes. It stays available beside the mobile menu, supports keyboard activation, and announces the action through its accessible name. The original white-and-blue Light theme is the default, including when the operating system prefers dark colors.
+Use the moon/sun button in the header to switch themes. It stays available beside the mobile menu, supports keyboard activation, and announces the action through its accessible name. **Dark is the default for first-time visitors**, regardless of the operating system's color preference. A saved Light or Dark choice takes priority; the original white-and-blue Light palette remains available.
 
-The selected value is saved under **`portfolio-theme`** in localStorage and restored by the small synchronous **`theme-init`** script in **`index.html`** before styles and React load. Invalid or unavailable storage falls back to Light; switching still works for the current visit if saving is blocked. Changes are synchronized across tabs on the same origin. Theme preferences are separate for development and production origins.
+The selected value is saved under **`portfolio-theme`** in localStorage and restored by the small synchronous **`theme-init`** script in **`index.html`** before styles and React load. The initial HTML theme and browser-chrome color are Dark as well, preventing a Light flash. Missing, invalid, or unavailable storage falls back to Dark; switching still works for the current visit if saving is blocked. Changes are synchronized across tabs on the same origin. Removing the saved key resets the site to Dark. Theme preferences are separate for development and production origins.
 
 Maintain both palettes in **`src/styles/theme.css`**. Shared styles consume semantic tokens for surfaces, text, borders, actions, gradients, dialogs, and native form controls. Photos, thumbnails, and certificate artwork retain their original colors. **`src/utils/theme.js`**, **`src/hooks/useTheme.js`**, and **`ThemeToggle.jsx`** manage application and persistence. Keep the bootstrap storage key and browser theme colors in sync with the utility; automated tests cover this contract.
 
@@ -208,6 +208,17 @@ The `contentTodos` export in **`src/data/portfolio.js`** records unpublished ite
 - **Additional QA case studies:** SDesk incident-transfer testing still needs supporting scope/evidence before a card can be added. The MySLT Playwright workflow is now included as an owner-approved summary; original-source review and permission to publish any report remain separate requirements. Do not infer employment attribution for individual exercises.
 - **Tools:** the complete supplied toolkit has been confirmed as hands-on experience and is grouped in `skillGroups`. No proficiency levels, test counts, or outcomes are claimed. Postman and REST Assured each appear once to avoid duplication.
 - **Repository/demo links:** replace project `repositoryUrl` or `demoUrl` values of `null` only with verified public links. Actions render automatically when provided. Never use dummy URLs.
+
+## QA Evidence carousel and navigation audit
+
+The QA Evidence section uses **`src/components/ui/QaEvidenceCarousel.jsx`** and **`src/hooks/useEvidenceCarousel.js`**. The existing nine records, filters, disclosures, and report URLs remain in **`src/data/qaReports.js`**. The separate QA Tools logo marquee is unchanged.
+
+- The row moves at **24px/second** while visible. One keyed card per report is recycled only after it leaves view; there are no duplicate interactive cards. Short filtered selections use ordinary horizontal browsing when there is insufficient overflow for a seamless loop.
+- Hover pauses temporarily. Focusing, dragging, using arrows, or opening details pauses for reading; choose **Resume scrolling** when ready. Close expanded details before resuming. Reduced motion disables automatic movement while retaining native scrolling and arrows.
+- Drag horizontally with a mouse, use the scrollbar or arrows, or swipe on a touch device. Tab reaches every disclosure and report link, including offscreen cards. A drag suppresses the resulting click so it does not accidentally open a report.
+- **`src/hooks/useAnchorNavigation.js`** measures the header for responsive anchor offsets and repairs initial fragment alignment without intercepting native links or browser history.
+
+See **[`docs/portfolio-interaction-audit.md`](docs/portfolio-interaction-audit.md)** for before/after statuses and actual verification. Native touch swiping still needs a physical-device check because the current browser-testing interface cannot dispatch touch gestures. No dependencies were added.
 
 ## Review locally
 

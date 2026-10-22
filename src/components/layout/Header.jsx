@@ -1,25 +1,54 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { navigation } from '../../data/siteConfig'
+import useAnchorNavigation from '../../hooks/useAnchorNavigation'
 import ThemeToggle from '../ui/ThemeToggle'
 
 export default function Header() {
+  const headerRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 960px)').matches)
   const [activeSection, setActiveSection] = useState('home')
+  useAnchorNavigation(headerRef)
 
   useEffect(() => {
     if (!('IntersectionObserver' in window)) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id)
-        })
-      },
-      { rootMargin: '-15% 0px -65% 0px', threshold: 0 },
-    )
-    document.querySelectorAll('main > section[id]').forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
+    const sections = [...document.querySelectorAll('main > section[id]')]
+    let observer
+    let marker = 0
+
+    function updateActiveSection() {
+      let active = sections[0]
+      for (const section of sections) {
+        const bounds = section.getBoundingClientRect()
+        if (bounds.top > marker) break
+        active = section
+        if (bounds.bottom > marker) break
+      }
+      if (active) setActiveSection(active.id)
+    }
+
+    function observeSections() {
+      observer?.disconnect()
+      const height = Math.max(1, window.innerHeight)
+      marker = Math.floor(height * 0.2)
+      const band = Math.max(1, Math.round(height * 0.01))
+      const bottom = Math.max(0, height - marker - band)
+      // Pixel margins keep this marker tied to viewport height in landscape too.
+      // Percentage IntersectionObserver margins resolve against viewport width.
+      observer = new IntersectionObserver(updateActiveSection, {
+        rootMargin: `-${marker}px 0px -${bottom}px 0px`,
+        threshold: 0,
+      })
+      sections.forEach((section) => observer.observe(section))
+    }
+
+    observeSections()
+    window.addEventListener('resize', observeSections, { passive: true })
+    return () => {
+      observer?.disconnect()
+      window.removeEventListener('resize', observeSections)
+    }
   }, [])
 
   useEffect(() => {
@@ -53,7 +82,7 @@ export default function Header() {
   }, [menuOpen])
 
   return (
-    <header className="site-header">
+    <header ref={headerRef} className="site-header">
       <div className="reading-progress" aria-hidden="true">
         <span data-scroll-progress />
       </div>

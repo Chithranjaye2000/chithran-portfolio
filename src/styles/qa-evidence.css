@@ -131,10 +131,114 @@
   color: var(--muted);
 }
 
-.qa-report-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.qa-carousel {
+  min-width: 0;
+}
+
+.qa-carousel-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.qa-carousel-toolbar p,
+.qa-carousel-note {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.qa-carousel-toolbar p span {
+  display: block;
+  margin-top: 4px;
+}
+
+.qa-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qa-carousel-controls button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid var(--glass-border-strong);
+  border-radius: 8px;
+  color: var(--blue);
+  background: var(--glass-surface-strong);
+  box-shadow: var(--glass-shadow);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.qa-carousel-controls button:hover:not(:disabled) {
+  background: var(--accent-soft);
+  border-color: var(--blue);
+}
+
+.qa-carousel-controls button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.qa-carousel-viewport {
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+  scroll-behavior: auto;
+  overflow-anchor: none;
+  border-radius: 12px;
+  cursor: grab;
+}
+
+.qa-carousel-viewport:focus-visible {
+  outline-offset: -3px;
+}
+
+.qa-carousel-viewport[data-dragging='true'],
+.qa-carousel-viewport[data-dragging='true'] * {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.qa-carousel-track {
+  display: flex;
+  align-items: stretch;
   gap: 24px;
+  width: max-content;
+  list-style: none;
+  margin: 0;
+  /* The trailing gap makes one cycle exactly slide count × stride. */
+  padding: 6px 24px 18px 4px;
+}
+
+.qa-carousel-slide {
+  display: flex;
+  flex: 0 0 auto;
+  width: min(420px, calc(100vw - 68px));
+}
+
+.qa-carousel-slide .qa-report-card {
+  width: 100%;
+}
+
+.qa-carousel-note {
+  min-height: 2em;
+  margin-top: 10px;
 }
 
 .qa-report-card {
@@ -290,10 +394,6 @@
 }
 
 @media (max-width: 680px) {
-  .qa-report-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .qa-approach,
   .qa-report-card,
   .qa-evidence-pending {

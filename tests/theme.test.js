@@ -15,7 +15,7 @@ const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8')
 function createBrowser({ stored = null, readBlocked = false, writeBlocked = false } = {}) {
   const root = { dataset: {}, style: {} }
   const meta = {
-    content: '#215be2',
+    content: '#0b1220',
     setAttribute(name, value) {
       this[name] = value
     },
@@ -81,17 +81,25 @@ function withBrowser(environment, callback) {
   }
 }
 
-test('theme bootstrap runs in the head before the application module', () => {
+test('HTML defaults to Dark before the theme bootstrap runs', () => {
+  assert.match(html, /<html\b[^>]*\bdata-theme=["']dark["']/i)
+  assert.match(html, /<meta\b[^>]*\bname=["']theme-color["'][^>]*\bcontent=["']#0b1220["']/i)
+})
+
+test('theme bootstrap runs in the head before styles and the application module', () => {
   const bootstrapIndex = html.indexOf('id="theme-init"')
   const headEnd = html.indexOf('</head>')
   const moduleIndex = html.indexOf('type="module"')
   assert.ok(bootstrapIndex >= 0 && bootstrapIndex < headEnd)
-  assert.ok(bootstrapIndex < moduleIndex)
+  assert.ok(moduleIndex > bootstrapIndex)
+  for (const stylesheet of html.matchAll(/<style\b|<link\b(?=[^>]*\brel=["']stylesheet["'])/gi)) {
+    assert.ok(bootstrapIndex < stylesheet.index)
+  }
 })
 
-test('first visit defaults to Light without reading a system preference', () => {
+test('first visit defaults to Dark without reading a system preference', () => {
   const environment = runBootstrap()
-  assertAppearance(environment, 'light')
+  assertAppearance(environment, 'dark')
   assert.deepEqual(environment.reads, ['portfolio-theme'])
   assert.deepEqual(environment.writes, [])
 })
@@ -104,18 +112,19 @@ test('bootstrap restores saved Dark and Light appearance before React', () => {
   }
 })
 
-test('bootstrap falls back to Light for empty, invalid, or blocked storage', () => {
-  for (const stored of [null, '', 'system', 'Dark', 'invalid']) {
-    assertAppearance(runBootstrap({ stored }), 'light')
+test('bootstrap falls back to Dark for empty, invalid, or blocked storage', () => {
+  for (const stored of [null, '', 'system', 'Dark', 'Light', 'invalid']) {
+    assertAppearance(runBootstrap({ stored }), 'dark')
   }
-  assertAppearance(runBootstrap({ readBlocked: true }), 'light')
+  assertAppearance(runBootstrap({ readBlocked: true }), 'dark')
 })
 
-test('theme resolution only accepts the explicit Dark value', () => {
+test('theme resolution accepts saved Light and defaults all other values to Dark', () => {
   assert.equal(THEME_STORAGE_KEY, 'portfolio-theme')
+  assert.equal(resolveTheme('light'), 'light')
   assert.equal(resolveTheme('dark'), 'dark')
-  for (const value of ['light', undefined, null, '', 'Dark', 'system', 1, {}, []]) {
-    assert.equal(resolveTheme(value), 'light')
+  for (const value of [undefined, null, '', 'Dark', 'Light', 'system', 1, {}, []]) {
+    assert.equal(resolveTheme(value), 'dark')
   }
 })
 
@@ -129,14 +138,14 @@ test('applying themes updates the root, browser color scheme, and theme metadata
   })
 })
 
-test('React initial state reads the bootstrapped root and defaults invalid values to Light', () => {
+test('React initial state reads the bootstrapped root and defaults invalid values to Dark', () => {
   const environment = createBrowser({ readBlocked: true })
   withBrowser(environment, () => {
     for (const [value, expected] of [
       ['dark', 'dark'],
       ['light', 'light'],
-      ['invalid', 'light'],
-      [undefined, 'light'],
+      ['invalid', 'dark'],
+      [undefined, 'dark'],
     ]) {
       environment.root.dataset.theme = value
       assert.equal(getInitialTheme(), expected)

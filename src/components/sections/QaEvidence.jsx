@@ -9,7 +9,7 @@ import {
   Workflow,
 } from 'lucide-react'
 import { qaCategories, qaEvidenceSource, qaReports, testingApproach } from '../../data/qaReports'
-import QaReportCard from '../ui/QaReportCard'
+import QaEvidenceCarousel from '../ui/QaEvidenceCarousel'
 import { SectionHeading } from '../ui/Primitives'
 import '../../styles/qa-evidence.css'
 
@@ -92,11 +92,7 @@ export default function QaEvidence() {
             <p className="qa-result-count" role="status" aria-atomic="true">
               Showing {visible.length} QA {visible.length === 1 ? 'entry' : 'entries'}
             </p>
-            <div className="qa-report-grid" id="qa-results" data-stagger>
-              {visible.map((report) => (
-                <QaReportCard key={report.id} report={report} />
-              ))}
-            </div>
+            <QaEvidenceCarousel key={filter} reports={visible} />
             {visible.length === 0 && (
               <p className="qa-empty-category">No case studies in this category yet.</p>
             )}

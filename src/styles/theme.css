@@ -1,4 +1,4 @@
-/* Shared semantic colors. Light is the default; only an explicit saved choice enables dark. */
+/* Shared palettes. The HTML bootstrap defaults to Dark and restores either saved theme. */
 :root {
   color-scheme: light;
   --page: #fff;

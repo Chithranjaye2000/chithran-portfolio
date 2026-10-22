@@ -16,7 +16,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 105px;
+  scroll-padding-top: var(--header-height, 87px);
 }
 body {
   margin: 0;
@@ -1514,6 +1514,9 @@ a.contact-row:hover strong {
   }
 }
 @media (max-width: 960px) {
+  html {
+    scroll-padding-top: var(--header-height, 76px);
+  }
   .header-inner {
     height: 75px;
   }
@@ -1675,7 +1678,7 @@ a.contact-row:hover strong {
 }
 @media (max-width: 680px) {
   html {
-    scroll-padding-top: 90px;
+    scroll-padding-top: var(--header-height, 71px);
   }
   .container {
     width: calc(100% - 40px);

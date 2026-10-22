@@ -4,7 +4,7 @@ import { ExternalLink } from './Primitives'
 
 const availableReports = new Set(__QA_REPORT_FILES__)
 
-export default function QaReportCard({ report }) {
+export default function QaReportCard({ report, inCarousel = false }) {
   const category = qaCategories.find((item) => item.id === report.category)
   const hasPublicReport =
     report.publicReportApproved &&
@@ -12,7 +12,11 @@ export default function QaReportCard({ report }) {
       (report.sourceReviewed && availableReports.has(report.reportUrl)))
 
   return (
-    <article className="qa-report-card" data-reveal data-tilt="quiet">
+    <article
+      className="qa-report-card"
+      data-reveal={inCarousel ? undefined : true}
+      data-tilt={inCarousel ? undefined : 'quiet'}
+    >
       <div className="qa-report-heading">
         <span className="qa-tool-icon" aria-hidden="true">
           <FileCheck2 size={22} strokeWidth={1.6} />
