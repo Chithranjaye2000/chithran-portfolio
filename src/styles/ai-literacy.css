@@ -40,7 +40,7 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  color: #374e70;
+  color: var(--text-secondary);
   font-size: 12px;
   line-height: 1.8;
 }
@@ -51,8 +51,8 @@
 }
 
 .ai-verification-note {
-  background: linear-gradient(135deg, #f6faff, #edf4ff);
-  border-color: #d7e3f9;
+  background: var(--ai-note-gradient);
+  border-color: var(--accent-border);
 }
 
 .ai-verification-note > svg {
@@ -90,8 +90,8 @@
   padding: 26px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fff;
-  box-shadow: 0 6px 22px #183a6a06;
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
   transition:
     transform 260ms var(--motion-ease),
     border-color 220ms ease,
@@ -107,11 +107,11 @@
 }
 
 .ai-project-status {
-  border: 1px solid #d7e3f9;
+  border: 1px solid var(--accent-border);
   border-radius: 30px;
   padding: 5px 10px;
-  background: #f1f6ff;
-  color: #37547d;
+  background: var(--accent-soft);
+  color: var(--text-secondary);
   font-size: 10px;
   font-weight: 600;
 }
@@ -155,15 +155,15 @@
 }
 
 .ai-project-card:focus-within {
-  border-color: #a8bfe9;
-  box-shadow: 0 8px 28px #203e6c12;
+  border-color: var(--accent-border);
+  box-shadow: var(--card-hover-shadow);
 }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .ai-project-card:hover {
     transform: translateY(-4px);
-    border-color: #a8bfe9;
-    box-shadow: 0 14px 32px #203e6c12;
+    border-color: var(--accent-border);
+    box-shadow: var(--card-hover-shadow);
   }
 }
 

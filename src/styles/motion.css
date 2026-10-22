@@ -85,14 +85,14 @@
   width: min(580px, 55vw);
   left: -100px;
   top: -180px;
-  background: radial-gradient(circle, #b8d2ff5c, #dfebff1a 55%, transparent 72%);
+  background: var(--orb-blue);
 }
 
 .ambient-orb--cyan {
   width: min(540px, 50vw);
   right: -90px;
   top: 70px;
-  background: radial-gradient(circle, #5ed3ec38, #c6eeff1a 58%, transparent 72%);
+  background: var(--orb-cyan);
   animation-duration: 29s;
   animation-direction: alternate-reverse;
 }
@@ -101,7 +101,7 @@
   width: min(380px, 36vw);
   left: 36%;
   bottom: -80px;
-  background: radial-gradient(circle, #97baff38, transparent 72%);
+  background: var(--orb-soft);
   animation-duration: 21s;
   animation-delay: -8s;
 }
@@ -112,7 +112,7 @@
   height: 4px;
   border-radius: 50%;
   background: #3b82c4;
-  box-shadow: 0 0 10px #38bdf830;
+  box-shadow: var(--card-shadow);
   opacity: 0.3;
   animation: ambient-glimmer 12s ease-in-out infinite alternate;
   animation-play-state: paused;
@@ -191,7 +191,7 @@ html[data-motion-paused='true'] .hero-ambient > span {
   /* Extend the gradient paint area for descenders without shifting the layout. */
   padding-bottom: 0.16em;
   margin-bottom: -0.16em;
-  background: linear-gradient(100deg, #1648bc, #176eab, #215be2);
+  background: var(--name-gradient);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -204,7 +204,7 @@ html[data-motion-paused='true'] .hero-ambient > span {
   bottom: -0.1em;
   height: 3px;
   border-radius: 3px;
-  background: linear-gradient(90deg, #215be2, #36a6ca, transparent);
+  background: var(--name-underline);
   transform-origin: left;
   animation: accent-arrive 950ms var(--motion-ease) 150ms both;
 }
@@ -243,13 +243,13 @@ html[data-motion-paused='true'] .hero-ambient > span {
 }
 
 .site-header[data-scrolled='true'] {
-  background: #fffffff5;
-  box-shadow: 0 5px 22px #17243b0a;
+  background: var(--header-scrolled-bg);
+  box-shadow: var(--header-shadow);
 }
 
 .primary-nav > .button[aria-current='location'] {
-  color: #fff;
-  background: var(--blue-dark);
+  color: var(--on-button);
+  background: var(--button-hover);
   box-shadow: 0 0 0 3px #215be21a;
 }
 
@@ -293,7 +293,7 @@ main > section[id] {
   bottom: 0;
   width: 2px;
   border-radius: 2px;
-  background: #dce6f5;
+  background: var(--border);
   pointer-events: none;
 }
 
@@ -313,14 +313,14 @@ main > section[id] {
   left: -3px;
   width: 8px;
   height: 8px;
-  border: 2px solid #4980d7;
-  background: #fff;
+  border: 2px solid var(--border);
+  background: var(--surface);
   border-radius: 50%;
   z-index: 1;
 }
 
 .experience-section .timeline-rail {
-  background: #3a4d67;
+  background: var(--experience-border);
 }
 
 .experience-section .timeline-rail > span {
@@ -328,7 +328,7 @@ main > section[id] {
 }
 
 [data-timeline-entry][data-timeline-current='true'] {
-  border-color: #7e9fd6;
+  border-color: var(--accent-border);
 }
 
 .experience-card[data-timeline-current='true'] {
@@ -374,7 +374,7 @@ main > section[id] {
   padding: 25px 28px;
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: #fff;
+  background: var(--surface);
 }
 
 .portfolio-collections dl {
@@ -412,9 +412,7 @@ main > section[id] {
   [data-tilt][data-tilt-active='true']:hover {
     transform: perspective(1100px) translateY(-5px) rotateX(var(--tilt-x, 0deg))
       rotateY(var(--tilt-y, 0deg));
-    box-shadow:
-      0 16px 36px #203e6c16,
-      0 0 0 1px #77b9ed1a;
+    box-shadow: var(--tilt-shadow);
   }
 
   [data-tilt][data-tilt-active='true']::after {
@@ -432,8 +430,8 @@ main > section[id] {
 
   .education-card:hover {
     transform: translateY(-4px);
-    border-color: #9fbcee;
-    box-shadow: 0 20px 42px #193d7018;
+    border-color: var(--accent-border);
+    box-shadow: var(--card-hover-shadow);
   }
 
   .about-focus li:hover svg,
@@ -535,8 +533,8 @@ main > section[id] {
 }
 
 .project-card:focus-within {
-  border-color: #a8bfe9;
-  box-shadow: 0 8px 28px #203e6c12;
+  border-color: var(--accent-border);
+  box-shadow: var(--card-hover-shadow);
 }
 
 .project-visual img {
@@ -579,7 +577,7 @@ main > section[id] {
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 14px 32px #203e6c12;
+    box-shadow: var(--card-hover-shadow);
   }
 
   .project-card:hover .project-visual img {

@@ -10,7 +10,7 @@
     "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
     "build": "vite build",
     "lint": "eslint . --max-warnings 0",
-    "test": "node --test tests/motion.test.js",
+    "test": "node --test tests/*.test.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort"

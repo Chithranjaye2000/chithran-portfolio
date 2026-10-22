@@ -1,10 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#215be2" />
+    <script id="theme-init">
+      // Run before styles and React so a saved dark theme is present on the first paint.
+      ;(() => {
+        let theme = 'light'
+        try {
+          if (localStorage.getItem('portfolio-theme') === 'dark') theme = 'dark'
+        } catch {
+          // The default remains usable when browser storage is unavailable.
+        }
+        document.documentElement.dataset.theme = theme
+        document.documentElement.style.colorScheme = theme
+        document
+          .querySelector('meta[name="theme-color"]')
+          .setAttribute('content', theme === 'dark' ? '#0b1220' : '#215be2')
+      })()
+    </script>
     <meta
       name="description"
       content="Meet Chithran Jayathunga: quality assurance intern, software developer, and technical content creator based in Ratnapura, Sri Lanka. Explore projects, research, and experience."

@@ -1,0 +1,181 @@
+/* Shared semantic colors. Light is the default; only an explicit saved choice enables dark. */
+:root {
+  color-scheme: light;
+  --page: #fff;
+  --surface: #fff;
+  --surface-raised: #fff;
+  --pale: #f6f8fc;
+  --text: #17243b;
+  --ink: #14243c;
+  --muted: #5c687b;
+  --text-secondary: #374e70;
+  --blue: #215be2;
+  --blue-dark: #1648bc;
+  --button-bg: #215be2;
+  --button-hover: #1648bc;
+  --on-button: #fff;
+  --border: #e2e7ef;
+  --border-strong: #ccd7e6;
+  --accent-soft: #edf3ff;
+  --accent-border: #d7e3f9;
+  --accent-ink: #285abd;
+  --header-bg: #ffffffed;
+  --header-scrolled-bg: #fffffff5;
+  --header-shadow: 0 5px 22px #17243b0a;
+  --hero-bg: linear-gradient(110deg, #fff 53%, #f5f8ff 100%);
+  --name-gradient: linear-gradient(100deg, #1648bc, #176eab, #215be2);
+  --name-underline: linear-gradient(90deg, #215be2, #36a6ca, transparent);
+  --orb-blue: radial-gradient(circle, #b8d2ff5c, #dfebff1a 55%, transparent 72%);
+  --orb-cyan: radial-gradient(circle, #5ed3ec38, #c6eeff1a 58%, transparent 72%);
+  --orb-soft: radial-gradient(circle, #97baff38, transparent 72%);
+  --education-bg: linear-gradient(135deg, #f7faff, #eaf2ff);
+  --education-circle-line: #bdd2f266;
+  --education-circle-fill: #d5e5fc33;
+  --education-badge-bg: #ffffffbd;
+  --ai-note-gradient: linear-gradient(135deg, #f6faff, #edf4ff);
+  --card-shadow: 0 6px 22px #183a6a06;
+  --card-hover-shadow: 0 14px 32px #203e6c12;
+  --tilt-shadow: 0 16px 36px #203e6c16, 0 0 0 1px #77b9ed1a;
+  --backdrop: #0c1e3abe;
+  --selection-bg: #d9e6ff;
+  --selection-text: #14243c;
+  --skip-bg: #14243c;
+  --skip-text: #fff;
+  --experience-bg: #13253f;
+  --experience-card: #1c2e49;
+  --experience-border: #3a4d67;
+  --contact-bg: #215be2;
+  --contact-button-bg: #fff;
+  --contact-button-text: #194fc7;
+  --contact-button-hover: #edf3ff;
+  --illustration-label-bg: #ffffffc9;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page: #0b1220;
+  --surface: #121e30;
+  --surface-raised: #19283d;
+  --pale: #101a2b;
+  --text: #d9e3f3;
+  --ink: #e8effa;
+  --muted: #abb9cf;
+  --text-secondary: #bdcce2;
+  --blue: #8eb6ff;
+  --blue-dark: #b6ceff;
+  --button-bg: #3269e8;
+  --button-hover: #2458cb;
+  --border: #2a3a52;
+  --border-strong: #405775;
+  --accent-soft: #1a2d4d;
+  --accent-border: #344f77;
+  --accent-ink: #9fc0ff;
+  --header-bg: #0b1220ed;
+  --header-scrolled-bg: #0b1220f5;
+  --header-shadow: 0 5px 22px #00000040;
+  --hero-bg: linear-gradient(110deg, #0b1220 53%, #111f37 100%);
+  --name-gradient: linear-gradient(100deg, #8ab4ff, #7ed5ee, #a7c6ff);
+  --name-underline: linear-gradient(90deg, #8eb6ff, #62c6e5, transparent);
+  --orb-blue: radial-gradient(circle, #3269e829, #244d8b12 55%, transparent 72%);
+  --orb-cyan: radial-gradient(circle, #229bbf1f, #174a6312 58%, transparent 72%);
+  --orb-soft: radial-gradient(circle, #507dd929, transparent 72%);
+  --education-bg: linear-gradient(135deg, #172a45, #13213a);
+  --education-circle-line: #45689b66;
+  --education-circle-fill: #274b7a33;
+  --education-badge-bg: #1a2d4dbd;
+  --ai-note-gradient: linear-gradient(135deg, #192d4c, #16243a);
+  --card-shadow: 0 6px 22px #0000001f;
+  --card-hover-shadow: 0 14px 32px #00000040;
+  --tilt-shadow: 0 16px 36px #00000045, 0 0 0 1px #77b9ed1a;
+  --backdrop: #030914d9;
+  --selection-bg: #294a7d;
+  --selection-text: #f1f6ff;
+  --skip-bg: #e8effa;
+  --skip-text: #14243c;
+  --experience-bg: #101c2e;
+  --experience-card: #182940;
+  --experience-border: #354b68;
+  --contact-bg: #102447;
+  --contact-button-bg: #dce9ff;
+  --contact-button-text: #153f87;
+  --contact-button-hover: #c5dbff;
+  --illustration-label-bg: #121e30ed;
+}
+
+:root[data-theme='dark'] .photo-note {
+  background: var(--surface);
+  color: var(--text-secondary);
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: var(--blue);
+  background: var(--surface);
+}
+
+.theme-toggle:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+:where(input, textarea, select) {
+  color: var(--text);
+  background-color: var(--surface);
+  border-color: var(--border-strong);
+  accent-color: var(--button-bg);
+}
+
+::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root,
+  body,
+  .theme-toggle {
+    transition:
+      background-color 180ms ease,
+      color 180ms ease,
+      border-color 180ms ease;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 180ms;
+    animation-timing-function: ease-out;
+  }
+
+  .theme-toggle:active {
+    transform: scale(0.96);
+  }
+}
+
+@media (max-width: 960px) {
+  .header-controls {
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

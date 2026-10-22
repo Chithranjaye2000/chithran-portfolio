@@ -137,6 +137,16 @@ src/
 - Fonts have system fallbacks. Motion is subtle and disabled for reduced-motion preferences. The layout includes a skip link, semantic headings, keyboard focus indicators, and responsive navigation.
 - Open Graph metadata is included without a fictional production URL. After local approval and a real deployment, add the verified canonical URL, `og:url`, and an absolute approved social image URL to `index.html`.
 
+## Light and Dark themes
+
+Use the moon/sun button in the header to switch themes. It stays available beside the mobile menu, supports keyboard activation, and announces the action through its accessible name. The original white-and-blue Light theme is the default, including when the operating system prefers dark colors.
+
+The selected value is saved under **`portfolio-theme`** in localStorage and restored by the small synchronous **`theme-init`** script in **`index.html`** before styles and React load. Invalid or unavailable storage falls back to Light; switching still works for the current visit if saving is blocked. Changes are synchronized across tabs on the same origin. Theme preferences are separate for development and production origins.
+
+Maintain both palettes in **`src/styles/theme.css`**. Shared styles consume semantic tokens for surfaces, text, borders, actions, gradients, dialogs, and native form controls. Photos, thumbnails, and certificate artwork retain their original colors. **`src/utils/theme.js`**, **`src/hooks/useTheme.js`**, and **`ThemeToggle.jsx`** manage application and persistence. Keep the bootstrap storage key and browser theme colors in sync with the utility; automated tests cover this contract.
+
+Theme changes use a short native View Transition crossfade where supported, without replacing existing motion. Other browsers use the CSS color transitions and normal palette switch. Reduced-motion preferences bypass the crossfade. Test both themes, reload after choosing Dark, open project/certificate dialogs, and check the toggle with Tab and Enter on desktop and mobile. **`npm run test`** runs the existing motion tests and the theme/bootstrap tests.
+
 ## AI Literacy and planned mini-projects
 
 The **AI Literacy** navigation link opens **`#ai-literacy`**, after Skills. Content, the seven competencies, and all five mini-project plans live in **`src/data/aiLiteracy.js`**. The section reuses the existing section heading, skill tags, icons, native scroll reveals, and safe external-link component. Every project is explicitly **Planned**; no completed work, results, evidence, or proficiency scores are implied. Planned entries are excluded from the existing portfolio collection counts.

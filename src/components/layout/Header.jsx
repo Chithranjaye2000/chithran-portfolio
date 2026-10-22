@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { navigation } from '../../data/siteConfig'
+import ThemeToggle from '../ui/ThemeToggle'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -71,45 +72,48 @@ export default function Header() {
             Chithran<span>Jayathunga</span>
           </span>
         </a>
-        <button
-          id="menu-toggle"
-          className="menu-toggle"
-          aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
-          aria-expanded={menuOpen}
-          aria-controls="primary-navigation"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span className="menu-toggle-icon" aria-hidden="true">
-            <Menu size={23} className="menu-icon-bars" />
-            <X size={23} className="menu-icon-close" />
-          </span>
-        </button>
-        <nav
-          id="primary-navigation"
-          aria-label="Primary navigation"
-          className={`primary-nav${menuOpen ? ' is-open' : ''}`}
-          inert={isMobile && !menuOpen}
-        >
-          {navigation.map((item) => (
+        <div className="header-controls">
+          <nav
+            id="primary-navigation"
+            aria-label="Primary navigation"
+            className={`primary-nav${menuOpen ? ' is-open' : ''}`}
+            inert={isMobile && !menuOpen}
+          >
+            {navigation.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                aria-current={activeSection === item.id ? 'location' : undefined}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ))}
             <a
-              key={item.id}
-              href={`#${item.id}`}
-              aria-current={activeSection === item.id ? 'location' : undefined}
+              className="button button--small"
+              href="#contact"
+              aria-current={activeSection === 'contact' ? 'location' : undefined}
               onClick={() => setMenuOpen(false)}
             >
-              {item.label}
+              Let’s talk
+              <ArrowUpRight size={16} aria-hidden="true" />
             </a>
-          ))}
-          <a
-            className="button button--small"
-            href="#contact"
-            aria-current={activeSection === 'contact' ? 'location' : undefined}
-            onClick={() => setMenuOpen(false)}
+          </nav>
+          <ThemeToggle />
+          <button
+            id="menu-toggle"
+            className="menu-toggle"
+            aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={menuOpen}
+            aria-controls="primary-navigation"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            Let’s talk
-            <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
-        </nav>
+            <span className="menu-toggle-icon" aria-hidden="true">
+              <Menu size={23} className="menu-icon-bars" />
+              <X size={23} className="menu-icon-close" />
+            </span>
+          </button>
+        </div>
       </div>
     </header>
   )
