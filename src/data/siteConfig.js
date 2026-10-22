@@ -23,6 +23,7 @@ export const navigation = [
   { id: 'projects', label: 'Projects' },
   { id: 'qa-evidence', label: 'QA Evidence' },
   { id: 'skills', label: 'Skills' },
+  { id: 'ai-literacy', label: 'AI Literacy' },
   { id: 'content', label: 'Content' },
   { id: 'certifications', label: 'Certifications' },
 ]

@@ -1440,6 +1440,7 @@ a.contact-row:hover strong {
 }
 .footer-top nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   font-size: 11px;
   color: #52617a;

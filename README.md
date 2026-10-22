@@ -122,6 +122,7 @@ src/
   components/ui/             # Shared link, social, and section-heading components
   data/siteConfig.js         # Personal information, links, asset paths, visibility
   data/portfolio.js          # Projects, skills, education, content formats, TODOs
+  data/aiLiteracy.js         # AI competencies, planned mini-projects, future links
   data/certifications.js     # Nine certification records and issuer notes
   styles/index.css           # Tokens, component styles, responsive rules
   App.jsx
@@ -135,6 +136,14 @@ src/
 - Contact actions use real `mailto:` and `tel:` links. No message submission is implied.
 - Fonts have system fallbacks. Motion is subtle and disabled for reduced-motion preferences. The layout includes a skip link, semantic headings, keyboard focus indicators, and responsive navigation.
 - Open Graph metadata is included without a fictional production URL. After local approval and a real deployment, add the verified canonical URL, `og:url`, and an absolute approved social image URL to `index.html`.
+
+## AI Literacy and planned mini-projects
+
+The **AI Literacy** navigation link opens **`#ai-literacy`**, after Skills. Content, the seven competencies, and all five mini-project plans live in **`src/data/aiLiteracy.js`**. The section reuses the existing section heading, skill tags, icons, native scroll reveals, and safe external-link component. Every project is explicitly **Planned**; no completed work, results, evidence, or proficiency scores are implied. Planned entries are excluded from the existing portfolio collection counts.
+
+To add a real GitHub or documentation link, find the matching project by **`id`** in **`aiMiniProjects`**, set **`linkUrl`** to the full public **`https://`** URL, and set **`linkLabel`** to **`View on GitHub`** or **`View documentation`**. Leave **`linkUrl: null`** until a real destination exists. Missing or invalid links display non-interactive **Documentation link pending** text; valid links open safely in a new tab. Adding a URL does not automatically change the project's status.
+
+When actual work supports an update, edit that project's **`status`**, **`description`**, and **`skills`**, and update **`aiLiteracy.projectsNote`** to reflect the collection accurately. Never add unverified results or private credentials. Test both the header/mobile-menu and footer links, narrow the window, and emulate reduced motion when reviewing changes.
 
 ## Motion and interactions
 

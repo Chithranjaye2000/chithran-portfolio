@@ -8,6 +8,7 @@ import Experience from './components/sections/Experience'
 import Projects from './components/sections/Projects'
 import QaEvidence from './components/sections/QaEvidence'
 import Skills from './components/sections/Skills'
+import AiLiteracy from './components/sections/AiLiteracy'
 import Content from './components/sections/Content'
 import Certifications from './components/sections/Certifications'
 import Contact from './components/sections/Contact'
@@ -29,6 +30,7 @@ export default function App() {
         <Projects />
         <QaEvidence />
         <Skills />
+        <AiLiteracy />
         <Content />
         <Certifications />
         <Contact />

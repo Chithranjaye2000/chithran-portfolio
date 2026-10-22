@@ -17,6 +17,7 @@ export default function Footer() {
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
           <a href="#education">Education</a>
+          <a href="#ai-literacy">AI Literacy</a>
           <a href="#certifications">Certifications</a>
           <a href="#contact">Contact</a>
         </nav>
