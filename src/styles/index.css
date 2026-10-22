@@ -1005,17 +1005,21 @@ ul {
 }
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 29px;
   margin-top: 43px;
 }
 .skill-group {
-  padding-right: 19px;
+  display: grid;
+  /* Share icon, title, description, and tag tracks within each visual row. */
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+  row-gap: 0;
+  min-width: 0;
 }
 .skill-group + .skill-group {
   border-left: 1px solid var(--border);
   padding-left: 25px;
-  padding-right: 0;
 }
 .skill-group:nth-child(4n + 1) {
   border-left: 0;
@@ -1024,6 +1028,9 @@ ul {
 .skill-group > svg {
   color: var(--blue);
   margin-bottom: 22px;
+}
+.skill-group > * {
+  align-self: start;
 }
 .skill-group h3 {
   font-size: 14px;
@@ -1035,10 +1042,11 @@ ul {
   font-size: 11px;
   line-height: 1.8;
   color: var(--muted);
-  min-height: 59px;
   margin-bottom: 18px;
 }
 .skill-group .tags > li {
+  max-width: 100%;
+  overflow-wrap: anywhere;
   background: var(--surface);
   border-color: var(--border);
   font-size: 10px;
@@ -1507,10 +1515,15 @@ a.contact-row:hover strong {
     gap: 70px;
   }
   .skills-grid {
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
   }
   .skill-group + .skill-group {
     padding-left: 18px;
+  }
+  .skill-group:nth-child(2n + 1) {
+    border-left: 0;
+    padding-left: 0;
   }
 }
 @media (max-width: 960px) {
@@ -1642,17 +1655,6 @@ a.contact-row:hover strong {
     align-items: flex-start;
     flex-direction: column;
     gap: 12px;
-  }
-  .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 36px;
-  }
-  .skill-group:nth-child(2n + 1) {
-    border-left: 0;
-    padding-left: 0;
-  }
-  .skill-group > p {
-    min-height: 0;
   }
   .content-grid {
     gap: 38px;
@@ -1879,9 +1881,6 @@ a.contact-row:hover strong {
     margin-top: 32px;
     gap: 25px;
   }
-  .skill-group {
-    padding-right: 0;
-  }
   .skill-group + .skill-group {
     padding-left: 0;
     border-left: 0;
@@ -2021,6 +2020,20 @@ a.contact-row:hover strong {
     display: none;
   }
 }
+@media (max-width: 540px) {
+  .skills-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .skill-group {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 25px;
+  }
+  .skill-group:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+}
 @media (max-width: 360px) {
   .container {
     width: calc(100% - 32px);
@@ -2039,14 +2052,6 @@ a.contact-row:hover strong {
   a.contact-row > svg:last-child {
     width: 16px;
     height: 16px;
-  }
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .skill-group {
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 25px;
   }
   .experience-card {
     padding: 20px;
