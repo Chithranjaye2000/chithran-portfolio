@@ -49,6 +49,27 @@
   --contact-button-text: #194fc7;
   --contact-button-hover: #edf3ff;
   --illustration-label-bg: #ffffffc9;
+  /* Glass surfaces stay separate from opaque semantic colors for fallbacks. */
+  --glass-surface: #ffffffb8;
+  --glass-surface-strong: #fffffff0;
+  --glass-surface-tint: #edf4ffb8;
+  --glass-surface-solid: #f9fbff;
+  --glass-border: #a7bfdf80;
+  --glass-border-strong: #8aaadb99;
+  --glass-highlight: #ffffffed;
+  --glass-shadow: inset 0 1px 0 #fffffff0, 0 10px 30px #173b710a;
+  --glass-shadow-hover: inset 0 1px 0 #fff, 0 16px 36px #173b7117;
+  --glass-blur: 10px;
+  --glass-glow: #b3d1ff40;
+  --glass-glow-soft: #c8e2ff26;
+  --glass-header-bg: #ffffffe6;
+  --glass-header-scrolled-bg: #fffffff5;
+  --glass-on-dark-surface: #213b59bd;
+  --glass-on-dark-solid: #1b314d;
+  --glass-on-dark-border: #9dbce540;
+  --glass-on-dark-shadow: inset 0 1px 0 #dceaff14, 0 12px 32px #04102124;
+  --glass-contact-surface: #0a24570d;
+  --glass-contact-solid: #245bda;
 }
 
 :root[data-theme='dark'] {
@@ -100,6 +121,25 @@
   --contact-button-text: #153f87;
   --contact-button-hover: #c5dbff;
   --illustration-label-bg: #121e30ed;
+  --glass-surface: #17283dba;
+  --glass-surface-strong: #142338f2;
+  --glass-surface-tint: #1b3150b8;
+  --glass-surface-solid: #142338;
+  --glass-border: #8daed23d;
+  --glass-border-strong: #92b8e56b;
+  --glass-highlight: #d3e6ff12;
+  --glass-shadow: inset 0 1px 0 #d3e6ff14, 0 10px 30px #02071224;
+  --glass-shadow-hover: inset 0 1px 0 #d3e6ff1f, 0 16px 36px #02071247;
+  --glass-glow: #3269e829;
+  --glass-glow-soft: #267da61a;
+  --glass-header-bg: #0e192ae8;
+  --glass-header-scrolled-bg: #101c2ef5;
+  --glass-on-dark-surface: #1c334dbd;
+  --glass-on-dark-solid: #182c44;
+  --glass-on-dark-border: #98bce540;
+  --glass-on-dark-shadow: inset 0 1px 0 #dceaff12, 0 12px 32px #02071233;
+  --glass-contact-surface: #9bbfff0a;
+  --glass-contact-solid: #152b4e;
 }
 
 :root[data-theme='dark'] .photo-note {

@@ -1,0 +1,324 @@
+/* Loaded last: surface treatments only; existing layout and motion keep ownership. */
+:root[data-theme] {
+  --card-shadow: var(--glass-shadow);
+  --card-hover-shadow: var(--glass-shadow-hover);
+  --tilt-shadow: var(--glass-shadow-hover);
+}
+
+/* Static, section-sized light gives translucent panels something quiet to reveal. */
+.hero {
+  background:
+    radial-gradient(ellipse at 86% 24%, var(--glass-glow), transparent 56%), var(--hero-bg);
+}
+
+:is(#about, .projects-section, .ai-literacy-section, .video-section) {
+  background:
+    radial-gradient(ellipse at 96% 8%, var(--glass-glow-soft), transparent 55%), var(--page);
+}
+
+:is(.qa-section, .skills-section, .certifications-section) {
+  background: radial-gradient(ellipse at 8% 16%, var(--glass-glow), transparent 58%), var(--pale);
+  border-color: var(--glass-border);
+}
+
+.experience-section {
+  background: radial-gradient(ellipse at 84% 16%, #4174ab26, transparent 58%), var(--experience-bg);
+}
+
+.contact-section {
+  background: radial-gradient(ellipse at 88% 12%, #a3ccff14, transparent 58%), var(--contact-bg);
+}
+
+/* One restrained blur per major panel; nested badges use translucent fills only. */
+:is(
+  .portrait-frame,
+  .quality-note,
+  .education-card,
+  .project-card,
+  .qa-approach,
+  .qa-report-card,
+  .qa-evidence-pending,
+  .portfolio-collections,
+  .ai-competencies,
+  .ai-verification-note,
+  .ai-project-card,
+  .video-card,
+  .certificate-card
+) {
+  background: var(--glass-surface);
+  border-color: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+}
+
+:is(.education-card, .ai-verification-note, .video-card--featured) {
+  background:
+    linear-gradient(135deg, var(--glass-highlight), transparent 65%), var(--glass-surface-tint);
+}
+
+.experience-card {
+  background: var(--glass-on-dark-surface);
+  border-color: var(--glass-on-dark-border);
+  box-shadow: var(--glass-on-dark-shadow);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+}
+
+/* Navigation and dialogs use a denser surface to keep moving content legible. */
+.site-header {
+  background: var(--glass-header-bg);
+  border-color: var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.site-header[data-scrolled='true'] {
+  background: var(--glass-header-scrolled-bg);
+  box-shadow: var(--glass-shadow);
+}
+
+.project-dialog {
+  background: var(--glass-surface-strong);
+  border-color: var(--glass-border-strong);
+  box-shadow: var(--glass-shadow-hover);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.dialog-inner {
+  background: transparent;
+}
+
+.certificate-dialog-header {
+  background: var(--glass-surface-strong);
+  border-color: var(--glass-border);
+}
+
+.project-dialog::backdrop {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+:is(
+  .theme-toggle,
+  .menu-toggle,
+  .button--outline,
+  .social-links > a,
+  .project-open,
+  .certificate-expand,
+  .dialog-close,
+  .certificate-close,
+  .explore-link,
+  .location-pin
+) {
+  background: var(--glass-surface-strong);
+  border-color: var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+}
+
+:is(.portrait-topline, .portrait-caption) {
+  background: var(--glass-surface-strong);
+  border-color: var(--glass-border);
+}
+
+.discipline-strip {
+  background: linear-gradient(180deg, var(--glass-highlight), transparent);
+  border-color: var(--glass-border);
+}
+
+:is(.tags > li, .skill-group .tags > li, .qa-focus-areas li, .graduation-badge) {
+  background: var(--glass-surface-strong);
+  border-color: var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+}
+
+:is(.icon-tile, .qa-tool-icon, .quality-note > span, .ai-project-status) {
+  background: var(--glass-surface-tint);
+}
+
+:is(
+  .case-note,
+  .qa-report-caveat,
+  .video-collection-note,
+  .certificate-assets-notice,
+  .content-pending
+) {
+  background: var(--glass-surface-tint);
+  border-color: var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+}
+
+.qa-report-details {
+  border-color: var(--glass-border);
+}
+
+.qa-report-details[open] {
+  background: linear-gradient(180deg, var(--glass-glow-soft), transparent 75%);
+}
+
+.qa-report-details summary:hover {
+  color: var(--blue-dark);
+}
+
+/* Skills remain border-separated groups rather than becoming individual cards. */
+.skills-grid {
+  background: linear-gradient(120deg, var(--glass-highlight), transparent 68%);
+  border-radius: var(--radius);
+}
+
+.skill-group + .skill-group {
+  border-color: var(--glass-border);
+}
+
+:is(.project-filters, .education-coursework, .footer-bottom) {
+  border-color: var(--glass-border);
+}
+
+.project-filters button[aria-pressed='true'] {
+  background: var(--glass-surface-tint);
+  border-color: var(--glass-border-strong);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+}
+
+.contact-details {
+  background: var(--glass-contact-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--glass-on-dark-shadow);
+}
+
+.contact-row {
+  border-color: var(--glass-on-dark-border);
+}
+
+.site-footer {
+  background:
+    radial-gradient(ellipse at 0 0, var(--glass-glow-soft), transparent 65%),
+    var(--glass-surface-strong);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+}
+
+@media (max-width: 960px) {
+  .primary-nav {
+    background: var(--glass-surface-strong);
+    border-color: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  :root[data-theme] {
+    --glass-blur: 6px;
+    --glass-surface: var(--glass-surface-solid);
+    --glass-surface-tint: var(--glass-surface-solid);
+  }
+
+  /* Avoid stacking many backdrop layers on mobile; retain glass at navigation. */
+  :is(
+    .portrait-frame,
+    .quality-note,
+    .education-card,
+    .experience-card,
+    .project-card,
+    .qa-approach,
+    .qa-report-card,
+    .qa-evidence-pending,
+    .portfolio-collections,
+    .ai-competencies,
+    .ai-verification-note,
+    .ai-project-card,
+    .video-card,
+    .certificate-card
+  ) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .experience-card {
+    background: var(--glass-on-dark-solid);
+  }
+
+  :is(.site-header, .primary-nav, .project-dialog) {
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+  }
+
+  .project-dialog::backdrop {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* A solid token layer preserves contrast when transparency is unavailable. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root[data-theme] {
+    --glass-surface: var(--glass-surface-solid);
+    --glass-surface-strong: var(--surface);
+    --glass-surface-tint: var(--accent-soft);
+    --glass-header-bg: var(--surface);
+    --glass-header-scrolled-bg: var(--surface);
+    --glass-on-dark-surface: var(--glass-on-dark-solid);
+    --glass-contact-surface: var(--glass-contact-solid);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root[data-theme] {
+    --glass-surface: var(--glass-surface-solid);
+    --glass-surface-strong: var(--surface);
+    --glass-surface-tint: var(--accent-soft);
+    --glass-header-bg: var(--surface);
+    --glass-header-scrolled-bg: var(--surface);
+    --glass-on-dark-surface: var(--glass-on-dark-solid);
+    --glass-contact-surface: var(--glass-contact-solid);
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :root[data-theme] {
+    --glass-surface: Canvas;
+    --glass-surface-strong: Canvas;
+    --glass-surface-tint: Canvas;
+    --glass-surface-solid: Canvas;
+    --glass-header-bg: Canvas;
+    --glass-header-scrolled-bg: Canvas;
+    --glass-on-dark-surface: Canvas;
+    --glass-on-dark-solid: Canvas;
+    --glass-contact-surface: Canvas;
+    --glass-border: ButtonBorder;
+    --glass-border-strong: ButtonBorder;
+    --glass-on-dark-border: ButtonBorder;
+    --glass-highlight: transparent;
+    --glass-glow: transparent;
+    --glass-glow-soft: transparent;
+    --glass-shadow: none;
+    --glass-shadow-hover: none;
+    --glass-on-dark-shadow: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  :is(.hero, .section, .experience-section, .contact-section, .site-footer) {
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  :is(.contact-section, .experience-section) :focus-visible {
+    outline-color: Highlight;
+  }
+}

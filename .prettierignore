@@ -6,3 +6,4 @@ artifacts
 reports-source
 tmp/pdfs
 public/documents/*.pdf
+public/images/tools/

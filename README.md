@@ -137,6 +137,18 @@ src/
 - Fonts have system fallbacks. Motion is subtle and disabled for reduced-motion preferences. The layout includes a skip link, semantic headings, keyboard focus indicators, and responsive navigation.
 - Open Graph metadata is included without a fictional production URL. After local approval and a real deployment, add the verified canonical URL, `og:url`, and an absolute approved social image URL to `index.html`.
 
+## Glass surfaces and QA tools marquee
+
+The **QA Tools & Technologies** section is immediately after the Hero and before About, at **`#qa-tools`**. Its 14 labels and local logo paths live in **`src/data/qaTools.js`**; **`QaTools.jsx`** renders two rows in opposite directions using CSS transforms. The second copy of each row is hidden from assistive technology. Fixed tile/image dimensions and equal-width copies keep the loop continuous without image-loading shifts.
+
+Hover over the rows to pause temporarily. The keyboard-accessible **Pause & show all** button stops motion and displays all 14 tools in a static grid; **Resume motion** restores the loop. Reduced-motion preferences automatically select the static layout. One Intersection Observer stops the tracks offscreen, and the existing page-visibility flag pauses them in a background tab. Missing logos show the tool name rather than a broken image or substitute icon.
+
+Original logo files are in **`public/images/tools/`**; the site loads them locally with no runtime logo-CDN requests. See **[`docs/tool-logo-sources.md`](docs/tool-logo-sources.md)** for exact official/Devicon sources and attribution. GitHub Actions is the owner-confirmed provider represented by **CI/CD Pipelines**. Update the corresponding data entry when changing a tool or asset, preserving the source/license notes.
+
+**`src/styles/theme.css`** defines the shared **`--glass-*`** tokens for Light and Dark. **`src/styles/glass.css`** is loaded after existing styles and changes surface treatments, keeping layout and motion rules intact. Glass cards use restrained blur, translucent fills, borders, and shadows; dark internship/contact surfaces retain their readable text. Mobile removes card blur in favor of denser fills, with limited blur on navigation/dialogs. Unsupported backdrop filters, reduced transparency, and forced colors have solid fallbacks. Moving logo tiles use translucent fills without expensive moving backdrop blur.
+
+Review both themes at narrow and wide widths, pause/resume the marquee, emulate reduced motion and reduced transparency, and open the existing project/certificate dialogs. Keep logo artwork unchanged; new brand assets belong in the same folder with provenance recorded.
+
 ## Light and Dark themes
 
 Use the moon/sun button in the header to switch themes. It stays available beside the mobile menu, supports keyboard activation, and announces the action through its accessible name. The original white-and-blue Light theme is the default, including when the operating system prefers dark colors.
