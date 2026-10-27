@@ -25,26 +25,26 @@ export default function Contact() {
         </div>
         <div className="contact-details" data-reveal>
           <a className="contact-row" href={`mailto:${siteConfig.email}`}>
-            <Mail size={21} aria-hidden="true" />
-            <span>
+            <Mail className="contact-row-icon" size={21} aria-hidden="true" />
+            <span className="contact-row-content">
               <span className="contact-label">EMAIL</span>
               <strong>{siteConfig.email}</strong>
             </span>
-            <ArrowUpRight size={20} aria-hidden="true" />
+            <ArrowUpRight className="contact-row-arrow" size={20} aria-hidden="true" />
           </a>
           {siteConfig.showPhone && (
             <a className="contact-row" href={siteConfig.phoneHref}>
-              <Phone size={21} aria-hidden="true" />
-              <span>
+              <Phone className="contact-row-icon" size={21} aria-hidden="true" />
+              <span className="contact-row-content">
                 <span className="contact-label">PHONE</span>
                 <strong>{siteConfig.phone}</strong>
               </span>
-              <ArrowUpRight size={20} aria-hidden="true" />
+              <ArrowUpRight className="contact-row-arrow" size={20} aria-hidden="true" />
             </a>
           )}
           <div className="contact-row">
-            <MapPin size={21} aria-hidden="true" />
-            <span>
+            <MapPin className="contact-row-icon" size={21} aria-hidden="true" />
+            <span className="contact-row-content">
               <span className="contact-label">BASED IN</span>
               <strong>{siteConfig.location}</strong>
             </span>

@@ -1355,7 +1355,7 @@ ul {
 }
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
   gap: 110px;
 }
@@ -1388,31 +1388,45 @@ ul {
   background: var(--contact-button-hover);
   border-color: var(--contact-button-hover);
 }
+.contact-details {
+  --contact-row-gap: 16px;
+  --contact-arrow-size: 20px;
+  min-width: 0;
+  padding: 8px 24px 20px;
+}
 .contact-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 21px minmax(0, 1fr) var(--contact-arrow-size);
   align-items: center;
-  gap: 16px;
+  gap: var(--contact-row-gap);
   padding: 21px 0;
   border-bottom: 1px solid #ffffff40;
 }
 .contact-row > svg {
+  display: block;
   color: #c2d6ff;
 }
-.contact-row > span {
-  flex: 1;
+.contact-row-arrow {
+  width: var(--contact-arrow-size);
+  height: var(--contact-arrow-size);
+}
+.contact-row-content {
+  display: grid;
+  gap: 6px;
   min-width: 0;
 }
 .contact-label {
   display: block;
   font-size: 8px;
+  line-height: 1.5;
   letter-spacing: 0.15em;
   color: #edf3ff;
-  margin-bottom: 6px;
 }
 .contact-row strong {
   display: block;
   font-weight: 500;
   font-size: 14px;
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 a.contact-row:hover strong {
@@ -1421,14 +1435,19 @@ a.contact-row:hover strong {
 }
 .contact-socials {
   display: flex;
-  gap: 29px;
-  padding-top: 23px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  padding-top: 16px;
 }
 .contact-socials a {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
+  min-height: 44px;
+  padding-block: 6px;
   font-size: 11px;
+  line-height: 1.5;
 }
 .contact-socials a:hover {
   text-decoration: underline;
@@ -1672,10 +1691,8 @@ a.contact-row:hover strong {
     font-size: 6px;
   }
   .contact-grid {
-    gap: 40px;
-  }
-  .contact-row strong {
-    font-size: 12px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
   }
 }
 @media (max-width: 680px) {
@@ -1937,7 +1954,6 @@ a.contact-row:hover strong {
     padding-block: 48px 32px;
   }
   .contact-grid {
-    grid-template-columns: minmax(0, 1fr);
     gap: 30px;
   }
   .contact-section h2 {
@@ -1951,27 +1967,16 @@ a.contact-row:hover strong {
     font-size: 13px;
   }
   .contact-details {
-    min-width: 0;
+    --contact-row-gap: 12px;
+    --contact-arrow-size: 18px;
     padding: 8px 16px 16px;
   }
   .contact-row {
-    display: grid;
-    grid-template-columns: 21px minmax(0, 1fr) 18px;
-    gap: 12px;
     padding-block: 16px;
   }
-  a.contact-row > svg:last-child {
-    width: 18px;
-    height: 18px;
-  }
   .contact-socials {
-    flex-wrap: wrap;
     gap: 8px 16px;
     padding-top: 12px;
-  }
-  .contact-socials a {
-    min-height: 44px;
-    padding-block: 6px;
   }
   .footer-top {
     display: grid;
@@ -2045,13 +2050,9 @@ a.contact-row:hover strong {
   .hero h1 {
     font-size: 45px;
   }
-  .contact-row {
-    grid-template-columns: 21px minmax(0, 1fr) 16px;
-    gap: 8px;
-  }
-  a.contact-row > svg:last-child {
-    width: 16px;
-    height: 16px;
+  .contact-details {
+    --contact-row-gap: 8px;
+    --contact-arrow-size: 16px;
   }
   .experience-card {
     padding: 20px;
