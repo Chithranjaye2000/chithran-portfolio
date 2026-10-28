@@ -1357,7 +1357,7 @@ ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
-  gap: 110px;
+  gap: 40px 110px;
 }
 .contact-section .eyebrow {
   color: #e1eaff;
@@ -1531,7 +1531,7 @@ a.contact-row:hover strong {
     gap: 55px;
   }
   .contact-grid {
-    gap: 70px;
+    column-gap: 70px;
   }
   .skills-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

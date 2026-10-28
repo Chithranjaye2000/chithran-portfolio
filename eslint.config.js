@@ -8,6 +8,7 @@ export default defineConfig([
   globalIgnores(['dist', 'artifacts', '.npm-cache', 'reports-source', 'tmp/pdfs']),
   {
     files: ['**/*.{js,jsx}'],
+    ignores: ['backend/**'],
     extends: [js.configs.recommended],
     languageOptions: {
       ecmaVersion: 'latest',
@@ -33,4 +34,10 @@ export default defineConfig([
     },
   },
   { files: ['vite.config.js', 'eslint.config.js'], languageOptions: { globals: globals.node } },
+  {
+    files: ['backend/**/*.js'],
+    extends: [js.configs.recommended],
+    languageOptions: { ecmaVersion: 'latest', sourceType: 'module', globals: globals.node },
+    rules: { 'no-unused-vars': ['error', { argsIgnorePattern: '^_' }] },
+  },
 ])

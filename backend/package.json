@@ -1,0 +1,24 @@
+{
+  "name": "chithran-portfolio-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node --test",
+    "db:check": "node scripts/check-database.js",
+    "db:init": "node scripts/initialize-database.js",
+    "db:migrate:projects": "node scripts/migrate-projects.js",
+    "db:migrate:qa": "node scripts/migrate-qa-evidence.js"
+  },
+  "dependencies": {
+    "cors": "2.8.6",
+    "express": "5.3.0",
+    "mysql2": "3.24.6",
+    "nodemailer": "10.2.1"
+  }
+}

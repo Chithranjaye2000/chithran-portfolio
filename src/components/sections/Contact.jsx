@@ -2,6 +2,7 @@ import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
 import { Github, Linkedin } from '../ui/BrandIcons'
 import { siteConfig } from '../../data/siteConfig'
 import { ExternalLink } from '../ui/Primitives'
+import ContactForm from '../ui/ContactForm'
 
 export default function Contact() {
   return (
@@ -62,6 +63,7 @@ export default function Contact() {
             </ExternalLink>
           </div>
         </div>
+        <ContactForm />
       </div>
     </section>
   )

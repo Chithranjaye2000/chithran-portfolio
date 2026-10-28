@@ -1,0 +1,106 @@
+.contact-form-panel {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: 28px;
+  border: 1px solid var(--glass-on-dark-border);
+  border-radius: var(--radius);
+  background: var(--glass-contact-surface);
+  box-shadow: var(--glass-on-dark-shadow);
+}
+.contact-form-heading h3 {
+  font-size: 23px;
+  letter-spacing: -0.035em;
+}
+.contact-form-heading p {
+  color: #e1eaff;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.contact-form-panel fieldset {
+  border: 0;
+  min-width: 0;
+  padding: 0;
+  margin: 24px 0 0;
+}
+.contact-form-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.contact-field--subject,
+.contact-field--message {
+  grid-column: 1 / -1;
+}
+.contact-field label {
+  font-size: 12px;
+  font-weight: 600;
+}
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid var(--glass-on-dark-border);
+  border-radius: 7px;
+  color: var(--ink);
+  background: var(--glass-surface-strong);
+  font: inherit;
+  font-size: 16px;
+}
+.contact-field textarea {
+  resize: vertical;
+  line-height: 1.7;
+}
+.contact-field [aria-invalid='true'] {
+  border: 2px solid #ffd2c9;
+}
+.contact-field-error {
+  color: #fff0ec;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.contact-form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-top: 22px;
+}
+.contact-form-actions > p {
+  font-size: 11px;
+  color: #e1eaff;
+}
+.contact-form-panel button:disabled {
+  opacity: 0.75;
+  transform: none;
+}
+.contact-form-status {
+  padding: 14px 16px;
+  margin-top: 20px;
+  border: 1px solid var(--glass-on-dark-border);
+  border-radius: 7px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.contact-form-status--error {
+  background: #68152b36;
+}
+.contact-form-status--success {
+  background: #092d3836;
+}
+@media (max-width: 680px) {
+  .contact-form-panel {
+    padding: 20px 16px;
+  }
+  .contact-form-fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+}

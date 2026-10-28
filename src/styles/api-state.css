@@ -1,0 +1,25 @@
+.api-collection-state {
+  margin-top: 28px;
+  padding: 28px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  background: var(--glass-surface);
+  box-shadow: var(--glass-shadow);
+}
+.api-collection-state h3 {
+  color: var(--ink);
+  font-size: 18px;
+}
+.api-collection-state p {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.api-collection-state .button {
+  margin-top: 18px;
+}
+@media (max-width: 680px) {
+  .api-collection-state {
+    padding: 22px;
+  }
+}

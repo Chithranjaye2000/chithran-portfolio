@@ -7,3 +7,6 @@ reports-source
 tmp/pdfs
 public/documents/*.pdf
 public/images/tools/
+backend/coverage/
+backend/.cache/
+backend/tmp/

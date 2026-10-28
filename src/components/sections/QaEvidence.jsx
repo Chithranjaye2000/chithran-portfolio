@@ -8,8 +8,11 @@ import {
   Smartphone,
   Workflow,
 } from 'lucide-react'
-import { qaCategories, qaEvidenceSource, qaReports, testingApproach } from '../../data/qaReports'
+import { qaCategories, qaEvidenceSource, testingApproach } from '../../data/qaReports'
+import useApiCollection from '../../hooks/useApiCollection'
+import { isQaEvidenceRecord } from '../../utils/catalogue'
 import QaEvidenceCarousel from '../ui/QaEvidenceCarousel'
+import ApiCollectionState from '../ui/ApiCollectionState'
 import { SectionHeading } from '../ui/Primitives'
 import '../../styles/qa-evidence.css'
 
@@ -25,7 +28,12 @@ const icons = {
 
 export default function QaEvidence() {
   const [filter, setFilter] = useState('all')
-  const approved = qaReports.filter((report) => report.summaryApproved === true)
+  const path =
+    filter === 'all'
+      ? '/api/qa-evidence'
+      : `/api/qa-evidence?${new URLSearchParams({ category: filter })}`
+  const collection = useApiCollection(path, isQaEvidenceRecord)
+  const approved = collection.data
   const visible =
     filter === 'all' ? approved : approved.filter((report) => report.category === filter)
 
@@ -71,43 +79,47 @@ export default function QaEvidence() {
             ))}
           </ol>
         </div>
-        {approved.length > 0 ? (
-          <>
-            <div
-              className="project-filters qa-filters"
-              role="group"
-              aria-label="Filter QA evidence"
+        <div className="project-filters qa-filters" role="group" aria-label="Filter QA evidence">
+          {[{ id: 'all', label: 'All evidence' }, ...qaCategories].map((category) => (
+            <button
+              key={category.id}
+              aria-pressed={filter === category.id}
+              aria-controls="qa-results"
+              onClick={() => setFilter(category.id)}
             >
-              {[{ id: 'all', label: 'All evidence' }, ...qaCategories].map((category) => (
-                <button
-                  key={category.id}
-                  aria-pressed={filter === category.id}
-                  aria-controls="qa-results"
-                  onClick={() => setFilter(category.id)}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </div>
-            <p className="qa-result-count" role="status" aria-atomic="true">
-              Showing {visible.length} QA {visible.length === 1 ? 'entry' : 'entries'}
-            </p>
-            <QaEvidenceCarousel key={filter} reports={visible} />
-            {visible.length === 0 && (
-              <p className="qa-empty-category">No case studies in this category yet.</p>
-            )}
-          </>
-        ) : (
-          <div className="qa-evidence-pending" data-reveal>
-            <FileSearch size={30} strokeWidth={1.5} aria-hidden="true" />
-            <div>
-              <h3>QA case studies are being prepared.</h3>
-              <p>
-                Selected testing reports will appear here after their results and public-sharing
-                suitability have been reviewed.
-              </p>
-            </div>
-          </div>
+              {category.label}
+            </button>
+          ))}
+        </div>
+        {collection.status === 'success' && (
+          <p className="qa-result-count" role="status" aria-atomic="true">
+            Showing {visible.length} QA {visible.length === 1 ? 'entry' : 'entries'}
+          </p>
+        )}
+        {collection.status === 'loading' && (
+          <ApiCollectionState
+            status="loading"
+            title="Loading QA evidence…"
+            message="Retrieving the approved testing reports."
+          />
+        )}
+        {collection.status === 'error' && (
+          <ApiCollectionState
+            status="error"
+            title="QA evidence could not be loaded."
+            message={collection.error}
+            onRetry={collection.reload}
+          />
+        )}
+        {collection.status === 'success' && visible.length === 0 && (
+          <ApiCollectionState
+            status="empty"
+            title="No published QA evidence in this selection."
+            message="Choose another category or check back later."
+          />
+        )}
+        {collection.status === 'success' && visible.length > 0 && (
+          <QaEvidenceCarousel key={`${filter}:${collection.revision}`} reports={visible} />
         )}
       </div>
     </section>

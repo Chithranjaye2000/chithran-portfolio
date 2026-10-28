@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { ArrowUpRight, Check, ExternalLink as ExternalLinkIcon, X } from 'lucide-react'
 import { Github } from '../ui/BrandIcons'
-import { projects } from '../../data/portfolio'
+import useApiCollection from '../../hooks/useApiCollection'
+import { isProjectRecord } from '../../utils/catalogue'
+import ApiCollectionState from '../ui/ApiCollectionState'
 import { ExternalLink, SectionHeading } from '../ui/Primitives'
 import useDialog from '../../hooks/useDialog'
 import { TimelineRail } from '../ui/MotionDecor'
@@ -138,6 +140,12 @@ function ProjectDialog({ project, onClose }) {
 
 export default function Projects() {
   const [filter, setFilter] = useState('All projects')
+  const path =
+    filter === 'All projects'
+      ? '/api/projects'
+      : `/api/projects?${new URLSearchParams({ category: filter })}`
+  const collection = useApiCollection(path, isProjectRecord)
+  const projects = collection.data
   const [selected, setSelected] = useState(null)
   const visible =
     filter === 'All projects' ? projects : projects.filter((project) => project.category === filter)
@@ -180,12 +188,36 @@ export default function Projects() {
         <p className="sr-only" role="status">
           Showing {visible.length} projects for {filter}
         </p>
-        <div className="project-grid milestone-track" data-stagger data-timeline>
-          <TimelineRail />
-          {visible.map((project) => (
-            <ProjectCard key={project.id} project={project} onSelect={setSelected} />
-          ))}
-        </div>
+        {collection.status === 'loading' && (
+          <ApiCollectionState
+            status="loading"
+            title="Loading projects…"
+            message="Retrieving the published case studies."
+          />
+        )}
+        {collection.status === 'error' && (
+          <ApiCollectionState
+            status="error"
+            title="Projects could not be loaded."
+            message={collection.error}
+            onRetry={collection.reload}
+          />
+        )}
+        {collection.status === 'success' && visible.length === 0 && (
+          <ApiCollectionState
+            status="empty"
+            title="No published projects in this selection."
+            message="Choose another category or check back later."
+          />
+        )}
+        {collection.status === 'success' && visible.length > 0 && (
+          <div className="project-grid milestone-track" data-stagger data-timeline>
+            <TimelineRail />
+            {visible.map((project) => (
+              <ProjectCard key={project.id} project={project} onSelect={setSelected} />
+            ))}
+          </div>
+        )}
       </div>
       {selected && <ProjectDialog project={selected} onClose={() => setSelected(null)} />}
     </section>
