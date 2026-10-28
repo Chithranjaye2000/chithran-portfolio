@@ -5,7 +5,9 @@ try {
   await verifyDatabaseConnection()
   console.log('MySQL connection verified: SELECT 1 succeeded.')
 } catch {
-  console.error('MySQL connection check failed. Check backend/.env and your local MySQL service.')
+  console.error(
+    'MySQL connection check failed. Check backend database/SSL settings and service availability.',
+  )
   process.exitCode = 1
 } finally {
   try {

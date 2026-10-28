@@ -114,7 +114,7 @@ test('database driver failures are replaced with a safe error without credential
   await assert.rejects(verifyDatabaseConnection(pool), (error) => {
     assert.equal(
       error.message,
-      'Database connection check failed. Check your local MySQL settings and service.',
+      'Database connection check failed. Check database settings, SSL configuration, and service availability.',
     )
     assert.equal(error.message.includes(privateDetails), false)
     assert.equal(error.stack.includes('fake-password'), false)

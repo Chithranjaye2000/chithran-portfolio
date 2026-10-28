@@ -8,7 +8,7 @@ export async function verifyDatabaseConnection(databasePool) {
   } catch {
     // Driver messages can contain hosts, usernames, SQL, and other private configuration.
     throw new Error(
-      'Database connection check failed. Check your local MySQL settings and service.',
+      'Database connection check failed. Check database settings, SSL configuration, and service availability.',
     )
   }
 }

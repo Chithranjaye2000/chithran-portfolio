@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowUpRight, LoaderCircle } from 'lucide-react'
-import { requestJson } from '../../utils/api'
+import { requestJson, resolveContactApiBase } from '../../utils/api'
 import { confirmedContactResult, contactFieldLimits, validateContact } from '../../utils/contact'
 import '../../styles/contact-form.css'
 
@@ -41,6 +41,7 @@ export default function ContactForm() {
     try {
       const response = await requestJson('/api/contact', {
         method: 'POST',
+        baseUrl: resolveContactApiBase(),
         body: validation.values,
         signal: controller.signal,
       })

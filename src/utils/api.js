@@ -28,6 +28,12 @@ export function resolveApiBase(environment = import.meta.env ?? {}) {
   }
 }
 
+export function resolveContactApiBase(environment = import.meta.env ?? {}) {
+  return environment.VITE_CONTACT_API_BASE_URL === undefined
+    ? resolveApiBase(environment)
+    : resolveApiBase({ ...environment, VITE_API_BASE_URL: environment.VITE_CONTACT_API_BASE_URL })
+}
+
 export async function requestJson(
   path,
   {

@@ -1,5 +1,6 @@
 import { loadEnvFile } from 'node:process'
 import { fileURLToPath } from 'node:url'
+import { readDatabaseSslConfig } from './databaseSsl.js'
 
 // Resolve against this module, so starting from the repository root cannot load frontend env files.
 try {
@@ -54,11 +55,14 @@ export function readDatabaseConfig(environment = process.env) {
   if (typeof environment.DB_PASSWORD !== 'string' || !environment.DB_PASSWORD.length) {
     throw new Error('Missing required backend setting: DB_PASSWORD.')
   }
+  const host = requiredText(environment, 'DB_HOST')
+  const ssl = readDatabaseSslConfig(environment, host)
   return {
-    host: requiredText(environment, 'DB_HOST'),
+    host,
     port: portNumber(environment.DB_PORT, 'DB_PORT', 3306),
     database,
     user: requiredText(environment, 'DB_USER'),
     password: environment.DB_PASSWORD,
+    ...(ssl ? { ssl } : {}),
   }
 }

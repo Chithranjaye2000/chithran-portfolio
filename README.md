@@ -4,6 +4,8 @@ A local-first, responsive portfolio for software quality assurance, software dev
 
 See [Phases 03–05 implementation and verification](docs/backend-phases-03-05.md) for the changed files, migration results, tests, and browser checks. Start the backend as well as Vite when reviewing the API-backed sections locally.
 
+New Contact submissions now use a separate Aiven SSL connection and Gmail notification configuration. Existing Projects, QA Evidence, and the historical local message are not migrated. See [Contact production setup](docs/contact-production-setup.md) for private SMTP settings, the Contact-only API base, verification, and the remaining deployment steps. The existing visual design is preserved.
+
 ## Run locally on Windows
 
 Requires Node.js **20.19+ or 22.12+** (Node 22.15 is available in this workspace). In PowerShell:

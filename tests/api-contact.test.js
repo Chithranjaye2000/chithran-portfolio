@@ -1,6 +1,11 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { ApiRequestError, requestJson, resolveApiBase } from '../src/utils/api.js'
+import {
+  ApiRequestError,
+  requestJson,
+  resolveApiBase,
+  resolveContactApiBase,
+} from '../src/utils/api.js'
 import {
   confirmedContactResult,
   contactFieldLimits,
@@ -13,6 +18,28 @@ const validContact = {
   subject: 'Portfolio enquiry',
   message: 'I would like to discuss a software quality opportunity.',
 }
+
+test('Contact can use a separate public API base without retargeting Projects or QA', () => {
+  const environment = {
+    DEV: false,
+    VITE_API_BASE_URL: 'https://catalogue.example.test',
+    VITE_CONTACT_API_BASE_URL: 'https://contact.example.test/',
+  }
+  assert.equal(resolveContactApiBase(environment), 'https://contact.example.test')
+  assert.equal(resolveApiBase(environment), 'https://catalogue.example.test')
+  assert.equal(resolveContactApiBase({ DEV: true }), 'http://127.0.0.1:3001')
+  assert.equal(resolveContactApiBase({ ...environment, VITE_CONTACT_API_BASE_URL: '' }), '')
+})
+
+test('Contact-specific API configuration rejects credentials and unsafe URL schemes', () => {
+  for (const VITE_CONTACT_API_BASE_URL of [
+    'https://user:secret@example.test',
+    'javascript:alert(1)',
+    '/relative',
+  ]) {
+    assert.throws(() => resolveContactApiBase({ VITE_CONTACT_API_BASE_URL }), /API address/)
+  }
+})
 
 function jsonResponse(value, status = 200) {
   return new Response(JSON.stringify(value), {

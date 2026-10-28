@@ -2,12 +2,14 @@
 
 A separate Node.js/Express API and MySQL database for the existing React/Vite portfolio. The frontend retains its package, build, design, themes, and animations. Its Contact form saves through the API; Projects and QA Evidence load their published records from MySQL.
 
+**Current Contact behavior:** new submissions use a separate verified-SSL Aiven pool; Projects/QA and historical messages retain their existing local database configuration. See [Contact production setup](../docs/contact-production-setup.md) for the Contact-only schema, Gmail App Password setup, isolated `.env.smtp`, production `CONTACT_DB_*` settings, and Vercel deployment checklist. No historical data or catalogue records are migrated by this feature.
+
 Implemented: health, Contact submission, read-only Projects and QA Evidence endpoints, input validation, contact rate limiting, configurable SMTP notifications, safe error responses, and content migration commands. There are no project/evidence write endpoints or admin dashboard. This implementation stops after Phase 05; nothing here commits, pushes, or deploys the project.
 
 ## Requirements
 
 - Node.js **20.19+ on the 20.x line, or 22.12+**; this workspace has Node 22.15.
-- MySQL **8.0.16+**, so the schema's `CHECK` constraints are enforced.
+- MySQL **8.0.16+**, including Aiven MySQL **8.4**, so the schema's `CHECK` constraints are enforced.
 - Two PowerShell terminals for the frontend and backend.
 
 Runtime dependencies are pinned to Express **5.3.0**, CORS **2.8.6**, mysql2 **3.24.6**, and Nodemailer **10.2.1**. Node's built-in environment-file loader and watch mode avoid additional packages.
@@ -37,26 +39,104 @@ The copy preserves any existing `.env`. Replace its database placeholders with t
 | `DB_NAME`         | `portfolio_backend` in the SQL example below                                  |
 | `DB_USER`         | `portfolio_app` in the SQL example below                                      |
 | `DB_PASSWORD`     | The local account's non-empty password; quote values containing `#` or spaces |
+| `DB_SSL_ENABLED`  | `false` locally; `true` for Aiven/production                                  |
+| `DB_SSL_CA`       | Full PEM CA certificate/bundle; leave empty for non-SSL local development     |
+| `DB_SSL_CA_PATH`  | Alternative CA file path; use exactly one CA source when SSL is enabled       |
 
 `FRONTEND_ORIGIN` must be one HTTP(S) origin, without a path or wildcard. `http://localhost:5173` and `http://127.0.0.1:5173` are different browser origins: use the exact one you open. If you change the frontend port, update this value and restart the API.
 
-Only `backend/.env` is loaded, resolved relative to the backend source rather than the terminal's working directory. Existing process environment variables take precedence. The API can start and return health without database configuration, but Contact, Projects, QA Evidence, and the connection check need working database settings. Do not prefix database or SMTP settings with `VITE_`: Vite variables are public frontend configuration, not a place for credentials.
+Primary API/catalogue settings load from `backend/.env`, resolved relative to the backend source rather than the terminal's working directory; existing process environment variables take precedence. Contact uses its separate configuration described above: `.env.aiven` in development or explicit `CONTACT_DB_*` settings in production. The API can start and return health without database configuration, but feature requests need their respective working database settings. Do not prefix database or SMTP settings with `VITE_`: Vite variables are public frontend configuration, not a place for credentials.
+
+### Local MySQL and Aiven SSL
+
+For your existing local MySQL server, keep its current `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD`. These settings keep SSL optional locally:
+
+```dotenv
+NODE_ENV=development
+DB_SSL_ENABLED=false
+DB_SSL_CA=
+DB_SSL_CA_PATH=
+```
+
+An omitted `DB_SSL_ENABLED` also defaults to non-SSL outside production, preserving existing local `.env` files. It accepts only the exact strings `true` or `false`. Providing CA settings while SSL is disabled is a configuration error rather than silently ignoring them.
+
+For **Aiven MySQL 8.4**, copy the individual host, port, database, username, and password values from your service's connection information into the **backend hosting platform's production environment settings**. Use `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD`; the port may differ from 3306. Use the exact service **DNS hostname**, without a URL scheme or port, rather than a resolved IP address. The driver skips its hostname check for IP hosts, so SSL configuration rejects them.
+
+Set `NODE_ENV=production` and `DB_SSL_ENABLED=true`, then download your service/project CA certificate from the Aiven Console. Configure **exactly one** of these alternatives:
+
+- **Environment variable:** set `DB_SSL_CA` to the complete downloaded PEM certificate, including its BEGIN/END lines. Actual newlines or literal `\n` sequences are supported, as are PEM CA bundles used during rotation. In a local `.env`, wrap multiline contents in quotes; in the hosting platform, paste the certificate value according to its environment-variable UI. Leave `DB_SSL_CA_PATH` unset or empty.
+- **Secure file:** store the downloaded PEM certificate outside public/static directories, either outside the repository or under the ignored `backend/certs/` directory. Set `DB_SSL_CA_PATH=certs/aiven-ca.pem` or an absolute path, and leave `DB_SSL_CA` unset or empty. Relative paths always resolve from `backend/`, even when startup runs from the repository root. For hosting, securely provision the file at runtime and use its runtime path; a path on your Windows computer will not exist on a hosted function. Inline CA configuration is usually simpler for serverless environments.
+
+Production enables SSL by default when `DB_SSL_ENABLED` is omitted and refuses an explicit `false`. Missing, conflicting, unreadable, or malformed CA configuration fails before a connection attempt; there is no plaintext fallback. SSL uses TLS 1.2 or newer with both `rejectUnauthorized: true` and `verifyIdentity: true`. Verification cannot be disabled through a configuration flag. Parsing the PEM only validates configuration; the TLS handshake still verifies the server certificate chain and hostname.
+
+Do not commit actual `.env` files, downloaded CA files, private keys, or credentials. `backend/certs/` and common certificate/key extensions are ignored, including `.pem`, `.crt`, and `.key`. A CA certificate is public trust material, but this project keeps service-specific certificates out of source control. Never put them in `public/`, frontend code, or `VITE_*` variables. Set production secrets separately, use an appropriately restricted database account, and restart the API after changing database/CA settings. When Aiven rotates its CA, update the configured bundle from the service console and restart; do not disable verification to work around a connection error.
+
+After configuring the intended environment, run only the read-only check to verify connectivity:
+
+```powershell
+Set-Location -LiteralPath 'D:\SLT QA\My_Portfolio\backend'
+npm run db:check
+```
+
+It executes `SELECT 1` and closes the pool. It does not initialize tables, migrate data, or change the schema. No hosted database is contacted by unit tests, which use public Node-bundled CA certificates as test fixtures and create pools without acquiring connections. A real Aiven connection/handshake must be checked separately after you supply its settings; the unit tests do not establish hosted connectivity. Existing initialization/migration scripts reuse the same SSL-aware pool, but do not run them merely to test SSL.
+
+The installed mysql2 version already supports MySQL's `caching_sha2_password` authentication; no authentication downgrade or new dependency is needed. Pool limits, timeouts, Promise queries, lazy startup, and all public API contracts remain unchanged. Connection-check failures remain generic and do not log hostnames, certificate paths/content, credentials, or raw driver errors.
+
+See [Aiven TLS/SSL certificates](https://aiven.io/docs/platform/concepts/tls-ssl-certificates) for CA downloads, verified MySQL TLS modes, and certificate rotation. SSL configuration alone does not configure hosting or deploy the backend.
+
+### Test Aiven without changing local development
+
+The dedicated check reads **only `backend/.env.aiven`** into an explicit configuration object. It never merges the Aiven values with local `.env` or inherited `DB_*` values, changes your shell environment, or starts/reconfigures the API server. The shared environment module still loads local `.env` into this short-lived check process during import, but those values are not used by the isolated connection. Your working local `.env` is neither edited nor replaced.
+
+`backend/.env.aiven` is already excluded by the `.env.*` Git ignore rule. If the private file does not exist, create it in an editor with the following template; replace empty values privately, not in chat or shell command arguments:
+
+```dotenv
+NODE_ENV=production
+DB_SSL_ENABLED=true
+DB_HOST=
+DB_PORT=
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+DB_SSL_CA=
+DB_SSL_CA_PATH=
+```
+
+Use your Aiven service's exact DNS host, explicit service port, database name, user, and password. Both `NODE_ENV=production` and `DB_SSL_ENABLED=true` are required for this isolated check. Use **one** CA source: the complete PEM text in `DB_SSL_CA`, or a downloaded PEM file referenced by `DB_SSL_CA_PATH` (for example `certs/aiven-ca.pem`, relative to `backend/`). Leave the other CA setting empty. Quote passwords containing `#` or spaces; quote multiline PEM values. API, frontend, and SMTP settings are not needed for this check.
+
+From PowerShell:
+
+```powershell
+Set-Location -LiteralPath 'D:\SLT QA\My_Portfolio\backend'
+notepad .env.aiven
+npm run db:check:aiven
+```
+
+The check creates a separate pool, verifies that the established TLS socket is encrypted and authorized, calls the existing `SELECT 1 AS connection_ok` verification on that same connection, releases it, and closes the pool. Success prints:
+
+```text
+Aiven MySQL SSL verified: encrypted and authorized TLS; SELECT 1 succeeded. No data was changed.
+```
+
+Failure exits with code 1 and a fixed, sanitized diagnosis. DNS/network failures require checking the service hostname/port, service status, network access rules, or local firewall. Access-denied failures require checking the service credentials and database permissions. Certificate failures require the current Aiven CA, exact service DNS hostname, and correct system clock. Missing-database failures require checking `DB_NAME`; the check does not create it. Never disable certificate or hostname verification as a workaround. Raw driver errors, connection URIs, passwords, CA contents, and certificate paths are not printed.
+
+This command never runs initialization, migration, schema, or write queries. Unit tests mock the connection and cannot establish that the real service is reachable. Fill the private file and run the command to establish real Aiven connectivity. You can remove `.env.aiven` after testing, or keep it ignored for future read-only checks. Continue using `npm run db:check` and `npm run dev` for your unchanged local configuration. Production secrets must still be configured separately in your eventual hosting platform.
 
 ### SMTP notifications
 
-Configure these **only in `backend/.env`** when you are ready to send real notification emails:
+Configure notifications privately in the optional ignored **`backend/.env.smtp`** for development, or in the backend hosting environment for production. Neither existing database environment file needs to change:
 
-| Setting         | Purpose                                                                                      |
-| --------------- | -------------------------------------------------------------------------------------------- |
-| `SMTP_HOST`     | SMTP server hostname, without a URL scheme                                                   |
-| `SMTP_PORT`     | Provider's SMTP port; defaults to `587`                                                      |
-| `SMTP_SECURE`   | `false` for required STARTTLS, commonly port 587; `true` for implicit TLS, commonly port 465 |
-| `SMTP_USER`     | Provider's authentication username                                                           |
-| `SMTP_PASSWORD` | Provider's password or application password; never commit it                                 |
-| `SMTP_FROM`     | One bare sender email address approved by your provider                                      |
-| `SMTP_TO`       | One bare email address that receives portfolio notifications                                 |
+| Setting                      | Purpose                                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------------------- |
+| `SMTP_HOST`                  | SMTP server hostname, without a URL scheme                                                   |
+| `SMTP_PORT`                  | Provider's SMTP port; defaults to `587`                                                      |
+| `SMTP_SECURE`                | `false` for required STARTTLS, commonly port 587; `true` for implicit TLS, commonly port 465 |
+| `SMTP_USER`                  | Provider's authentication username                                                           |
+| `SMTP_PASSWORD`              | Provider's password or application password; never commit it                                 |
+| `SMTP_FROM`                  | One bare sender email address approved by your provider                                      |
+| `CONTACT_NOTIFICATION_EMAIL` | Your explicit recipient inbox; required in production                                        |
 
-Host, username, password, sender, and recipient must all be present. `SMTP_SECURE` accepts `true` or `false`. Replace the example placeholders before using SMTP; missing or invalid settings do not become a fake successful notification. The validated visitor email is used only as `replyTo`; the visitor cannot choose the notification sender or recipient. Notifications use a fixed subject and plain text.
+Host, username, password, and recipient must be present. For Gmail use a Google App Password, never the regular password; `SMTP_FROM` defaults to `SMTP_USER` and must match if supplied. Port 465 uses `SMTP_SECURE=true`; port 587 uses `false` with required STARTTLS. Legacy `SMTP_TO` is a development fallback only. Replace placeholders before using SMTP; missing or invalid settings do not become a fake successful notification. The validated visitor email is used only as `replyTo`; the visitor cannot choose the sender or recipient. Notifications use a fixed subject and plain text. The configured recipient must appear in SMTP's accepted list; this does not prove inbox delivery.
 
 The database insert completes **before** the notification attempt. Delivery is awaited within the request rather than launched as background work that could disappear in a serverless invocation. If SMTP is absent, rejects the message, or fails, the saved database record remains and the API returns `201` with `notification: "unavailable"`. `notification: "sent"` means the SMTP transport accepted the notification; it does not prove inbox delivery or that it was read. Automated tests mock email transport. Real SMTP delivery must be checked separately after provider configuration; it is not established by the mocked tests.
 
@@ -263,7 +343,7 @@ The other notification value is `"sent"`, with a saved-message acknowledgement. 
 
 Contact status codes: `201` saved; `400` malformed JSON; `413` oversized body; `415` unsupported content type; `422` invalid fields; `429` contact rate limit; `503` database write unavailable. Email notification failure after a successful insert still returns `201`; it does not undo the saved message.
 
-The default limiter permits **five requests per IP per 15 minutes** that reach the contact route. It supplies `RateLimit-*` headers and a `Retry-After` value in seconds on rejection. Storage is a bounded in-process map with at most 10,000 IP entries; expired entries are cleaned during requests, with no background cleanup timer. This is a per-instance local safeguard, not a shared global serverless quota. A future deployment must review trusted proxy/IP handling and use an appropriate shared-store limiter; no such deployment configuration is introduced here.
+The default limiter permits **five requests per IP per 15 minutes** that reach the contact route. It supplies `RateLimit-*` headers and a `Retry-After` value in seconds on rejection. Storage is a bounded in-process map with at most 10,000 IP entries; expired entries are cleaned during requests, with no background cleanup timer. Under Vercel's trusted runtime it uses one validated platform-forwarded IP; other runtimes ignore forwarded headers. Global Express proxy trust remains disabled. This is a per-instance safeguard, not a shared serverless quota. Before public deployment, configure an enforcing WAF/shared limiter for POST `/api/contact` as described in the Contact setup guide.
 
 ### Projects and QA lists
 

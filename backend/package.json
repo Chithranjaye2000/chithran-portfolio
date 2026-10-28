@@ -11,6 +11,8 @@
     "start": "node src/server.js",
     "test": "node --test",
     "db:check": "node scripts/check-database.js",
+    "db:check:aiven": "node scripts/check-aiven-database.js",
+    "db:init:aiven:contact": "node scripts/initialize-aiven-contact.js",
     "db:init": "node scripts/initialize-database.js",
     "db:migrate:projects": "node scripts/migrate-projects.js",
     "db:migrate:qa": "node scripts/migrate-qa-evidence.js"

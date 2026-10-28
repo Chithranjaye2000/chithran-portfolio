@@ -1,6 +1,7 @@
 import { createServer } from 'node:http'
 import { readApiConfig } from './config/environment.js'
 import { closeDatabasePool } from './config/database.js'
+import { closeContactDatabasePool } from './config/contactDatabase.js'
 
 try {
   const { default: app } = await import('./app.js')
@@ -26,7 +27,8 @@ try {
     timeout.unref()
     server.close(async () => {
       try {
-        await closeDatabasePool()
+        const results = await Promise.allSettled([closeDatabasePool(), closeContactDatabasePool()])
+        if (results.some((result) => result.status === 'rejected')) throw new Error()
       } catch {
         console.error('Database shutdown could not complete.')
         process.exitCode = 1

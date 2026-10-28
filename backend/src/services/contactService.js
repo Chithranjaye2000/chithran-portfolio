@@ -1,4 +1,4 @@
-import { getDatabasePool } from '../config/database.js'
+import { getContactDatabasePool } from '../config/contactDatabase.js'
 import { ApiError } from '../middleware/apiError.js'
 import { sendContactNotification } from './emailService.js'
 
@@ -7,7 +7,7 @@ export async function saveContactMessage(
   { databasePool, notify = sendContactNotification } = {},
 ) {
   try {
-    const [result] = await (databasePool ?? getDatabasePool()).execute(
+    const [result] = await (databasePool ?? getContactDatabasePool()).execute(
       'INSERT INTO contact_messages (name, email, subject, message) VALUES (?, ?, ?, ?)',
       [contact.name, contact.email, contact.subject, contact.message],
     )
