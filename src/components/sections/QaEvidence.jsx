@@ -8,9 +8,7 @@ import {
   Smartphone,
   Workflow,
 } from 'lucide-react'
-import { qaCategories, qaEvidenceSource, testingApproach } from '../../data/qaReports'
-import useApiCollection from '../../hooks/useApiCollection'
-import { isQaEvidenceRecord } from '../../utils/catalogue'
+import { qaCategories, qaEvidenceSource, qaReports, testingApproach } from '../../data/qaReports'
 import QaEvidenceCarousel from '../ui/QaEvidenceCarousel'
 import ApiCollectionState from '../ui/ApiCollectionState'
 import { SectionHeading } from '../ui/Primitives'
@@ -26,14 +24,10 @@ const icons = {
   reports: FileSearch,
 }
 
+const approved = qaReports.filter((report) => report.summaryApproved)
+
 export default function QaEvidence() {
   const [filter, setFilter] = useState('all')
-  const path =
-    filter === 'all'
-      ? '/api/qa-evidence'
-      : `/api/qa-evidence?${new URLSearchParams({ category: filter })}`
-  const collection = useApiCollection(path, isQaEvidenceRecord)
-  const approved = collection.data
   const visible =
     filter === 'all' ? approved : approved.filter((report) => report.category === filter)
 
@@ -91,36 +85,17 @@ export default function QaEvidence() {
             </button>
           ))}
         </div>
-        {collection.status === 'success' && (
-          <p className="qa-result-count" role="status" aria-atomic="true">
-            Showing {visible.length} QA {visible.length === 1 ? 'entry' : 'entries'}
-          </p>
-        )}
-        {collection.status === 'loading' && (
-          <ApiCollectionState
-            status="loading"
-            title="Loading QA evidence…"
-            message="Retrieving the approved testing reports."
-          />
-        )}
-        {collection.status === 'error' && (
-          <ApiCollectionState
-            status="error"
-            title="QA evidence could not be loaded."
-            message={collection.error}
-            onRetry={collection.reload}
-          />
-        )}
-        {collection.status === 'success' && visible.length === 0 && (
+        <p className="qa-result-count" role="status" aria-atomic="true">
+          Showing {visible.length} QA {visible.length === 1 ? 'entry' : 'entries'}
+        </p>
+        {visible.length === 0 && (
           <ApiCollectionState
             status="empty"
             title="No published QA evidence in this selection."
             message="Choose another category or check back later."
           />
         )}
-        {collection.status === 'success' && visible.length > 0 && (
-          <QaEvidenceCarousel key={`${filter}:${collection.revision}`} reports={visible} />
-        )}
+        {visible.length > 0 && <QaEvidenceCarousel key={filter} reports={visible} />}
       </div>
     </section>
   )

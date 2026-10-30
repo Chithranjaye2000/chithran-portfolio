@@ -1,14 +1,14 @@
-# Single-project Vercel Services preparation
+# Single-project Vercel Services and Preview verification
 
-Prepared on 28 October 2026. **No commit, push, deployment, project link, environment upload, or Vercel setting change was performed.** The live frontend project and domain were not changed.
+Updated on 30 October 2026. The owner reports that the Services Preview is Ready. This local update performs **no commit, push, deployment, project link, environment upload, or Vercel setting change**. The existing production project and domain remain untouched.
 
-## Current decision and release blocker
+## Current data-source decision and remaining Contact verification
 
-The owner chose to **preserve the existing Projects and QA integrations and document the blocker**. Those endpoints read the primary `DB_*` MySQL pool, currently backed by local MySQL. A function running on Vercel cannot reach the laptop's `127.0.0.1`. Aiven intentionally contains only Contact data, not Projects or QA tables.
+The owner now requires **static frontend data** for Projects and QA Evidence. `src/components/sections/Projects.jsx` reads all **4 Projects** directly from `src/data/portfolio.js`; `QaEvidence.jsx` reads all **9 approved QA entries** directly from `src/data/qaReports.js`. The source records are unchanged. Filters, project dialogs, QA disclosures/report links, and carousel behavior are retained. Neither section requests `/api/projects` or `/api/qa-evidence`.
 
-Therefore, this is validated deployment preparation, **not approval to promote the full portfolio**. Same-origin `/api/projects` and `/api/qa-evidence` cannot work on Vercel until an approved reachable catalogue database/API is supplied. Do not set their `DB_*` values to the Contact database, silently introduce static fallback, copy the 4 Projects or 9 QA records, expose the laptop database publicly, or move the historical Contact message.
+The previous display errors arose because both sections required successful catalogue API requests, while the reported Preview requests returned HTTP 503. Those endpoints still depend on the primary MySQL pool, configured locally on the laptop; this inspection did not read Preview secrets to determine its specific connection/configuration error. Static rendering removes that browser dependency explicitly; it is not a fallback presented as a successful API response. Backend catalogue endpoints and local records remain intact for optional local use. Do not migrate the 4 Projects, 9 QA entries, or historical Contact message, repoint their pool to Aiven, or expose the laptop database publicly.
 
-The simplest safe action now is to keep the current production deployment active and hold promotion. If Services is unavailable or unsuitable for the existing project, the alternative is to retain the frontend project and prepare a separate Contact backend project with the existing Contact-only public API override. That still requires explicit deployment approval and does not itself make the local catalogue remotely reachable. Any future repository-backed catalogue option changes the data-source policy and needs separate approval.
+The latest owner-supplied Contact trace is **POST `/api/contact`, no redirect, pending until timeout**, on commit `683d01a`. That trace does not establish that the current request reaches `notFound`; the earlier JSON 404 report and this timeout must be distinguished. The checked-out Express route is registered correctly and local route tests reach its controller. Read-only external probes to the supplied Preview are redirected to Vercel Authentication, so the hosted handler and timeout stage cannot yet be verified. Do not claim a deployed routing fix or SMTP delivery from local tests. Obtain a sanitized runtime/request trace before changing prefixes, credentials, or security controls.
 
 ## Verified configuration
 
@@ -81,7 +81,7 @@ Configure Preview credentials/recipient separately if test submissions should no
 
 For the requested same-domain Services setup, leave **both `VITE_API_BASE_URL` and `VITE_CONTACT_API_BASE_URL` unset or empty** in Production and Preview. Browser requests then use the deployment's own `/api/...` ingress. Do not copy the local `.env.example` localhost URL into Vercel. Do not include `/api` in either base URL; request paths already include it.
 
-No new frontend variable name or UI change was introduced in this task. Existing catalogue requests and data modules are unchanged. An approved external catalogue API would require a separately reviewed public-base choice, while keeping Contact same-origin through its existing override; that is not configured here.
+No new frontend variable is needed. Projects/QA now use their existing static data modules and do not consume an API base. The existing Contact-specific override remains available for local testing or an explicitly approved separate API origin; same-origin Services should leave it empty.
 
 ### Vercel-generated values
 
@@ -89,9 +89,9 @@ Enable **access to System Environment Variables** in the existing project's envi
 
 `VERCEL_PROJECT_PRODUCTION_URL`, `VERCEL_ENV`, and `PORT` are not additional required application inputs for this implementation. `PORT` is for the local listener; the production handler does not bind a port. No private service binding is needed for browser calls through the public same-origin route table.
 
-### Catalogue configuration — unresolved release gate
+### Optional catalogue APIs — not required by the frontend
 
-The current Projects/QA pool still uses `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_SSL_ENABLED`, and exactly one of `DB_SSL_CA` or `DB_SSL_CA_PATH`. Production requires `DB_SSL_ENABLED=true` and a valid CA. A production configuration must point to an **approved reachable existing catalogue source**. Its credentials are secrets and must remain server-side. A local address is not a valid Vercel destination; Aiven Contact-only credentials do not supply the missing tables. No such replacement source has been approved, so this checklist item is intentionally unresolved.
+The retained Projects/QA endpoints still use the primary `DB_*` pool if explicitly called. The portfolio no longer calls them, so **`DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_SSL_ENABLED`, `DB_SSL_CA`, and `DB_SSL_CA_PATH` are not required for the deployed frontend or Contact API**. Keep the working local `.env` unchanged. Without an independently configured reachable catalogue database, manually calling those endpoints on Vercel may still return a safe 503; that does not prevent static cards from rendering. Do not configure them with Contact-only Aiven credentials or run catalogue migration commands. Contact exclusively uses `CONTACT_DB_*` with verified SSL.
 
 ## Security and local behavior
 
@@ -102,7 +102,31 @@ The current Projects/QA pool still uses `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USE
 - The memory limiter remains per warm instance. Before a public launch, configure an enforcing WAF/shared rate limit for POST `/api/contact`; retain trusted platform-IP handling and existing validation/body limits. Account for five Contact connections per warm instance plus any separately configured catalogue pool, function concurrency, and SMTP timeouts.
 - Existing `npm run dev` commands, local environment files, primary database pool, Aiven Contact pool, Gmail configuration, themes, styles, animations, assets, and content remain unchanged. No live database or SMTP writes were made in this preparation.
 
-## Validation performed
+## Current local verification — 30 October 2026
+
+| Check                  | Actual result                                                                                                                                                                                 |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Backend `npm test`     | 153 passed, 0 failed                                                                                                                                                                          |
+| Frontend `npm test`    | 62 passed, 0 failed                                                                                                                                                                           |
+| `npm run format:check` | Passed                                                                                                                                                                                        |
+| `npm run lint`         | Passed, zero warnings                                                                                                                                                                         |
+| `npm run build`        | Passed                                                                                                                                                                                        |
+| Source preservation    | Both original static data files unchanged; all 4 Projects and 9 QA entries retained                                                                                                           |
+| Built client           | Contains `/api/contact`; contains neither catalogue endpoint path                                                                                                                             |
+| Browser network        | Fresh local page load: 88 captured requests, no catalogue API calls, no truncated events                                                                                                      |
+| Responsive themes      | 320, 375, 768, 1024, and 1440 pixels in Light and Dark: 4/9 cards and no horizontal page overflow                                                                                             |
+| Interactions           | Project filters produce 1 research / 3 web cards; project dialog opens and Escape closes; all QA filters match their records; keyboard details expand and pause reading; carousel arrows work |
+| Reduced motion         | Emulation shows automatic scrolling disabled and all content retained; emulation and viewport reset afterward, Dark theme restored                                                            |
+| Contact entrypoint     | Actual configured default export reaches validation with HTTP 422; injected asynchronous save/notification path returns 201 in local and production-like routing tests                        |
+| Hosted Contact         | Unresolved: owner reports pending POST/timeout; read-only GET probes redirected to authentication, whose browser access was not approved                                                      |
+
+The new tests are `tests/static-catalogues.test.js` and `backend/tests/vercel-contact-path.test.js`. Local Services tests inspect the real configuration and entrypoint but do not emulate Vercel's deployed ingress. Database and SMTP operations in tests are mocked. No hosted POST, live message, database migration/write, or deployment change was made. `vercel.json` and backend application/routing/configuration files are unchanged because no source routing defect was reproduced. Existing Aiven certificate/hostname verification and Gmail notification handling are preserved. The reported separate `NOT_FOUND` response has not been tied to the pending POST; its source remains unconfirmed without runtime evidence.
+
+Local browser screenshots are in the ignored `artifacts/static-qa-preview-desktop.png` and `artifacts/static-qa-preview-mobile.png` files. They are verification artifacts, not public portfolio assets.
+
+## Historical Services preparation validation
+
+These are the earlier preparation results, not the current change's final test counts or hosted Preview verification. Rerun the commands and report current results separately.
 
 | Check                     | Actual result                                                                                                                                               |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -118,45 +142,45 @@ The current Projects/QA pool still uses `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USE
 
 Official-schema validation used the installed AJV dependency as an inspection tool, not a new application dependency. The upstream schema mixes draft declarations/keywords, so schema self-validation was disabled while configuration-data validation still ran. This is not a hosted Vercel build result. Local routing tests use a documented contract harness, not a Vercel CDN emulator. The guarded import probe stubs the environment-file loader; the real module still attempts to load local `.env` and safely handles its absence on the host. No installed Vercel CLI or cloud build was used; actual Services detection, asset serving, production environment values, and runtime behavior require the approved Preview test.
 
-## Files changed
+## Historical Services preparation files
 
 - `vercel.json`: format/verify the supplied file, explicit app build/output, app SPA fallback, explicit Express app entry, bare `/api` ownership.
 - `.gitignore`, `.vercelignore`, `.prettierignore`, `eslint.config.js`, `vite.config.js`: protect private upload inputs, keep generated Vercel files out of checks, and block Vercel metadata through the local Vite file server.
 - `backend/src/config/environment.js`, `backend/src/middleware/cors.js`, `backend/src/app.js`: exact trusted deployment-origin support; no global wildcard/proxy trust.
 - `backend/tests/vercel-cors.test.js`, `backend/tests/vercel-serverless.test.js`, `tests/vercel-routing.test.js`: focused routing, import, CORS, and regression coverage.
 - `.env.example`, `backend/.env.example`: clarify local-only API URLs, same-origin Services settings, and platform-supplied metadata; placeholders only.
-- `README.md`, `backend/README.md`, `docs/contact-production-setup.md`, this document: current single-project preparation supersedes the earlier separate-Contact-project recommendation while retaining the unresolved catalogue gate.
+- `README.md`, `backend/README.md`, `docs/contact-production-setup.md`, this document: single-project preparation superseded the earlier separate-Contact-project recommendation. The newer static frontend decision above supersedes the old catalogue release gate.
 
 ## Exact Git commands — review first, do not run push yet
 
-Current branch at inspection: `main`. Existing remote: `https://github.com/Chithranjaye2000/chithran-portfolio.git`. Do not create a repository or change its remote. The commands below prepare a feature branch; they were **not executed**. Inspect any new user changes before staging. Pushing a branch connected to Vercel can itself start a Preview deployment; pushing `main` can start production deployment. Therefore the push command is deferred until deployment approval and automatic-deployment behavior have been reviewed.
+Current branch at inspection: `preview/vercel-services`, commit `683d01a`. Existing remote: `https://github.com/Chithranjaye2000/chithran-portfolio.git`. Do not create a repository or change its remote. The commands below are future review steps and were **not executed**. Inspect current changes before staging, including any additional Contact regression-test file reported by this change. Pushing this branch can itself start a Preview deployment; pushing `main` can start production deployment. Push remains deferred until the owner approves.
 
 ```powershell
 Set-Location -LiteralPath 'D:\SLT QA\My_Portfolio'
 git status --short
-git switch -c codex/vercel-services
-git add -- vercel.json .gitignore .vercelignore .prettierignore eslint.config.js vite.config.js .env.example README.md backend/.env.example backend/README.md backend/src/app.js backend/src/config/environment.js backend/src/middleware/cors.js backend/tests/vercel-cors.test.js backend/tests/vercel-serverless.test.js tests/vercel-routing.test.js docs/contact-production-setup.md docs/vercel-services-deployment.md
+git branch --show-current
+git add -- src/components/sections/Projects.jsx src/components/sections/QaEvidence.jsx tests/static-catalogues.test.js backend/tests/vercel-contact-path.test.js .env.example README.md backend/README.md docs/contact-production-setup.md docs/vercel-services-deployment.md
 git diff --cached --check
 git diff --cached --stat
 git diff --cached --name-only
-git commit -m "Prepare single-project Vercel Services routing"
+git commit -m "Use static frontend portfolio catalogues"
 ```
 
 Only after the owner approves a remote push/Preview build and checks automatic deployment settings:
 
 ```powershell
-git push -u origin codex/vercel-services
+git push -u origin preview/vercel-services
 ```
 
 Do not use `git add .`, stage private environment files/certificates, or push the production branch as part of this preparation.
 
 ## Deployment procedure after approval
 
-1. Resolve the catalogue release gate first, or explicitly keep this as non-promotable preparation. Record the currently active Vercel deployment, project ID, connected repository/production branch, domains, and build settings privately as a rollback baseline. Keep the same project, root `.`, and existing domains; do not delete/recreate the project or create a new repository.
+1. Keep the current production deployment active while resolving the remaining Contact Preview trace. Record its deployment, connected repository/production branch, domains, and settings privately as a rollback baseline. Keep the same project, root `.`, and existing domains; do not delete/recreate the project or repository. Projects/QA use static data and require no cloud catalogue migration.
 2. Review automatic deployments before pushing anything. A push can initiate a build. After approval, use a feature-branch Preview, never direct production promotion. If changing project settings is needed, make those changes only after separate confirmation. Services is Beta; confirm the existing project/account UI accepts it. If the current dashboard offers or requires a Services framework preset, select it only after confirmation; the app service itself remains `framework: "vite"`. Do not blindly add a top-level `framework: "services"` key or copy the old `experimentalServices` model.
 3. Add the environment values in the existing project UI, using the correct Production/Preview scope and system-variable access. Use inline Contact CA text, not a local path. Preserve existing secrets outside Git. Do not change live catalogue data or run schema/seed commands during a build.
 4. Ensure build logs detect **both** configured services: root Vite app and backend Express handler. Service-local install/build/output fields are in the checked-in file; legacy single-app project overrides may need review. If only the Vite service builds, stop and resolve Services detection instead of promoting. Choose a currently supported Node 22.x runtime matching the tested major and review function durations/connection budgets.
-5. On the Preview URL, check `/`, static JS/CSS, profile image, certificate images, `/documents/Chithran-CV.pdf`, direct SPA paths, `/api/health`, `/api` and unknown API JSON 404s, validation, CORS, both themes/mobile menu, and all Projects/QA cards/details/filters/carousel. `/api/projects` and `/api/qa-evidence` must both succeed from the approved data source; health alone is not readiness.
+5. On the Preview URL, check `/`, static JS/CSS, profile image, certificate images, `/documents/Chithran-CV.pdf`, direct SPA paths, `/api/health`, `/api` and unknown API JSON 404s, CORS, both themes/mobile menu, and all 4 Projects/9 QA cards/details/filters/carousel. Browser Network must show **no `/api/projects` or `/api/qa-evidence` requests**. Do not require those optional endpoints to succeed or migrate them to make this check pass. Health alone does not verify Contact readiness. Any diagnostic POST, including validation probes, needs authorization under the current read-only Preview restriction.
 6. With explicit permission for real test messages, submit one labelled Contact test, confirm it saves only to Aiven, check SMTP acceptance, and independently verify receipt in the intended inbox. Preview tests against production secrets create real messages/send real notifications; they are not automatically disposable. Preserve saved messages even if email fails.
 7. Review the Preview results, security/rate-limit settings, unchanged data counts, and rollback plan with the owner. Obtain final production-promotion confirmation. Only then deploy/promote in the existing project and recheck the same journey on the existing domain. If validation fails, keep or restore the prior deployment; do not delete records or blindly switch databases. Any new Contact writes must survive rollback.
 

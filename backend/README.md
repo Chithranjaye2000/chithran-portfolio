@@ -1,10 +1,10 @@
 # Portfolio backend — Phases 01–05
 
-A separate Node.js/Express API and MySQL database for the existing React/Vite portfolio. The frontend retains its package, build, design, themes, and animations. Its Contact form saves through the API; Projects and QA Evidence load their published records from MySQL.
+A separate Node.js/Express API and MySQL database for the existing React/Vite portfolio. The frontend retains its package, build, design, themes, and animations. Its Contact form saves through the API. Projects and QA Evidence render the existing 4 and 9 records directly from frontend static data files; the backend's read-only catalogue endpoints remain available for optional local use.
 
-**Current Contact behavior:** new submissions use a separate verified-SSL Aiven pool; Projects/QA and historical messages retain their existing local database configuration. See [Contact production setup](../docs/contact-production-setup.md) for the Contact-only schema, Gmail App Password setup, isolated `.env.smtp`, production `CONTACT_DB_*` settings, and Vercel deployment checklist. No historical data or catalogue records are migrated by this feature.
+**Current Contact behavior:** new submissions use a separate verified-SSL Aiven pool; optional catalogue APIs and historical messages retain their existing local database configuration. See [Contact production setup](../docs/contact-production-setup.md) for the Contact-only schema, Gmail App Password setup, isolated `.env.smtp`, production `CONTACT_DB_*` settings, and Vercel deployment checklist. No historical data or catalogue records are migrated by this feature. Frontend Projects/QA need neither these APIs nor production `DB_*` settings.
 
-For the requested **single existing Vercel project**, use the newer [Services deployment guide](../docs/vercel-services-deployment.md). Root `vercel.json` explicitly targets `backend/src/app.js`; `server.js` remains the local listener only. Exact trusted Vercel deployment/branch origins are allowed alongside the configured production origin. The local catalogue hosting blocker is intentionally preserved; no cloud settings or data sources were changed.
+For the requested **single existing Vercel project**, use the newer [Services deployment guide](../docs/vercel-services-deployment.md). Root `vercel.json` explicitly targets `backend/src/app.js`; `server.js` remains the local listener only. Exact trusted Vercel deployment/branch origins are allowed alongside the configured production origin. Static frontend catalogues remove the previous local-database display blocker. The reported protected Preview Contact failure remains under investigation; local route tests alone do not establish hosted success. No cloud settings were changed by this update.
 
 Implemented: health, Contact submission, read-only Projects and QA Evidence endpoints, input validation, contact rate limiting, configurable SMTP notifications, safe error responses, and content migration commands. There are no project/evidence write endpoints or admin dashboard. This implementation stops after Phase 05; nothing here commits, pushes, or deploys the project.
 
@@ -62,7 +62,7 @@ DB_SSL_CA_PATH=
 
 An omitted `DB_SSL_ENABLED` also defaults to non-SSL outside production, preserving existing local `.env` files. It accepts only the exact strings `true` or `false`. Providing CA settings while SSL is disabled is a configuration error rather than silently ignoring them.
 
-For **Aiven MySQL 8.4**, copy the individual host, port, database, username, and password values from your service's connection information into the **backend hosting platform's production environment settings**. Use `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD`; the port may differ from 3306. Use the exact service **DNS hostname**, without a URL scheme or port, rather than a resolved IP address. The driver skips its hostname check for IP hosts, so SSL configuration rejects them.
+The following `DB_*` SSL instructions describe the optional primary database pool and the isolated connection-check file. They do not require a production catalogue database for the current static frontend. **Contact production uses the separate `CONTACT_DB_*` names documented in [Contact production setup](../docs/contact-production-setup.md).** For Aiven MySQL 8.4, use the individual service host, port, database, username, and password values; the port may differ from 3306. Use the exact service **DNS hostname**, without a URL scheme or port, rather than a resolved IP address. The driver skips its hostname check for IP hosts, so SSL configuration rejects them.
 
 Set `NODE_ENV=production` and `DB_SSL_ENABLED=true`, then download your service/project CA certificate from the Aiven Console. Configure **exactly one** of these alternatives:
 
@@ -220,7 +220,7 @@ The scripts first inspect the current table definitions and identifiers. They ne
 - MySQL DDL commits implicitly, so the approval schema changes finish **before** the QA data transaction. A failed data transaction rolls back its inserts but cannot roll back completed DDL. Rerun the command after resolving the cause; no automatic destructive rollback is attempted.
 - The QA data transaction imports only entries whose existing source has `summaryApproved: true`. It preserves all existing matching slugs, including drafts and manually edited rows. `reviewSlugs` lists existing records whose content or publication/approval values differ and need owner review. The command does not silently approve, republish, or overwrite those rows.
 
-Original frontend data files remain as content provenance and migration inputs. Changing those files and rerunning an insert-only migration does **not** overwrite an existing database record: review and apply intentional content changes in your trusted database tool. Once integrated, the portfolio reads Projects and QA Evidence from the API. A failed API/database request displays an explicit error and retry action; it does not silently fall back to static cards and pretend retrieval succeeded.
+The current frontend renders Projects and QA Evidence directly from `src/data/portfolio.js` and `src/data/qaReports.js`; no migration is needed to display them. The retained commands are optional local API tooling, not deployment build steps. Changing static files does **not** overwrite existing database records. Insert-only migrations also do not overwrite matching records. Do not run these commands against Aiven or import the 4 Projects, 9 QA entries, or historical Contact message for the current deployment.
 
 ## Verify the database connection
 
@@ -267,7 +267,7 @@ npm ci
 npm run dev
 ```
 
-Open **http://127.0.0.1:5173/**. Contact details and mailto/tel/social links remain available. The form saves through the API; project and QA cards use API-loaded public records. The existing layouts, glass surfaces, theme controls, card details, and carousel interactions are retained.
+Open **http://127.0.0.1:5173/**. Contact details and mailto/tel/social links remain available. The form saves through the API; all 4 Projects and 9 QA cards render from their unchanged static frontend data modules. The existing layouts, glass surfaces, theme controls, card details, and carousel interactions are retained.
 
 PowerShell terminal 2 — backend:
 
@@ -388,7 +388,7 @@ QA DTOs preserve `id`, `slug`, `title`, `category`, `primaryTool`, `technologies
 
 Summary approval, source review, and report-link approval have distinct meanings. The seven owner-supplied summaries remain marked as not reviewed against original PDFs; BrowserStack and Allure retain their reviewed-source metadata. Approved links do not imply the linked reports were independently re-executed or their original findings rerun. Migration preserves the existing recorded results, limitations, source notes, and approved URLs without inventing evidence.
 
-The frontend loads complete validated collections, checks pagination and record identities, and rejects inconsistent or duplicate API data rather than showing a partial success. Loading, confirmed-empty, and failed-request states are separate. QA category filters, carousel controls, dragging/swiping, pause/resume, and expandable details operate on the API-loaded records.
+These catalogue API contracts remain available to optional API consumers. The portfolio no longer requests either collection: its sections use their existing static frontend modules directly. Existing QA category filters, carousel controls, dragging/swiping, pause/resume, and expandable details operate on the static records. The retained API helper tests do not imply that the frontend still uses those endpoints.
 
 ## Architecture and future serverless use
 
@@ -434,6 +434,6 @@ npm test
 npm run build
 ```
 
-Tests cover the feature contracts, validation, safe failures, migration behavior, and mocked email delivery. Run both suites: the backend suite does not replace the existing frontend regression tests. Browser verification should also check real API loading, empty/error states, Contact confirmation, Projects details, QA filters/carousel/details, both themes, and the required responsive widths.
+Tests cover the feature contracts, validation, safe failures, migration behavior, and mocked email delivery. Run both suites: the backend suite does not replace the existing frontend regression tests. Browser verification should check that Projects/QA render without catalogue requests, retain their details/filters/carousel, and work in both themes and required responsive widths. Contact confirmation requires a separately authorized real submission; mocked route tests do not prove Aiven or SMTP delivery from a hosted Preview.
 
 Keep the root and backend dependency installations separate. The root production build still produces the frontend `dist/` directory; it does not bundle the backend or database configuration. This work stops after **Phase 05**. Further testing expansion, a separate security-hardening phase, and deployment require the owner's next approval.

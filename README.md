@@ -1,12 +1,12 @@
 # Chithran Jayathunga — Personal Portfolio
 
-A local-first, responsive portfolio for software quality assurance, software development, research, and technical content creation. Built with React, Vite, JavaScript/JSX, plain CSS, and Lucide React. The separate [backend](backend/README.md) now provides the Phase 01–05 Express/MySQL APIs for contact messages, projects, and approved QA evidence. Existing content is preserved through insert-only data migrations; the frontend shows explicit loading, empty, and error states when API data is unavailable. See the backend README for database, SMTP, API URL, and two-terminal local setup. No backend deployment is configured.
+A local-first, responsive portfolio for software quality assurance, software development, research, and technical content creation. Built with React, Vite, JavaScript/JSX, plain CSS, and Lucide React. The frontend renders all **4 Projects** directly from `src/data/portfolio.js` and all **9 QA Evidence entries** from `src/data/qaReports.js`. These sections do not request the catalogue APIs or need a database. The separate [backend](backend/README.md) handles Contact submissions and retains its optional read-only catalogue endpoints.
 
-See [Phases 03–05 implementation and verification](docs/backend-phases-03-05.md) for the changed files, migration results, tests, and browser checks. Start the backend as well as Vite when reviewing the API-backed sections locally.
+See [Phases 03–05 implementation and verification](docs/backend-phases-03-05.md) for the historical API implementation record. The current static frontend data-source choice supersedes that document's Projects/QA frontend integration. Start the backend alongside Vite only when testing Contact or the optional catalogue APIs.
 
 New Contact submissions now use a separate Aiven SSL connection and Gmail notification configuration. Existing Projects, QA Evidence, and the historical local message are not migrated. See [Contact production setup](docs/contact-production-setup.md) for private SMTP settings, the Contact-only API base, verification, and the remaining deployment steps. The existing visual design is preserved.
 
-Single-project Vercel Services is now prepared in [the deployment guide](docs/vercel-services-deployment.md). The supplied root `vercel.json` has been verified and refined, with an explicit Express handler entry and same-origin API routing. **Production promotion remains blocked by the unchanged local Projects/QA database source.** No deployment or project-setting change has been made.
+Single-project Vercel Services configuration and Preview checks are documented in [the deployment guide](docs/vercel-services-deployment.md). Projects/QA no longer depend on the laptop database in the browser. The reported Preview Contact routing failure still needs its actual request/deployment trace; successful local route tests do not verify the protected hosted deployment. No commit, push, deployment, or project-setting change is authorized by this update.
 
 ## Run locally on Windows
 
@@ -20,7 +20,7 @@ npm run dev
 
 Open **http://127.0.0.1:5173/**, matching the backend's default `FRONTEND_ORIGIN`. Keep the terminal open; press **Ctrl+C** to stop. The server binds only to your computer. Port 5173 is strict: if it is already in use, stop the other server or use `npm run dev -- --port 5174`, update `FRONTEND_ORIGIN` to the exact new browser origin, and restart the backend.
 
-Start the API separately using [backend/README.md](backend/README.md). Configure the ignored `backend/.env`, initialize MySQL, and run the insert-only project and QA migrations before reviewing API-backed sections. SMTP notifications require the seven documented `SMTP_*` settings; messages are still saved if notification delivery is unavailable. Database and SMTP credentials belong only in backend configuration, never in `VITE_*` values.
+Start the API separately using [backend/README.md](backend/README.md) to test Contact. Its Aiven and Gmail settings remain private in the existing ignored configuration files. No database initialization or migration is needed to display Projects/QA. Messages are still saved if notification delivery is unavailable. Database and SMTP credentials belong only in backend configuration, never in `VITE_*` values.
 
 ### npm launcher workaround on this computer
 
@@ -45,7 +45,7 @@ npm run build
 npm run preview
 ```
 
-Open **http://127.0.0.1:4173/** for the built version. To test its API-backed sections against the local backend, build with `VITE_API_BASE_URL=http://127.0.0.1:3001` in the optional root `.env`, set the backend's `FRONTEND_ORIGIN=http://127.0.0.1:4173`, and restart the backend. Without an explicit API base, production builds use same-origin `/api` paths; the Vite preview server does not provide those endpoints. Restore the development origin before returning to port 5173. `npm run format` formats the project. Use `npm ci` instead of `npm install` for a clean installation matching the committed lockfile.
+Open **http://127.0.0.1:4173/** for the built version; Projects/QA render without a backend. To test Contact against the local backend, build with `VITE_CONTACT_API_BASE_URL=http://127.0.0.1:3001` in the optional root `.env`, set the backend's `FRONTEND_ORIGIN=http://127.0.0.1:4173`, and restart the backend. Without an explicit API base, production Contact uses same-origin `/api/contact`; the Vite preview server does not provide that endpoint. Restore the development origin before returning to port 5173. `npm run format` formats the project. Use `npm ci` instead of `npm install` for a clean installation matching the committed lockfile.
 
 ## Your manual assets
 
@@ -129,7 +129,8 @@ src/
   components/sections/       # One component per portfolio section
   components/ui/             # Shared link, social, and section-heading components
   data/siteConfig.js         # Personal information, links, asset paths, visibility
-  data/portfolio.js          # Original project migration source, skills, education, TODOs
+  data/portfolio.js          # Static projects, skills, education, TODOs
+  data/qaReports.js          # Nine static approved QA Evidence entries and filters
   data/aiLiteracy.js         # AI competencies, planned mini-projects, future links
   data/certifications.js     # Nine certification records and issuer notes
   styles/index.css           # Tokens, component styles, responsive rules
@@ -137,7 +138,7 @@ src/
   main.jsx
 ```
 
-- A single page fits recruiter review without a client router. The separate Express backend handles contact submissions and public catalogue reads.
+- A single page fits recruiter review without a client router. Projects/QA use their existing static frontend modules; the separate Express backend handles Contact and retains optional public catalogue reads.
 - Dependencies are pinned and a lockfile records transitive versions. React and React DOM match; Vite and its React plugin support the installed Node version. ESLint 9 uses a flat config with React Hooks and refresh rules. Prettier keeps JSX and content modules readable.
 - The project grid uses reusable cards and filters. Native modal dialogs support keyboard focus containment, Escape to close, background inertness, scroll locking, and focus restoration.
 - Original SVGs represent project concepts, **not screenshots** of completed systems. Labels make that distinction visible. Replace them with approved screenshots later, updating alt text and illustration labels together.
@@ -200,7 +201,7 @@ The **QA Evidence** navigation item opens the section between Projects and Skill
 
 **Provenance:** the seven original cards still use owner-supplied work summaries, with their original results and limitations unchanged. The owner subsequently supplied local BrowserStack and Allure PDFs; their text and relevant result screenshots were reviewed to populate those two cards. BrowserStack records three passing desktop web-form executions; Allure records three passing negative-login checks and includes retry history. These are documented results, not independently rerun tests or proof of whole-site compatibility or security. The nine Google Drive URLs remain exactly as supplied; the linked Drive files were not opened or verified.
 
-See **`docs/qa-evidence-review.md`** for the source/provenance record and data schema. **`src/data/qaReports.js`** retains all nine original records as migration input; the section now retrieves approved records from MySQL through the API. Only BrowserStack and Allure have **`sourceReviewed: true`**; the other seven remain **`false`**. All nine retain their exact owner-supplied **`reportUrl`** and **`publicReportApproved: true`**. Native **View Details** disclosures and safe new-tab **View Report** links use the existing reusable card. Authorised external links do not imply source review. The current API exposes approved public HTTPS report URLs and withholds local/private paths. No source PDF has been copied into the public assets, authored, or redacted.
+See **`docs/qa-evidence-review.md`** for the source/provenance record and data schema. **`src/data/qaReports.js`** is the frontend source of all nine approved records, rendered directly without an API request. Only BrowserStack and Allure have **`sourceReviewed: true`**; the other seven remain **`false`**. All nine retain their exact owner-supplied **`reportUrl`** and **`publicReportApproved: true`**. Native **View Details** disclosures and safe new-tab **View Report** links use the existing reusable card. Authorised external links do not imply source review. No source PDF has been copied into the public assets, authored, or redacted.
 
 Keep original reports in **`reports-source/`**, which is ignored by Git and formatting/linting and blocked by the Vite development file server. PDF review intermediates belong under **`tmp/pdfs/`**, also ignored and blocked. Neither folder is imported into the frontend. Restart the dev server or rebuild after adding/removing an approved public PDF; do not remove one from an already built `dist/` without rebuilding.
 
@@ -219,7 +220,7 @@ The `contentTodos` export in **`src/data/portfolio.js`** records unpublished ite
 
 ## QA Evidence carousel and navigation audit
 
-The QA Evidence section uses **`src/components/ui/QaEvidenceCarousel.jsx`** and **`src/hooks/useEvidenceCarousel.js`** with API-loaded records. The nine original records remain in **`src/data/qaReports.js`** as migration provenance. Filters, disclosures, and report URLs are preserved. The separate QA Tools logo marquee is unchanged.
+The QA Evidence section uses **`src/components/ui/QaEvidenceCarousel.jsx`** and **`src/hooks/useEvidenceCarousel.js`** with the nine static approved records from **`src/data/qaReports.js`**. Filters, disclosures, and report URLs are preserved. The separate QA Tools logo marquee is unchanged.
 
 - The row moves at **24px/second** while visible. One keyed card per report is recycled only after it leaves view; there are no duplicate interactive cards. Short filtered selections use ordinary horizontal browsing when there is insufficient overflow for a seamless loop.
 - Hover pauses temporarily. Focusing, dragging, using arrows, or opening details pauses for reading; choose **Resume scrolling** when ready. Close expanded details before resuming. Reduced motion disables automatic movement while retaining native scrolling and arrows.
