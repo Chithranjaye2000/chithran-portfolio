@@ -1,5 +1,7 @@
 # Aiven-only Contact submissions and Gmail notifications
 
+**Deployment update:** the newer [single-project Vercel Services guide](vercel-services-deployment.md) supersedes this document's separate-backend-project deployment option for the current requested architecture. Contact behavior and SMTP/database variables below are unchanged. Projects/QA remain local and block full production promotion until an approved reachable data source is available. No project settings or deployments were changed.
+
 This feature sends **new Contact submissions to Aiven only**, including submissions made through the local development site. It does not migrate historical messages, Projects, or QA Evidence. The local API/catalogue configuration and records remain intact. No dependency, visual design, CSS, theme, animation, or layout change was needed.
 
 ## Connection and save behavior

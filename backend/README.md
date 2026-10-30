@@ -4,6 +4,8 @@ A separate Node.js/Express API and MySQL database for the existing React/Vite po
 
 **Current Contact behavior:** new submissions use a separate verified-SSL Aiven pool; Projects/QA and historical messages retain their existing local database configuration. See [Contact production setup](../docs/contact-production-setup.md) for the Contact-only schema, Gmail App Password setup, isolated `.env.smtp`, production `CONTACT_DB_*` settings, and Vercel deployment checklist. No historical data or catalogue records are migrated by this feature.
 
+For the requested **single existing Vercel project**, use the newer [Services deployment guide](../docs/vercel-services-deployment.md). Root `vercel.json` explicitly targets `backend/src/app.js`; `server.js` remains the local listener only. Exact trusted Vercel deployment/branch origins are allowed alongside the configured production origin. The local catalogue hosting blocker is intentionally preserved; no cloud settings or data sources were changed.
+
 Implemented: health, Contact submission, read-only Projects and QA Evidence endpoints, input validation, contact rate limiting, configurable SMTP notifications, safe error responses, and content migration commands. There are no project/evidence write endpoints or admin dashboard. This implementation stops after Phase 05; nothing here commits, pushes, or deploys the project.
 
 ## Requirements

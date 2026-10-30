@@ -1,5 +1,6 @@
 import { loadEnvFile } from 'node:process'
 import { fileURLToPath } from 'node:url'
+import { isIP } from 'node:net'
 import { readDatabaseSslConfig } from './databaseSsl.js'
 
 // Resolve against this module, so starting from the repository root cannot load frontend env files.
@@ -23,6 +24,27 @@ function portNumber(value, name, fallback) {
   return Number(text)
 }
 
+function vercelOrigins(environment, frontendOrigin) {
+  if (environment.VERCEL !== '1') return []
+  const origins = new Set()
+  for (const name of ['VERCEL_URL', 'VERCEL_BRANCH_URL']) {
+    const host = environment[name]
+    if (host === undefined) continue
+    if (
+      typeof host !== 'string' ||
+      !host ||
+      host.length > 253 ||
+      isIP(host) ||
+      !host.split('.').every((label) => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i.test(label))
+    ) {
+      throw new Error(`Invalid backend setting: ${name}.`)
+    }
+    const origin = `https://${host.toLowerCase()}`
+    if (origin !== frontendOrigin) origins.add(origin)
+  }
+  return [...origins]
+}
+
 export function readApiConfig(environment = process.env) {
   const frontendOrigin = environment.FRONTEND_ORIGIN ?? 'http://127.0.0.1:5173'
   let origin
@@ -43,9 +65,11 @@ export function readApiConfig(environment = process.env) {
     throw new Error('FRONTEND_ORIGIN must be a single HTTP or HTTPS origin.')
   }
 
+  const additionalOrigins = vercelOrigins(environment, origin)
   return {
     port: portNumber(environment.PORT, 'PORT', 3001),
     frontendOrigin: origin,
+    ...(additionalOrigins.length ? { additionalOrigins } : {}),
   }
 }
 

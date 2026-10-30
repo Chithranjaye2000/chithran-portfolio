@@ -34,6 +34,7 @@ export default defineConfig({
         '.npmrc',
         '.yarnrc.yml',
         '**/.git/**',
+        '**/.vercel/**',
         '**/backend/**',
         '**/reports-source/**',
         '**/tmp/pdfs/**',

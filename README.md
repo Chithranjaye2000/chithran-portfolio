@@ -6,6 +6,8 @@ See [Phases 03–05 implementation and verification](docs/backend-phases-03-05.m
 
 New Contact submissions now use a separate Aiven SSL connection and Gmail notification configuration. Existing Projects, QA Evidence, and the historical local message are not migrated. See [Contact production setup](docs/contact-production-setup.md) for private SMTP settings, the Contact-only API base, verification, and the remaining deployment steps. The existing visual design is preserved.
 
+Single-project Vercel Services is now prepared in [the deployment guide](docs/vercel-services-deployment.md). The supplied root `vercel.json` has been verified and refined, with an explicit Express handler entry and same-origin API routing. **Production promotion remains blocked by the unchanged local Projects/QA database source.** No deployment or project-setting change has been made.
+
 ## Run locally on Windows
 
 Requires Node.js **20.19+ or 22.12+** (Node 22.15 is available in this workspace). In PowerShell:
