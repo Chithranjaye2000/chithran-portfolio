@@ -5,7 +5,15 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'artifacts', '.npm-cache', 'reports-source', 'tmp/pdfs']),
+  globalIgnores([
+    'dist',
+    '.vercel',
+    '**/.vercel/**',
+    'artifacts',
+    '.npm-cache',
+    'reports-source',
+    'tmp/pdfs',
+  ]),
   {
     files: ['**/*.{js,jsx}'],
     ignores: ['backend/**'],
