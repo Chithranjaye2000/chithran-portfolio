@@ -1,68 +1,102 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { getDragDistance, getLoopShift, rotateItems } from '../src/utils/carousel.js'
+import { getCoverflowOffset, getSwipeDirection, wrapIndex } from '../src/utils/carousel.js'
 
-test('rotation preserves every item and rotates in either direction without mutating input', () => {
-  const items = Object.freeze([{ id: 'a' }, { id: 'b' }, { id: 'c' }, { id: 'd' }])
-
-  assert.deepEqual(rotateItems(items, 1), [items[1], items[2], items[3], items[0]])
-  assert.deepEqual(rotateItems(items, -1), [items[3], items[0], items[1], items[2]])
-  assert.deepEqual(rotateItems(items, 6), [items[2], items[3], items[0], items[1]])
-  assert.deepEqual(rotateItems(items, -6), [items[2], items[3], items[0], items[1]])
-  assert.deepEqual(
-    items.map((item) => item.id),
-    ['a', 'b', 'c', 'd'],
-  )
+test('coverflow index navigation wraps in either direction without changing the collection', () => {
+  const items = Object.freeze(['first', 'second', 'third', 'fourth'])
+  assert.equal(items[wrapIndex(4, items.length)], 'first')
+  assert.equal(items[wrapIndex(-1, items.length)], 'fourth')
+  assert.equal(wrapIndex(9, items.length), 1)
+  assert.equal(wrapIndex(-10, items.length), 2)
+  assert.deepEqual(items, ['first', 'second', 'third', 'fourth'])
 })
 
-test('empty, single-item, and whole-cycle rotations always return a fresh array', () => {
-  for (const items of [[], ['only'], ['a', 'b', 'c']]) {
-    for (const steps of [0, items.length, -items.length, items.length * 3]) {
-      const rotated = rotateItems(items, steps)
-      assert.deepEqual(rotated, items)
-      assert.notEqual(rotated, items)
-    }
+test('empty, single-item, and invalid navigation values resolve safely', () => {
+  for (const index of [0, -1, 1, 10]) {
+    assert.equal(wrapIndex(index, 0), 0)
+    assert.equal(wrapIndex(index, 1), 0)
+  }
+  for (const index of [NaN, Infinity, -Infinity, 0.5, undefined, '1']) {
+    assert.equal(wrapIndex(index, 9), 0)
+  }
+  for (const count of [NaN, Infinity, -2, 0.5, undefined, '9']) {
+    assert.equal(wrapIndex(3, count), 0)
   }
 })
 
-test('loop recycling waits until a complete slide stride has left the viewport', () => {
-  const stride = 320
-  const count = 7
-  const viewport = 900
-
-  assert.equal(getLoopShift(-20, stride, count, viewport), 0)
-  assert.equal(getLoopShift(0, stride, count, viewport), 0)
-  assert.equal(getLoopShift(319.99, stride, count, viewport), 0)
-  assert.equal(getLoopShift(320, stride, count, viewport), 1)
-  assert.equal(getLoopShift(639.99, stride, count, viewport), 1)
-  assert.equal(getLoopShift(640, stride, count, viewport), 2)
-  assert.equal(getLoopShift(1000, stride, count, viewport), 3)
+test('all nine coverflow cards receive shortest signed offsets around the center', () => {
+  assert.deepEqual(
+    Array.from({ length: 9 }, (_, index) => getCoverflowOffset(index, 0, 9)),
+    [0, 1, 2, 3, 4, -4, -3, -2, -1],
+  )
+  for (let active = 0; active < 9; active += 1) {
+    assert.equal(getCoverflowOffset(active, active, 9), 0)
+    assert.equal(getCoverflowOffset(active + 1, active, 9), 1)
+    assert.equal(getCoverflowOffset(active - 1, active, 9), -1)
+    const positions = Array.from({ length: 9 }, (_, index) => getCoverflowOffset(index, active, 9))
+    assert.equal(new Set(positions).size, 9)
+    assert.ok(positions.every((position) => Math.abs(position) <= 4))
+  }
 })
 
-test('loop recycling requires enough overflow to replace one complete slide', () => {
-  assert.equal(getLoopShift(320, 320, 2, 640), 0)
-  assert.equal(getLoopShift(320, 320, 2, 321), 0)
-  assert.equal(getLoopShift(320, 320, 2, 320), 1)
-  assert.equal(getLoopShift(320, 320, 7, 1920.01), 0)
-  assert.equal(getLoopShift(320, 320, 7, 1920), 1)
-  assert.equal(getLoopShift(320, 320, 1, 100), 0)
-  assert.equal(getLoopShift(320, 320, 0, 100), 0)
-  assert.equal(getLoopShift(320, 0, 7, 900), 0)
+test('filtered one- and two-card sets keep deterministic coverflow positions', () => {
+  assert.equal(getCoverflowOffset(0, 0, 1), 0)
+  assert.equal(getCoverflowOffset(1, 0, 2), 1)
+  assert.equal(getCoverflowOffset(0, 1, 2), 1)
+  assert.deepEqual(
+    Array.from({ length: 4 }, (_, index) => getCoverflowOffset(index, 0, 4)),
+    [0, 1, 2, -1],
+  )
 })
 
-test('drag detection ignores small movement and leaves vertical gestures untouched', () => {
-  assert.equal(getDragDistance(50, 100, 50, 100), 0)
-  assert.equal(getDragDistance(50, 100, 55.99, 100), 0)
-  assert.equal(getDragDistance(50, 100, 44.01, 100), 0)
-  assert.equal(getDragDistance(50, 100, 56, 106), 0)
-  assert.equal(getDragDistance(50, 100, 44, 94), 0)
-  assert.equal(getDragDistance(50, 100, 70, 121), 0)
-  assert.equal(getDragDistance(50, 100, 30, 79), 0)
+test('coverflow offset calculations normalize wrapped indices and reject invalid input', () => {
+  assert.equal(getCoverflowOffset(9, 8, 9), 1)
+  assert.equal(getCoverflowOffset(-1, 0, 9), -1)
+  assert.equal(getCoverflowOffset(8, 18, 9), -1)
+  for (const values of [
+    [0, 0, 0],
+    [0, 0, -1],
+    [NaN, 0, 9],
+    [0, Infinity, 9],
+    [0, 0, 1.5],
+    ['1', 0, 9],
+  ]) {
+    assert.equal(getCoverflowOffset(...values), 0)
+  }
 })
 
-test('horizontal drag detection includes the six-pixel threshold and preserves direction', () => {
-  assert.equal(getDragDistance(50, 100, 56, 100), 6)
-  assert.equal(getDragDistance(50, 100, 44, 100), -6)
-  assert.equal(getDragDistance(50, 100, 70, 119), 20)
-  assert.equal(getDragDistance(50, 100, 30, 81), -20)
+test('left and right swipes choose one neighboring card at the threshold', () => {
+  assert.equal(getSwipeDirection(100, 100, 60, 100), 1)
+  assert.equal(getSwipeDirection(100, 100, 140, 100), -1)
+  assert.equal(getSwipeDirection(100, 100, 20, 130), 1)
+  assert.equal(getSwipeDirection(100, 100, 180, 70), -1)
+  assert.equal(getSwipeDirection(100, 100, 50, 100, 50), 1)
+})
+
+test('short, vertical, and diagonal gestures leave page scrolling and card selection alone', () => {
+  for (const [x, y] of [
+    [100, 100],
+    [60.01, 100],
+    [139.99, 100],
+    [100, 20],
+    [140, 140],
+    [148, 140],
+    [52, 60],
+    [160, 160],
+  ]) {
+    assert.equal(getSwipeDirection(100, 100, x, y), 0)
+  }
+})
+
+test('invalid gesture coordinates and thresholds cannot trigger navigation', () => {
+  for (const invalid of [NaN, Infinity, undefined, '100']) {
+    assert.equal(getSwipeDirection(invalid, 100, 0, 100), 0)
+    assert.equal(getSwipeDirection(100, invalid, 0, 100), 0)
+    assert.equal(getSwipeDirection(100, 100, invalid, 100), 0)
+    assert.equal(getSwipeDirection(100, 100, 0, invalid), 0)
+    if (invalid !== undefined) assert.equal(getSwipeDirection(100, 100, 0, 100, invalid), 0)
+  }
+  assert.equal(getSwipeDirection(100, 100, 0, 100, undefined), 1)
+  assert.equal(getSwipeDirection(100, 100, 0, 100, 0), 0)
+  assert.equal(getSwipeDirection(100, 100, 0, 100, -1), 0)
 })

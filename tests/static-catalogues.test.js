@@ -99,7 +99,7 @@ test('all nine approved static QA entries retain complete details, report links,
   assert.equal(qaMarkup.includes('could not be loaded'), false)
 })
 
-test('static sections retain category filters and the existing carousel controls', () => {
+test('static sections retain category filters and accessible coverflow controls', () => {
   for (const category of ['All projects', 'Research & IoT', 'Web & mobile']) {
     assert.ok(projectMarkup.includes(escapeHtml(category)))
   }
@@ -109,11 +109,43 @@ test('static sections retain category filters and the existing carousel controls
     assert.ok(qaMarkup.includes(escapeHtml(category.label)))
     assert.ok(qaReports.some((report) => report.category === category.id))
   }
-  for (const label of ['Previous QA report', 'Next QA report', 'Scrollable QA reports']) {
+  for (const label of [
+    'Previous QA report',
+    'Next QA report',
+    'QA evidence coverflow',
+    'Resume autoplay',
+  ]) {
     assert.ok(qaMarkup.includes(label))
   }
-  assert.ok(qaMarkup.includes('qa-carousel-viewport'))
-  assert.ok(qaMarkup.includes('Drag or swipe to explore'))
+  assert.ok(qaMarkup.includes('qa-coverflow-stage'))
+  assert.equal(qaMarkup.includes('qa-carousel-viewport'), false)
+  assert.equal(qaMarkup.includes('Drag or swipe to explore'), false)
+  assert.equal(qaMarkup.includes('Pause scrolling'), false)
+  assert.equal(qaMarkup.includes('Resume scrolling'), false)
+})
+
+test('coverflow renders each report once and keeps inactive report controls out of keyboard focus', () => {
+  const slides = qaMarkup.match(/<li class="qa-coverflow-slide"[^>]*>/g) ?? []
+  const cards = qaMarkup.match(/<div class="qa-coverflow-card"[^>]*>/g) ?? []
+  const selections =
+    qaMarkup.match(/<button[^>]*class="qa-coverflow-select"[^>]*>[\s\S]*?<\/button>/g) ?? []
+
+  assert.equal(slides.length, qaReports.length)
+  assert.equal(slides.filter((slide) => slide.includes('data-active="true"')).length, 1)
+  assert.equal(cards.length, qaReports.length)
+  assert.equal(cards.filter((card) => card.includes('inert=""')).length, qaReports.length - 1)
+  assert.equal(
+    cards.filter((card) => card.includes('aria-hidden="true"')).length,
+    qaReports.length - 1,
+  )
+  assert.equal(selections.length, 4)
+  for (const selection of selections) {
+    assert.match(selection, /aria-label="Show [^"]+"/)
+    assert.match(selection, /tabindex="-1"/)
+    assert.doesNotMatch(selection.slice(selection.indexOf('>') + 1), /<(?:a|button|details)\b/)
+  }
+  assert.match(qaMarkup, /id="qa-results" tabindex="0"/)
+  assert.match(qaMarkup, /aria-describedby="qa-coverflow-help"/)
 })
 
 test('Projects and QA Evidence import static data without API hooks, request paths, or fetch calls', async () => {
