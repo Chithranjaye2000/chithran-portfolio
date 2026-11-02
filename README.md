@@ -1,244 +1,291 @@
-# Chithran Jayathunga — Personal Portfolio
+<div align="center">
 
-A local-first, responsive portfolio for software quality assurance, software development, research, and technical content creation. Built with React, Vite, JavaScript/JSX, plain CSS, and Lucide React. The frontend renders all **4 Projects** directly from `src/data/portfolio.js` and all **9 QA Evidence entries** from `src/data/qaReports.js`. These sections do not request the catalogue APIs or need a database. The separate [backend](backend/README.md) handles Contact submissions and retains its optional read-only catalogue endpoints.
+# Chithran Jayathunga – Personal Portfolio
 
-See [Phases 03–05 implementation and verification](docs/backend-phases-03-05.md) for the historical API implementation record. The current static frontend data-source choice supersedes that document's Projects/QA frontend integration. Start the backend alongside Vite only when testing Contact or the optional catalogue APIs.
+### Software Quality Assurance | Test Automation | Software Development
 
-New Contact submissions now use a separate Aiven SSL connection and Gmail notification configuration. Existing Projects, QA Evidence, and the historical local message are not migrated. See [Contact production setup](docs/contact-production-setup.md) for private SMTP settings, the Contact-only API base, verification, and the remaining deployment steps. The existing visual design is preserved.
+A modern, responsive personal portfolio showcasing my professional journey, software development projects, QA engineering experience, research work, certifications, and technical content creation.
 
-Single-project Vercel Services configuration and Preview checks are documented in [the deployment guide](docs/vercel-services-deployment.md). Projects/QA no longer depend on the laptop database in the browser. The reported Preview Contact routing failure still needs its actual request/deployment trace; successful local route tests do not verify the protected hosted deployment. No commit, push, deployment, or project-setting change is authorized by this update.
+<br/>
 
-## Run locally on Windows
+<a href="https://chithran-portfolio.vercel.app/">
+  <img src="https://img.shields.io/badge/Live%20Portfolio-Visit%20Website-06B6D4?style=for-the-badge&logo=vercel&logoColor=white"/>
+</a>
+<a href="https://github.com/Chithranjaye2000">
+  <img src="https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github&logoColor=white"/>
+</a>
+<a href="https://www.linkedin.com/in/chithran-jayathunga/">
+  <img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
+</a>
 
-Requires Node.js **20.19+ or 22.12+** (Node 22.15 is available in this workspace). In PowerShell:
+</div>
 
-```powershell
-Set-Location -LiteralPath 'D:\SLT QA\My_Portfolio'
+---
+
+## 📌 Project Overview
+
+This portfolio is designed to present my skills and practical experience in Software Quality Assurance, Test Automation, Software Development, IoT Research, and Technical Content Creation.
+
+The application uses a modern single-page design with responsive layouts, interactive components, smooth animations, and a customizable theme.
+
+It provides a central place to explore my projects, QA testing evidence, technical skills, certifications, and professional background.
+
+## ✨ Key Features
+
+### 👨‍💻 Professional Profile
+
+* Personal introduction and professional background.
+* Education and internship experience.
+* Downloadable CV.
+* Social media and professional contact links.
+
+### 🧪 QA Engineering Showcase
+
+* QA Tools and Technologies showcase.
+* Automated testing tools and frameworks.
+* QA Reports and Testing Evidence.
+* Interactive testing report cards.
+* Testing categories and detailed test case information.
+
+### 🚀 Projects Showcase
+
+* Software development projects.
+* IoT and research projects.
+* Project descriptions and technology information.
+* Interactive project cards.
+
+### 🎬 Technical Content Creation
+
+* Video portfolio containing 12 projects.
+* Four content categories.
+* Google Drive portfolio integration.
+* Featured video collection.
+
+### 🎓 Certifications
+
+* Nine learning and certification records.
+* Certificate image previews.
+* Interactive certificate viewing.
+
+### 🌙 Modern User Interface
+
+* Glassmorphism design.
+* Dark and Light themes.
+* Responsive navigation.
+* Smooth scrolling and subtle animations.
+* Interactive UI components.
+* Accessibility and reduced-motion support.
+
+### 🤖 AI Literacy
+
+* AI-related competencies.
+* Planned AI mini-projects.
+* Future learning and development goals.
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend
+
+<p>
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
+<img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white"/>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
+<img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
+</p>
+
+### Backend
+
+<p>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"/>
+<img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white"/>
+</p>
+
+### Database & Services
+
+<p>
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
+<img src="https://img.shields.io/badge/Aiven-FF4F8B?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white"/>
+</p>
+
+### Development Tools
+
+<p>
+<img src="https://img.shields.io/badge/Git- F05032?style=for-the-badge&logo=git&logoColor=white"/>
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"/>
+<img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black"/>
+</p>
+
+---
+
+## 📂 Project Structure
+
+```text
+chithran-portfolio/
+│
+├── public/
+│   ├── documents/
+│   └── images/
+│       ├── profile/
+│       ├── projects/
+│       ├── certifications/
+│       ├── videos/
+│       └── tools/
+│
+├── src/
+│   ├── components/
+│   │   ├── layout/
+│   │   ├── sections/
+│   │   └── ui/
+│   │
+│   ├── data/
+│   │   ├── siteConfig.js
+│   │   ├── portfolio.js
+│   │   ├── qaReports.js
+│   │   ├── qaTools.js
+│   │   ├── certifications.js
+│   │   ├── videoProjects.js
+│   │   └── aiLiteracy.js
+│   │
+│   ├── hooks/
+│   ├── styles/
+│   ├── utils/
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── backend/
+│
+├── docs/
+│
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### Prerequisites
+
+* Node.js 20.19+ or 22.12+
+* npm
+* Git
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Chithranjaye2000/chithran-portfolio.git
+```
+
+### 2. Navigate to the Project
+
+```bash
+cd chithran-portfolio
+```
+
+### 3. Install Dependencies
+
+```bash
 npm install
+```
+
+For a clean installation using the committed lockfile:
+
+```bash
+npm ci
+```
+
+### 4. Start Development Server
+
+```bash
 npm run dev
 ```
 
-Open **http://127.0.0.1:5173/**, matching the backend's default `FRONTEND_ORIGIN`. Keep the terminal open; press **Ctrl+C** to stop. The server binds only to your computer. Port 5173 is strict: if it is already in use, stop the other server or use `npm run dev -- --port 5174`, update `FRONTEND_ORIGIN` to the exact new browser origin, and restart the backend.
-
-Start the API separately using [backend/README.md](backend/README.md) to test Contact. Its Aiven and Gmail settings remain private in the existing ignored configuration files. No database initialization or migration is needed to display Projects/QA. Messages are still saved if notification delivery is unavailable. Database and SMTP credentials belong only in backend configuration, never in `VITE_*` values.
-
-### npm launcher workaround on this computer
-
-The default npm launcher was observed pointing to a missing roaming `npm-cli.js`. If you see `Cannot find module ...AppData\Roaming\npm...`, use the installed CLI directly:
-
-```powershell
-Set-Location -LiteralPath 'D:\SLT QA\My_Portfolio'
-$portfolioNpmCli = 'C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js'
-node $portfolioNpmCli install
-node $portfolioNpmCli run dev
-```
-
-This avoids changing your global Node/npm installation. The same workaround works for every npm command below.
-
-## Checks and production preview
-
-```powershell
-npm run lint
-npm run test
-npm run format:check
-npm run build
-npm run preview
-```
-
-Open **http://127.0.0.1:4173/** for the built version; Projects/QA render without a backend. To test Contact against the local backend, build with `VITE_CONTACT_API_BASE_URL=http://127.0.0.1:3001` in the optional root `.env`, set the backend's `FRONTEND_ORIGIN=http://127.0.0.1:4173`, and restart the backend. Without an explicit API base, production Contact uses same-origin `/api/contact`; the Vite preview server does not provide that endpoint. Restore the development origin before returning to port 5173. `npm run format` formats the project. Use `npm ci` instead of `npm install` for a clean installation matching the committed lockfile.
-
-## Your manual assets
-
-### Professional photo
-
-Your supplied photo is **`public/images/profile/Photo.jpg`** and is connected in **`src/data/siteConfig.js`**:
-
-```js
-profileImagePath: '/images/profile/Photo.jpg',
-profileImageIsPlaceholder: false,
-```
-
-Replace that file to update the portrait, or change `profileImagePath` when using a different filename. Use an optimized portrait, ideally 800–1200 pixels wide. The existing responsive frame crops the photo with `object-fit: cover` and `object-position: center 30%`; adjust `.portrait-image` in `src/styles/index.css` if needed.
-
-If the photo fails to load, the original `public/images/profile/profile-placeholder.svg` monogram appears with a placeholder caption and alt text. The loaded photo has the accessible alt text “Chithran Jayathunga”.
-
-### Actual CV PDF
-
-Your supplied PDF is **`public/documents/Chithran-CV.pdf`**. The existing `cvPath` configuration connects the **Download CV** link. Restart `npm run dev` (or rebuild with `npm run build`) after replacing, adding, or removing it.
-
-The default `cvPath` in **`src/data/siteConfig.js`** already points to `/documents/Chithran-CV.pdf`. Vite checks for a real PDF header at startup/build. An absent or invalid file shows the non-interactive text “CV coming soon”; it never generates a broken download button. Restart/rebuild after removing the CV as well. Do not remove a CV from an already built `dist/` without rebuilding. PDFs and everything else inside `public/` are public assets.
-
-### Google Drive video portfolio
-
-Your supplied Google Drive folder URL is stored once in **`googleDrivePortfolioUrl`** in **`src/data/siteConfig.js`**. Every video card and the featured **Watch Videos on Google Drive** action reads this field through **`src/data/videoProjects.js`**. Each opens the same shared collection in a new tab with `rel="noopener noreferrer"`; these links do not play an individual video. Update the config field to change the destination; set it to `null` to show an unavailable-link message.
-
-Configure Drive sharing permissions separately and test the link in a signed-out/private browser window. Adding a URL here does not make private files accessible.
-
-### Video thumbnails and project data
-
-The 12 video projects, four categories, descriptions, thumbnail paths, and featured selection live in **`src/data/videoProjects.js`**. The Content section reuses the existing scroll-reveal hook, external-link safety, and filter styling. Category filters include the featured entry only when it belongs to the selected category.
-
-No video thumbnail folder or images were present at implementation time. **`public/images/videos/`** is now prepared for your actual files. Preserve the original filenames and match each image using its filename and visible content. Set the matching project's **`thumbnailPath`** to **`/images/videos/<exact original filename>`**, including the extension and case. URL-encode reserved characters (for example, `#` becomes `%23`). Leave uncertain matches as **`null`** for review. No filenames or images are invented.
-
-The featured entry is **Digital Platform Division Video**, using its owner-mapped original thumbnail. Set **`featured: true`** on exactly one project to change it. Images use a 16:9 display crop with `object-fit: cover`; source files are never modified. Missing or unreadable thumbnails show a labeled text-only state. Refresh the local browser after editing the data file; rebuild before distributing a production build.
-
-Check all five filters at desktop, tablet, and mobile widths. Expected counts are **12 / 1 / 3 / 3 / 5** in filter order. Each video appears once; **All Videos** restores the featured entry and the full grid. Tab through the filter buttons and Drive actions to check focus visibility. No player or individual-video URL is configured.
-
-### Verify the connected assets locally
-
-1. Open **http://127.0.0.1:5173/** and refresh. Confirm your photo appears in the hero without the “coming soon” caption. Narrow the window to check the crop on mobile.
-2. Click **Download CV** beneath the hero buttons. Open the downloaded PDF and confirm it is your CV. You can also open `/documents/Chithran-CV.pdf` directly on the local site.
-3. Scroll to **Content** and click **Watch Videos on Google Drive** or a card's **View in Google Drive** action. Confirm a new tab opens the shared Drive folder. Verify access in a private/signed-out window before any eventual public release.
-
-### Certificate images
-
-All nine learning records are in **`src/data/certifications.js`**. The six original certificate images are installed in **`public/images/certifications/`**, using the exact mapping below. The supplied files under their original names were preserved; the clean copies have identical SHA-256 hashes, with no cropping or image modification.
-
-| Original file                                                               | Destination filename                               |
-| --------------------------------------------------------------------------- | -------------------------------------------------- |
-| `Agile_Project_Management_E-Certificate conv 1.png`                         | `agile-project-management.png`                     |
-| `Generative AI for Everyone_page-0001.jpg`                                  | `generative-ai-for-everyone.jpg`                   |
-| `Introduction_to_Software_Quality_Assurance_E-Certificate conv 1.png`       | `software-quality-assurance.png`                   |
-| `Power BI for Beginners_page-0001.jpg`                                      | `power-bi-for-beginners.jpg`                       |
-| `Project_Communication_and_Stakeholder_Management_E-Certificate conv 1.png` | `project-communication-stakeholder-management.png` |
-| `Prompt Engineering_page-0001.jpg`                                          | `prompt-engineering-github-copilot.jpg`            |
-
-Keep the actual original files; renaming does not crop or modify image contents. Restart `npm run dev` after copying or removing images, or run `npm run build` for production. Vite checks the configured paths at startup/build; missing images show an honest status instead of broken thumbnails. Existing images can be replaced at the same path, then refresh the browser.
-
-The first six cards use a consistent landscape preview with `object-fit: contain`. Clicking an available image or **View certificate** opens the full uncropped image in an accessible native dialog. **Open original image** allows browser zoom in a new tab. If an image fails to load, the card and dialog retain readable title, issuer, and date details. The three LinkedIn Learning entries are intentionally text-based records from the CV.
-
-Exact Simplilearn dates were read from the supplied images: Generative AI for Everyone on 11 December 2025, Power BI on 9 December 2025, and Prompt Engineering on 10 December 2025. The other six entries retain CV-supported month-level dates. No certificate IDs, unsupported dates, or individual verification URLs are invented. University of Moratuwa entries use the **general** portal configured as `certificateVerificationUrl` in `siteConfig.js`. Simplilearn SkillUp records are course-completion acknowledgements and are not represented as official Microsoft certifications.
-
-To verify: open **http://127.0.0.1:5173/#certifications**, inspect all nine cards, and test the dialog using the keyboard, Tab/Shift+Tab, Escape, and the close button. After copying images and restarting, confirm all six thumbnails and full-size images load. Narrow the window to inspect the 1/2/3-column responsive grid.
-
-### Phone visibility
-
-Set **`showPhone: false`** in `src/data/siteConfig.js` to hide the phone from the contact section. To remove it from the public JavaScript bundle entirely, also clear `phone` and `phoneHref` before building. Email, social links, image path, CV path, and the Drive URL all live in this same central file.
-
-## Content and architecture
+Open:
 
 ```text
-public/
-  favicon.svg
-  documents/                 # Add the actual CV here
-  images/profile/            # Photo.jpg + original fallback placeholder
-  images/projects/           # Original conceptual SVG illustrations
-  images/certifications/     # Six original certificate images (see mapping above)
-src/
-  components/layout/         # Header and footer
-  components/sections/       # One component per portfolio section
-  components/ui/             # Shared link, social, and section-heading components
-  data/siteConfig.js         # Personal information, links, asset paths, visibility
-  data/portfolio.js          # Static projects, skills, education, TODOs
-  data/qaReports.js          # Nine static approved QA Evidence entries and filters
-  data/aiLiteracy.js         # AI competencies, planned mini-projects, future links
-  data/certifications.js     # Nine certification records and issuer notes
-  styles/index.css           # Tokens, component styles, responsive rules
-  App.jsx
-  main.jsx
+http://127.0.0.1:5173/
 ```
 
-- A single page fits recruiter review without a client router. Projects/QA use their existing static frontend modules; the separate Express backend handles Contact and retains optional public catalogue reads.
-- Dependencies are pinned and a lockfile records transitive versions. React and React DOM match; Vite and its React plugin support the installed Node version. ESLint 9 uses a flat config with React Hooks and refresh rules. Prettier keeps JSX and content modules readable.
-- The project grid uses reusable cards and filters. Native modal dialogs support keyboard focus containment, Escape to close, background inertness, scroll locking, and focus restoration.
-- Original SVGs represent project concepts, **not screenshots** of completed systems. Labels make that distinction visible. Replace them with approved screenshots later, updating alt text and illustration labels together.
-- Contact details retain real `mailto:`, `tel:`, and social links. The separate contact form confirms success only after the API confirms a saved message.
-- Fonts have system fallbacks. Motion is subtle and disabled for reduced-motion preferences. The layout includes a skip link, semantic headings, keyboard focus indicators, and responsive navigation.
-- Open Graph metadata is included without a fictional production URL. After local approval and a real deployment, add the verified canonical URL, `og:url`, and an absolute approved social image URL to `index.html`.
+The frontend Projects and QA Evidence sections use static data and do not require a running backend.
 
-## Glass surfaces and QA tools marquee
+### 5. Backend Configuration
 
-The **QA Tools & Technologies** section is immediately after the Hero and before About, at **`#qa-tools`**. Its 14 labels and local logo paths live in **`src/data/qaTools.js`**; **`QaTools.jsx`** renders two rows in opposite directions using CSS transforms. The second copy of each row is hidden from assistive technology. Fixed tile/image dimensions and equal-width copies keep the loop continuous without image-loading shifts.
+The separate Express backend handles Contact submissions and optional catalogue endpoints.
 
-Hover over the rows to pause temporarily. The keyboard-accessible **Pause & show all** button stops motion and displays all 14 tools in a static grid; **Resume motion** restores the loop. Reduced-motion preferences automatically select the static layout. One Intersection Observer stops the tracks offscreen, and the existing page-visibility flag pauses them in a background tab. Missing logos show the tool name rather than a broken image or substitute icon.
+Refer to:
 
-Original logo files are in **`public/images/tools/`**; the site loads them locally with no runtime logo-CDN requests. See **[`docs/tool-logo-sources.md`](docs/tool-logo-sources.md)** for exact official/Devicon sources and attribution. GitHub Actions is the owner-confirmed provider represented by **CI/CD Pipelines**. Update the corresponding data entry when changing a tool or asset, preserving the source/license notes.
+`backend/README.md`
 
-**`src/styles/theme.css`** defines the shared **`--glass-*`** tokens for Light and Dark. **`src/styles/glass.css`** is loaded after existing styles and changes surface treatments, keeping layout and motion rules intact. Glass cards use restrained blur, translucent fills, borders, and shadows; dark internship/contact surfaces retain their readable text. Mobile removes card blur in favor of denser fills, with limited blur on navigation/dialogs. Unsupported backdrop filters, reduced transparency, and forced colors have solid fallbacks. Moving logo tiles use translucent fills without expensive moving backdrop blur.
+Configure the required database and Gmail settings privately using the backend configuration instructions.
 
-Review both themes at narrow and wide widths, pause/resume the marquee, emulate reduced motion and reduced transparency, and open the existing project/certificate dialogs. Keep logo artwork unchanged; new brand assets belong in the same folder with provenance recorded.
+Never expose database passwords, SMTP credentials, or API secrets in frontend environment variables.
 
-## Light and Dark themes
+---
 
-Use the moon/sun button in the header to switch themes. It stays available beside the mobile menu, supports keyboard activation, and announces the action through its accessible name. **Dark is the default for first-time visitors**, regardless of the operating system's color preference. A saved Light or Dark choice takes priority; the original white-and-blue Light palette remains available.
+## 🧪 Testing & Quality Assurance
 
-The selected value is saved under **`portfolio-theme`** in localStorage and restored by the small synchronous **`theme-init`** script in **`index.html`** before styles and React load. The initial HTML theme and browser-chrome color are Dark as well, preventing a Light flash. Missing, invalid, or unavailable storage falls back to Dark; switching still works for the current visit if saving is blocked. Changes are synchronized across tabs on the same origin. Removing the saved key resets the site to Dark. Theme preferences are separate for development and production origins.
+The project includes automated checks for code quality, functionality, formatting, and production builds.
 
-Maintain both palettes in **`src/styles/theme.css`**. Shared styles consume semantic tokens for surfaces, text, borders, actions, gradients, dialogs, and native form controls. Photos, thumbnails, and certificate artwork retain their original colors. **`src/utils/theme.js`**, **`src/hooks/useTheme.js`**, and **`ThemeToggle.jsx`** manage application and persistence. Keep the bootstrap storage key and browser theme colors in sync with the utility; automated tests cover this contract.
+Run the following commands:
 
-Theme changes use a short native View Transition crossfade where supported, without replacing existing motion. Other browsers use the CSS color transitions and normal palette switch. Reduced-motion preferences bypass the crossfade. Test both themes, reload after choosing Dark, open project/certificate dialogs, and check the toggle with Tab and Enter on desktop and mobile. **`npm run test`** runs the existing motion tests and the theme/bootstrap tests.
+| Command                | Purpose                   |
+| ---------------------- | ------------------------- |
+| `npm run lint`         | ESLint code analysis      |
+| `npm run test`         | Run automated tests       |
+| `npm run format:check` | Check code formatting     |
+| `npm run build`        | Generate production build |
+| `npm run preview`      | Preview production build  |
 
-## AI Literacy and planned mini-projects
+Additional QA information is available in the portfolio's QA Evidence section.
 
-The **AI Literacy** navigation link opens **`#ai-literacy`**, after Skills. Content, the seven competencies, and all five mini-project plans live in **`src/data/aiLiteracy.js`**. The section reuses the existing section heading, skill tags, icons, native scroll reveals, and safe external-link component. Every project is explicitly **Planned**; no completed work, results, evidence, or proficiency scores are implied. Planned entries are excluded from the existing portfolio collection counts.
+---
 
-To add a real GitHub or documentation link, find the matching project by **`id`** in **`aiMiniProjects`**, set **`linkUrl`** to the full public **`https://`** URL, and set **`linkLabel`** to **`View on GitHub`** or **`View documentation`**. Leave **`linkUrl: null`** until a real destination exists. Missing or invalid links display non-interactive **Documentation link pending** text; valid links open safely in a new tab. Adding a URL does not automatically change the project's status.
+## 🌐 Deployment
 
-When actual work supports an update, edit that project's **`status`**, **`description`**, and **`skills`**, and update **`aiLiteracy.projectsNote`** to reflect the collection accurately. Never add unverified results or private credentials. Test both the header/mobile-menu and footer links, narrow the window, and emulate reduced motion when reviewing changes.
+The project includes Vercel deployment configuration and deployment documentation.
 
-## Motion and interactions
+**Live Portfolio:**
 
-Motion uses native browser APIs and CSS; no animation dependency was installed. **`src/hooks/usePortfolioMotion.js`** coordinates the whole portfolio, **`src/styles/motion.css`** defines the visual effects, and **`src/utils/motion.js`** holds the tested calculations. See **`docs/motion-upgrade.md`** for the full change list and verification record.
+https://chithran-portfolio.vercel.app/
 
-- The hero has three soft gradient orbs, six ambient light points, a fine grid, and restrained desktop pointer lighting. Ambient animation pauses offscreen and when the document is hidden. Mobile/coarse-pointer layouts use a static background.
-- `data-hero-step` controls line/role entrances over 680 ms, with 65 ms between steps. The original name, roles, description, actions, and portrait remain intact. The accent underline has a single entrance; there is no rotating or typing text.
-- `data-reveal` opts into a one-time 520 ms reveal; section headings use 650 ms. `data-stagger` groups children with bounded 55 ms offsets. Rendered content is visible by default. Native entrance **translate** composes with CSS hover **transform** so the two effects do not override one another.
-- `data-tilt` enables delegated desktop pointer tilt (up to 5 degrees per axis); `data-tilt="quiet"` caps QA/video cards at 3 degrees. It uses one delegated handler and scheduled frame, preserves image zoom, and returns to neutral on exit/focus/resize. Tilt is disabled at widths of 768px and below, on unsuitable pointers, and for reduced motion.
-- Decorative timeline rails track viewport progress through the existing internship, project, education, and certification layouts. They preserve all original entries, ordering, and dates. Their highlighted entry indicates viewport position, not employment status or a new chronological claim.
-- The **In this portfolio** count-ups derive from the existing project, approved QA-summary, certification, and video data arrays. They count once, reserve number space, and expose stable final values to screen readers. They are collection sizes, not success rates or skill levels. Historical report findings are never animated.
-- A thin header reading-progress line uses the same scheduled frame as pointer/counter updates. There is one passive window scroll listener, no per-card scroll listeners, and no idle requestAnimationFrame loop. Active navigation, native hash/history behaviour, offsets, and menu controls remain intact.
-- Reduced motion skips/cancels entrances and count-ups, stops ambient motion, disables tilt, and shows complete static timeline rails. Focus cancels an entrance on the focused content. Closed mobile navigation remains `inert`; Escape, outside clicks, and link selection close it.
+Deployment configuration:
 
-To inspect locally, run **`npm run dev`**, open **http://127.0.0.1:5173/**, and refresh to watch the hero. Move a mouse across project card bodies, scroll through the rails and collection counts, try filters and dialogs, and follow the page to the footer. Narrow the window to test navigation. In Chromium DevTools → Rendering, emulate **prefers-reduced-motion: reduce** and repeat with the keyboard. Project/certificate dialogs retain the shared focus/Escape handling in **`src/hooks/useDialog.js`**.
+`docs/vercel-services-deployment.md`
 
-Run **`npm run test`** for the five dependency-free Node tests covering bounds, tilt, page/timeline progress, and integer counters. The standard production command remains **`npm run build`** with output in **`dist/`**; deployment configuration is unchanged. This upgrade has not been committed, pushed, or deployed.
+---
 
-## Accuracy and editorial backlog
+## 🔮 Future Improvements
 
-### QA Reports & Testing Evidence
+* Expand automated testing coverage.
+* Add more software development projects.
+* Publish additional QA testing evidence.
+* Expand technical content collections.
+* Continue improving accessibility and performance.
+* Develop and publish planned AI mini-projects.
 
-The **QA Evidence** navigation item opens the section between Projects and Skills. It contains a QA-focused introduction, six focus areas, a personal testing-approach workflow, and nine filterable case studies. BrowserStack and Allure Report appear under **Additional Reports** and use the same full card structure as Selenium: description, technology tags, scope, recorded result, limitations, expandable details, and report link. It reuses the existing reveal hook, design tokens, filter buttons, and safe external-link component. The workflow is personal and does not represent an official SLT process.
+---
 
-**Provenance:** the seven original cards still use owner-supplied work summaries, with their original results and limitations unchanged. The owner subsequently supplied local BrowserStack and Allure PDFs; their text and relevant result screenshots were reviewed to populate those two cards. BrowserStack records three passing desktop web-form executions; Allure records three passing negative-login checks and includes retry history. These are documented results, not independently rerun tests or proof of whole-site compatibility or security. The nine Google Drive URLs remain exactly as supplied; the linked Drive files were not opened or verified.
+## 👨‍💻 Author
 
-See **`docs/qa-evidence-review.md`** for the source/provenance record and data schema. **`src/data/qaReports.js`** is the frontend source of all nine approved records, rendered directly without an API request. Only BrowserStack and Allure have **`sourceReviewed: true`**; the other seven remain **`false`**. All nine retain their exact owner-supplied **`reportUrl`** and **`publicReportApproved: true`**. Native **View Details** disclosures and safe new-tab **View Report** links use the existing reusable card. Authorised external links do not imply source review. No source PDF has been copied into the public assets, authored, or redacted.
+**Chithran Jayathunga**
 
-Keep original reports in **`reports-source/`**, which is ignored by Git and formatting/linting and blocked by the Vite development file server. PDF review intermediates belong under **`tmp/pdfs/`**, also ignored and blocked. Neither folder is imported into the frontend. Restart the dev server or rebuild after adding/removing an approved public PDF; do not remove one from an already built `dist/` without rebuilding.
+Software Quality Assurance | Test Automation | Software Development
 
-The broader skills list remains intact and does not imply a completed evidence case study for every tool. Expected QA filter counts are **9 total entries**, **2 Test Automation**, **1** in each of the other five original categories, and **2 Additional Reports**. The existing Skills collection count derives from this data and now counts nine full QA case studies.
+* GitHub: [@Chithranjaye2000](https://github.com/Chithranjaye2000)
+* LinkedIn: [Chithran Jayathunga](https://www.linkedin.com/in/chithran-jayathunga/)
+* Portfolio: [chithran-portfolio.vercel.app](https://chithran-portfolio.vercel.app/)
 
-The SLT internship runs **9 June–9 December 2026**. The status uses the date in Asia/Colombo and is in progress in October 2026. Responsibilities are limited to API testing, test case design, bug reporting, and validation. Do not add confidential internal details, credentials, restricted screenshots, or unapproved workplace artifacts.
+---
 
-Research retains the supplied LoRaWAN project title but explicitly distinguishes implemented point-to-point LoRa from an unverified full LoRaWAN/TTN deployment. Project dates and supplied stacks are in `src/data/portfolio.js`. No fabricated metrics, repository links, demo links, or graduation dates are used.
+<div align="center">
 
-The `contentTodos` export in **`src/data/portfolio.js`** records unpublished items:
+**Built with React, Vite, and a passion for technology.**
 
-- **Certifications:** all nine records are published, six with their actual image files. Exact dates are used where printed on the images; other completion months are supported by the CV. Only the general university verification portal is linked; individual verification links remain absent.
-- **Additional QA case studies:** SDesk incident-transfer testing still needs supporting scope/evidence before a card can be added. The MySLT Playwright workflow is now included as an owner-approved summary; original-source review and permission to publish any report remain separate requirements. Do not infer employment attribution for individual exercises.
-- **Tools:** the complete supplied toolkit has been confirmed as hands-on experience and is grouped in `skillGroups`. No proficiency levels, test counts, or outcomes are claimed. Postman and REST Assured each appear once to avoid duplication.
-- **Repository/demo links:** replace project `repositoryUrl` or `demoUrl` values of `null` only with verified public links. Actions render automatically when provided. Never use dummy URLs.
+⭐ If you find this project interesting, consider giving it a star!
 
-## QA Evidence carousel and navigation audit
-
-The QA Evidence section uses **`src/components/ui/QaEvidenceCarousel.jsx`** and **`src/hooks/useEvidenceCarousel.js`** with the nine static approved records from **`src/data/qaReports.js`**. Filters, disclosures, and report URLs are preserved. The separate QA Tools logo marquee is unchanged.
-
-- The row moves at **24px/second** while visible. One keyed card per report is recycled only after it leaves view; there are no duplicate interactive cards. Short filtered selections use ordinary horizontal browsing when there is insufficient overflow for a seamless loop.
-- Hover pauses temporarily. Focusing, dragging, using arrows, or opening details pauses for reading; choose **Resume scrolling** when ready. Close expanded details before resuming. Reduced motion disables automatic movement while retaining native scrolling and arrows.
-- Drag horizontally with a mouse, use the scrollbar or arrows, or swipe on a touch device. Tab reaches every disclosure and report link, including offscreen cards. A drag suppresses the resulting click so it does not accidentally open a report.
-- Cards use compact spacing and two-line description, scope, and recorded-result previews. **View Details** contains the complete original text and implementation notes; limitations remain fully visible outside the disclosure. Heights grow naturally when details open, and report links retain a 44px minimum touch target at the bottom.
-- **`src/hooks/useAnchorNavigation.js`** measures the header for responsive anchor offsets and repairs initial fragment alignment without intercepting native links or browser history.
-
-See **[`docs/portfolio-interaction-audit.md`](docs/portfolio-interaction-audit.md)** for before/after statuses and actual verification. Native touch swiping still needs a physical-device check because the current browser-testing interface cannot dispatch touch gestures. No dependencies were added.
-
-## Review locally
-
-1. Inspect at desktop, tablet, and narrow mobile widths. Check the menu and section anchors.
-2. Use only the keyboard: Tab from the skip link; open a case study; check focus stays inside; press Escape and confirm focus returns to its trigger.
-3. Try each project filter. Check illustrations, the profile fallback, and the absent-CV state.
-4. Verify email/telephone destinations and social URLs. Review phone visibility before eventual publication.
-5. Test the CV and Google Drive actions after you supply real assets, and confirm Drive access while signed out.
-6. Re-run lint and build after edits. See **`QA.md`** for checks actually performed in this workspace.
-
-## Publishing status
-
-The existing frontend repository and deployment are unchanged by this backend work. Phases 03–05 were implemented and tested locally; no commit, push, backend deployment, hosting connection, or domain purchase was performed. Publishing these changes requires a later approved phase.
+</div>
