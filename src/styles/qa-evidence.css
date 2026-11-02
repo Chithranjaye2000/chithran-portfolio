@@ -32,18 +32,6 @@
   color: var(--blue);
 }
 
-.qa-provenance {
-  margin-bottom: 28px;
-  max-width: 860px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.qa-provenance strong {
-  color: var(--accent-ink);
-  font-weight: 650;
-}
-
 .qa-approach {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);

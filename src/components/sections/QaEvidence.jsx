@@ -8,7 +8,7 @@ import {
   Smartphone,
   Workflow,
 } from 'lucide-react'
-import { qaCategories, qaEvidenceSource, qaReports, testingApproach } from '../../data/qaReports'
+import { qaCategories, qaReports, testingApproach } from '../../data/qaReports'
 import QaEvidenceCarousel from '../ui/QaEvidenceCarousel'
 import ApiCollectionState from '../ui/ApiCollectionState'
 import { SectionHeading } from '../ui/Primitives'
@@ -55,9 +55,6 @@ export default function QaEvidence() {
               )
             })}
         </ul>
-        <p className="qa-provenance" data-reveal>
-          <strong>{qaEvidenceSource.label}.</strong> {qaEvidenceSource.description}
-        </p>
         <div className="qa-approach" data-reveal>
           <div>
             <p className="eyebrow">My testing approach</p>

@@ -16,15 +16,6 @@ export const testingApproach = [
   'Defect Investigation',
   'Reporting',
 ]
-
-export const qaEvidenceSource = {
-  label: 'Evidence sources',
-  description:
-    'BrowserStack and Allure entries are based on reviewed, owner-supplied PDFs; the other seven use owner-supplied work summaries. Recorded results have not been independently rerun. Report links are supplied by the portfolio owner.',
-}
-
-// The owner approved these summaries as source material on 18 October 2026.
-// Source review is separate from the owner's approval to display supplied report links.
 const summarySource = {
   summaryApproved: true,
   sourceReviewed: false,
