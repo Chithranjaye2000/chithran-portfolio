@@ -1,255 +1,218 @@
-import { useEffect, useRef, useState } from 'react'
-import { flushSync } from 'react-dom'
-import { getDragDistance, getLoopShift, rotateItems } from '../utils/carousel'
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { getSwipeDirection, wrapIndex } from '../utils/carousel'
 
-const SPEED = 24 // Pixels per second; a card takes around 18 seconds to pass.
+const MOTION_QUERY = '(prefers-reduced-motion: reduce)'
+const AUTOPLAY_DELAY = 3500
+
+function subscribeMotion(callback) {
+  const media = window.matchMedia(MOTION_QUERY)
+  media.addEventListener('change', callback)
+  return () => media.removeEventListener('change', callback)
+}
+
+function readMotion() {
+  return window.matchMedia(MOTION_QUERY).matches
+}
+
+function subscribeVisibility(callback) {
+  document.addEventListener('visibilitychange', callback)
+  return () => document.removeEventListener('visibilitychange', callback)
+}
+
+function readVisibility() {
+  return !document.hidden
+}
 
 export default function useEvidenceCarousel(reports) {
-  const viewportRef = useRef(null)
-  const controller = useRef(null)
-  const [order, setOrder] = useState(reports)
-  const [status, setStatus] = useState({ paused: false, reduced: false, scrollable: false })
+  const regionRef = useRef(null)
+  const stageRef = useRef(null)
+  const drag = useRef(null)
+  const suppressClick = useRef(false)
+  const [index, setIndex] = useState(0)
+  const [autoplay, setAutoplay] = useState(true)
+  const [reading, setReading] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  const [focused, setFocused] = useState(false)
+  const [dragging, setDragging] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const subscribe = useCallback(
+    (notify) =>
+      subscribeMotion(() => {
+        if (readMotion()) setAutoplay(false)
+        notify()
+      }),
+    [],
+  )
+  const reduced = useSyncExternalStore(subscribe, readMotion, () => true)
+  const pageVisible = useSyncExternalStore(subscribeVisibility, readVisibility, () => false)
+  const activeIndex = wrapIndex(index, reports.length)
+  const rotating =
+    autoplay &&
+    !reduced &&
+    !reading &&
+    !hovered &&
+    !focused &&
+    !dragging &&
+    visible &&
+    pageVisible &&
+    reports.length > 1
+
+  function select(nextIndex, focusStage = false) {
+    const stage = stageRef.current
+    const current = stage?.querySelector('[data-active="true"]')
+    if (focusStage || current?.contains(document.activeElement)) {
+      stage?.focus({ preventScroll: true })
+    }
+    // Native disclosures remain uncontrolled, but a departing card must not stay expanded.
+    current?.querySelectorAll('details[open]').forEach((details) => (details.open = false))
+    setReading(false)
+    setIndex(wrapIndex(nextIndex, reports.length))
+  }
+
+  function move(direction) {
+    select(activeIndex + direction)
+  }
+
+  function toggleAutoplay() {
+    if (reduced || reading || reports.length < 2) return
+    setFocused(false)
+    setAutoplay((enabled) => !enabled)
+  }
 
   useEffect(() => {
-    const viewport = viewportRef.current
-    const track = viewport.firstElementChild
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const state = {
-      manual: false,
-      hover: false,
-      focus: false,
-      details: false,
-      visible: false,
-      reduced: media.matches,
-      scrollable: false,
-      looping: false,
-      stride: 0,
-    }
-    let frame = 0
-    let previousTime = 0
-    let position = 0
-    let drag = null
-    let suppressClick = false
-    let disposed = false
-
-    function stop() {
-      cancelAnimationFrame(frame)
-      frame = 0
-      previousTime = 0
-    }
-
-    function recycle(steps) {
-      if (!steps) return
-      const position = viewport.scrollLeft - steps * state.stride
-      // Move keyed, offscreen cards only. There are no duplicate links or hidden copies.
-      flushSync(() => setOrder((items) => rotateItems(items, steps)))
-      viewport.scrollLeft = position
-    }
-
-    function tick(time) {
-      frame = 0
-      if (disposed) return
-      const elapsed = previousTime ? Math.min(time - previousTime, 50) : 0
-      previousTime = time
-      // Retain subpixel travel even when the browser rounds scroll offsets.
-      position += (SPEED * elapsed) / 1000
-      viewport.scrollLeft = position
-      const shift = getLoopShift(
-        viewport.scrollLeft,
-        state.stride,
-        reports.length,
-        viewport.clientWidth,
-      )
-      recycle(shift)
-      position -= shift * state.stride
-      frame = requestAnimationFrame(tick)
-    }
-
-    function sync() {
-      const paused = state.manual || state.hover || state.focus || state.details || Boolean(drag)
-      const running =
-        !paused && !state.reduced && state.visible && state.looping && !document.hidden
-      viewport.dataset.scrolling = String(running)
-      setStatus((current) => {
-        const next = {
-          paused: state.manual,
-          reduced: state.reduced,
-          scrollable: state.scrollable,
-          looping: state.looping,
-          reading: state.details,
-        }
-        return Object.keys(next).every((key) => current[key] === next[key]) ? current : next
-      })
-      if (running && !frame) {
-        position = viewport.scrollLeft
-        frame = requestAnimationFrame(tick)
-      } else if (!running) stop()
-    }
-
-    function measure() {
-      const slides = track.children
-      const width = slides[0]?.getBoundingClientRect().width ?? 0
-      state.stride = width + (parseFloat(getComputedStyle(track).columnGap) || 0)
-      state.scrollable = viewport.scrollWidth > viewport.clientWidth + 1
-      state.looping =
-        reports.length > 1 &&
-        state.stride > 0 &&
-        reports.length * state.stride - viewport.clientWidth >= state.stride
-      sync()
-    }
-
-    function onPointerDown(event) {
-      if (event.button !== 0) return
-      state.manual = true
-      suppressClick = false
-      if (event.pointerType === 'mouse') {
-        drag = {
-          id: event.pointerId,
-          x: event.clientX,
-          y: event.clientY,
-          scroll: viewport.scrollLeft,
-          active: false,
-        }
-      }
-      sync()
-    }
-
-    function onPointerMove(event) {
-      if (!drag || event.pointerId !== drag.id) return
-      const distance = getDragDistance(drag.x, drag.y, event.clientX, event.clientY)
-      if (!drag.active && !distance) return
-      if (!drag.active) {
-        drag.active = true
-        viewport.setPointerCapture(event.pointerId)
-        viewport.dataset.dragging = 'true'
-      }
-      event.preventDefault()
-      suppressClick = true
-      viewport.scrollLeft = drag.scroll - (event.clientX - drag.x)
-    }
-
-    function onPointerUp(event) {
-      if (!drag || event.pointerId !== drag.id) return
-      if (viewport.hasPointerCapture(event.pointerId))
-        viewport.releasePointerCapture(event.pointerId)
-      drag = null
-      delete viewport.dataset.dragging
-      sync()
-    }
-
-    function onClick(event) {
-      if (suppressClick && event.detail !== 0) {
-        event.preventDefault()
-        event.stopPropagation()
-        suppressClick = false
-      }
-    }
-
-    function onDragStart(event) {
-      event.preventDefault()
-    }
-
-    function onFocus(event) {
-      state.focus = true
-      if (!event.target.closest('[data-carousel-play]')) state.manual = true
-      sync()
-    }
-
-    function onToggle() {
-      state.details = Boolean(track.querySelector('details[open]'))
-      if (state.details) state.manual = true
-      sync()
-    }
-
-    function onEnter(event) {
-      if (event.pointerType === 'mouse') state.hover = true
-      sync()
-    }
-
-    function onLeave() {
-      state.hover = false
-      if (drag && !drag.active) drag = null
-      sync()
-    }
-
-    function onWheel(event) {
-      if (Math.abs(event.deltaX) > 0 || event.shiftKey) {
-        state.manual = true
-        sync()
-      }
-    }
-
-    function onMediaChange() {
-      state.reduced = media.matches
-      sync()
-    }
-
-    controller.current = {
-      toggle() {
-        state.manual = !state.manual
-        state.focus = false
-        sync()
-      },
-      move(direction) {
-        state.manual = true
-        sync()
-        if (state.looping && !state.details) {
-          const shift = getLoopShift(
-            viewport.scrollLeft,
-            state.stride,
-            reports.length,
-            viewport.clientWidth,
-          )
-          recycle(direction < 0 && viewport.scrollLeft < state.stride ? -1 : shift)
-        }
-        viewport.scrollBy({
-          left: direction * state.stride,
-          behavior: state.reduced ? 'instant' : 'smooth',
-        })
-      },
-    }
-
-    const observer = new IntersectionObserver(([entry]) => {
-      state.visible = entry.isIntersecting
-      sync()
-    })
-    const resizeObserver = new ResizeObserver(measure)
-    observer.observe(viewport)
-    resizeObserver.observe(viewport)
-    resizeObserver.observe(track)
-    const region = viewport.parentElement
-    const listeners = [
-      [viewport, 'pointerdown', onPointerDown],
-      [viewport, 'pointermove', onPointerMove],
-      [window, 'pointerup', onPointerUp],
-      [window, 'pointercancel', onPointerUp],
-      [viewport, 'lostpointercapture', onPointerUp],
-      [region, 'pointerenter', onEnter],
-      [region, 'pointerleave', onLeave],
-      [viewport, 'click', onClick, true],
-      [viewport, 'dragstart', onDragStart],
-      [viewport, 'toggle', onToggle, true],
-      [viewport, 'wheel', onWheel, { passive: true }],
-      [region, 'focusin', onFocus],
-      [document, 'visibilitychange', sync],
-      [media, 'change', onMediaChange],
-    ]
-    listeners.forEach(([target, event, handler, options]) =>
-      target.addEventListener(event, handler, options),
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting && entry.intersectionRatio >= 0.15),
+      { threshold: 0.15 },
     )
+    observer.observe(regionRef.current)
+    return () => observer.disconnect()
+  }, [])
 
-    return () => {
-      disposed = true
-      stop()
-      observer.disconnect()
-      resizeObserver.disconnect()
-      listeners.forEach(([target, event, handler, options]) =>
-        target.removeEventListener(event, handler, options),
-      )
-      if (drag && viewport.hasPointerCapture(drag.id)) viewport.releasePointerCapture(drag.id)
-      controller.current = null
+  useEffect(() => {
+    if (!rotating) return
+    // One timeout per dwell, replaced after navigation and cleared for every pause/unmount.
+    const timer = window.setTimeout(() => {
+      setIndex((current) => wrapIndex(current + 1, reports.length))
+    }, AUTOPLAY_DELAY)
+    return () => window.clearTimeout(timer)
+  }, [rotating, reports.length, activeIndex])
+
+  function clearDrag() {
+    const current = drag.current
+    drag.current = null
+    setDragging(false)
+    const stage = stageRef.current
+    stage?.style.removeProperty('--coverflow-drag')
+    if (stage) delete stage.dataset.dragging
+    if (current && stage?.hasPointerCapture(current.id)) stage.releasePointerCapture(current.id)
+  }
+
+  function onPointerDown(event) {
+    if (!event.isPrimary || event.button !== 0 || reports.length < 2) return
+    if (event.target.closest('a, summary, input, textarea, select')) return
+    setDragging(true)
+    suppressClick.current = false
+    drag.current = { id: event.pointerId, x: event.clientX, y: event.clientY, active: false }
+  }
+
+  function onPointerMove(event) {
+    const current = drag.current
+    if (!current || event.pointerId !== current.id) return
+    const x = event.clientX - current.x
+    const y = event.clientY - current.y
+    if (!current.active) {
+      if (Math.abs(x) < 8 || Math.abs(x) <= Math.abs(y) * 1.2) return
+      current.active = true
+      stageRef.current.setPointerCapture(event.pointerId)
+      stageRef.current.dataset.dragging = 'true'
     }
-  }, [reports])
+    event.preventDefault()
+    suppressClick.current = true
+    if (!reduced) {
+      stageRef.current.style.setProperty(
+        '--coverflow-drag',
+        `${Math.max(-42, Math.min(42, x * 0.18))}px`,
+      )
+    }
+  }
 
-  return { order, status, viewportRef, controller }
+  function onPointerUp(event) {
+    const current = drag.current
+    if (!current || event.pointerId !== current.id) return
+    const direction = current.active
+      ? getSwipeDirection(current.x, current.y, event.clientX, event.clientY)
+      : 0
+    clearDrag()
+    if (direction) move(direction)
+  }
+
+  return {
+    regionRef,
+    stageRef,
+    activeIndex,
+    autoplay: autoplay && !reduced,
+    rotating,
+    reduced,
+    reading,
+    move,
+    select,
+    toggleAutoplay,
+    regionEvents: {
+      onPointerEnter: (event) => {
+        if (event.pointerType === 'mouse') setHovered(true)
+      },
+      onPointerLeave: (event) => {
+        if (event.pointerType === 'mouse') setHovered(false)
+      },
+      onPointerDownCapture: () => setFocused(false),
+      onFocusCapture: (event) => {
+        setFocused(
+          !event.target.closest('[data-coverflow-play]') && event.target.matches(':focus-visible'),
+        )
+      },
+      onBlurCapture: (event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false)
+      },
+      onKeyDown: (event) => {
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault()
+          move(event.key === 'ArrowLeft' ? -1 : 1)
+          setFocused(true)
+        } else if (event.key === 'Home' || event.key === 'End') {
+          event.preventDefault()
+          select(event.key === 'Home' ? 0 : reports.length - 1)
+          setFocused(true)
+        }
+      },
+    },
+    stageEvents: {
+      onPointerDown,
+      onPointerMove,
+      onPointerUp,
+      onPointerCancel: clearDrag,
+      onLostPointerCapture: (event) => {
+        // Touch transfers implicit capture from the touched text to the stage; ignore that loss.
+        if (event.target === event.currentTarget && event.pointerId === drag.current?.id) {
+          clearDrag()
+        }
+      },
+      onPointerLeave: () => {
+        if (drag.current && !drag.current.active) clearDrag()
+      },
+      onDragStart: (event) => event.preventDefault(),
+      onClickCapture: (event) => {
+        if (suppressClick.current && event.detail !== 0) {
+          event.preventDefault()
+          event.stopPropagation()
+          suppressClick.current = false
+        }
+      },
+      onToggleCapture: (event) => {
+        if (event.target.tagName !== 'DETAILS') return
+        if (!event.target.closest('[data-active="true"]')) return
+        setReading(event.target.open)
+      },
+    },
+  }
 }

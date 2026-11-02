@@ -1,89 +1,157 @@
 import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react'
 import useEvidenceCarousel from '../../hooks/useEvidenceCarousel'
+import { getCoverflowOffset } from '../../utils/carousel'
 import QaReportCard from './QaReportCard'
 
 export default function QaEvidenceCarousel({ reports }) {
-  const { order, status, viewportRef, controller } = useEvidenceCarousel(reports)
-  const automatic = status.looping && !status.reduced
-  const paused = status.paused || status.reading
-  const PlaybackIcon = paused ? Play : Pause
+  const {
+    regionRef,
+    stageRef,
+    activeIndex,
+    autoplay,
+    rotating,
+    reduced,
+    reading,
+    move,
+    select,
+    toggleAutoplay,
+    regionEvents,
+    stageEvents,
+  } = useEvidenceCarousel(reports)
+  const current = reports[activeIndex]
 
   return (
     <div
-      className="qa-carousel"
+      ref={regionRef}
+      className="qa-coverflow"
       role="region"
       aria-roledescription="carousel"
       aria-label="QA reports and testing evidence"
       data-reveal
+      {...regionEvents}
     >
-      <div className="qa-carousel-toolbar">
-        <p id="qa-carousel-help">
-          Drag or swipe to explore. Use Tab to reach every report.
-          <span>
-            {status.reduced
-              ? 'Automatic scrolling is off for reduced motion.'
-              : 'Scrolling pauses on hover. Interact to pause; resume when ready.'}
-          </span>
-        </p>
-        <div className="qa-carousel-controls" role="group" aria-label="QA carousel controls">
-          <button
-            type="button"
-            aria-label="Previous QA report"
-            aria-controls="qa-results"
-            disabled={!status.scrollable}
-            onClick={() => controller.current?.move(-1)}
-          >
-            <ArrowLeft size={18} aria-hidden="true" />
-          </button>
-          {automatic && (
-            <button
-              type="button"
-              className="qa-carousel-play"
-              data-carousel-play
-              aria-controls="qa-results"
-              disabled={status.reading}
-              onClick={() => controller.current?.toggle()}
-            >
-              <PlaybackIcon size={16} aria-hidden="true" />
-              {paused ? 'Resume scrolling' : 'Pause scrolling'}
-            </button>
-          )}
-          <button
-            type="button"
-            aria-label="Next QA report"
-            aria-controls="qa-results"
-            disabled={!status.scrollable}
-            onClick={() => controller.current?.move(1)}
-          >
-            <ArrowRight size={18} aria-hidden="true" />
-          </button>
-        </div>
+      <div className="qa-coverflow-heading">
+        <p className="eyebrow">Evidence in focus</p>
+        <p>Explore the tools. Inspect the work.</p>
       </div>
-      <div
-        className="qa-carousel-viewport"
-        id="qa-results"
-        ref={viewportRef}
-        tabIndex={0}
-        aria-label="Scrollable QA reports"
-        aria-describedby="qa-carousel-help"
-      >
-        <ul className="qa-carousel-track">
-          {order.map((report) => (
-            <li key={report.id} className="qa-carousel-slide">
-              <QaReportCard report={report} inCarousel />
-            </li>
-          ))}
+      <p className="sr-only" id="qa-coverflow-help">
+        Use the left and right arrow keys to change reports, or Home and End to reach the first and
+        last. Select a side card to bring it into focus.
+      </p>
+      <div className="qa-coverflow-window">
+        <ul
+          ref={stageRef}
+          className="qa-coverflow-stage"
+          id="qa-results"
+          tabIndex={0}
+          aria-label="QA evidence coverflow"
+          aria-describedby="qa-coverflow-help"
+          {...stageEvents}
+        >
+          {reports.map((report, index) => {
+            const offset = getCoverflowOffset(index, activeIndex, reports.length)
+            const distance = Math.abs(offset)
+            const active = index === activeIndex
+            const visible = distance <= 2
+            return (
+              <li
+                key={report.id}
+                className="qa-coverflow-slide"
+                data-active={active}
+                data-position={offset}
+                aria-hidden={!visible || undefined}
+                style={{
+                  '--coverflow-x': `${offset === 0 ? 0 : Math.sign(offset) * (distance === 1 ? 68 : 122)}%`,
+                  '--coverflow-y': `${distance * 16}px`,
+                  '--coverflow-z': `${distance * -155}px`,
+                  '--coverflow-angle': `${Math.sign(offset) * (distance === 1 ? -38 : -52)}deg`,
+                  '--coverflow-scale': active ? 1 : distance === 1 ? 0.88 : 0.76,
+                  '--coverflow-opacity': !visible ? 0 : active ? 1 : distance === 1 ? 0.82 : 0.5,
+                  zIndex: reports.length - distance,
+                }}
+              >
+                <div className="qa-coverflow-card" inert={!active} aria-hidden={!active}>
+                  <QaReportCard report={report} inCarousel />
+                </div>
+                {!active && visible && (
+                  <button
+                    type="button"
+                    className="qa-coverflow-select"
+                    onClick={() => select(index, true)}
+                    aria-label={`Show ${report.title}`}
+                    tabIndex={-1}
+                  >
+                    <span className="sr-only">Bring report {index + 1} into focus</span>
+                  </button>
+                )}
+              </li>
+            )
+          })}
         </ul>
       </div>
-      <p className="qa-carousel-note" role="status">
-        {status.reading
-          ? 'Scrolling is paused. Close expanded details before resuming.'
-          : status.paused
-            ? 'Scrolling is paused for reading.'
-            : automatic
-              ? 'The collection scrolls gently while in view.'
-              : 'Browse this selection with the arrows, scrollbar, or swipe.'}
-      </p>
+      <div className="qa-coverflow-footer">
+        <div className="qa-coverflow-controls" role="group" aria-label="QA carousel controls">
+          <button
+            type="button"
+            className="qa-coverflow-arrow"
+            aria-label="Previous QA report"
+            aria-controls="qa-results"
+            disabled={reports.length < 2}
+            onClick={() => move(-1)}
+          >
+            <ArrowLeft size={20} aria-hidden="true" />
+          </button>
+          <p
+            className="qa-coverflow-position"
+            aria-live={rotating ? 'off' : 'polite'}
+            aria-atomic="true"
+          >
+            <span>{String(activeIndex + 1).padStart(2, '0')}</span>
+            <span aria-hidden="true"> / </span>
+            <span className="sr-only">of </span>
+            {String(reports.length).padStart(2, '0')}
+            <span className="sr-only">: {current?.title}</span>
+          </p>
+          <button
+            type="button"
+            className="qa-coverflow-arrow"
+            aria-label="Next QA report"
+            aria-controls="qa-results"
+            disabled={reports.length < 2}
+            onClick={() => move(1)}
+          >
+            <ArrowRight size={20} aria-hidden="true" />
+          </button>
+        </div>
+        <div className="qa-coverflow-dots" aria-hidden="true">
+          {reports.map((report, index) => (
+            <span key={report.id} data-active={index === activeIndex} />
+          ))}
+        </div>
+        <button
+          type="button"
+          className="qa-coverflow-play"
+          data-coverflow-play
+          aria-controls="qa-results"
+          aria-pressed={autoplay}
+          disabled={reduced || reading || reports.length < 2}
+          onClick={toggleAutoplay}
+        >
+          {autoplay ? (
+            <Pause size={15} aria-hidden="true" />
+          ) : (
+            <Play size={15} aria-hidden="true" />
+          )}
+          {autoplay ? 'Pause autoplay' : 'Resume autoplay'}
+        </button>
+      </div>
+      {(reduced || reading) && (
+        <p className="qa-coverflow-note" role="status">
+          {reduced
+            ? 'Autoplay is off for reduced motion. Navigate at your own pace.'
+            : 'Autoplay is paused while the report details are open.'}
+        </p>
+      )}
     </div>
   )
 }

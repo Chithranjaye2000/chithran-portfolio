@@ -1,23 +1,26 @@
-export function rotateItems(items, steps) {
-  if (!items.length) return []
-  const offset = ((steps % items.length) + items.length) % items.length
-  return [...items.slice(offset), ...items.slice(0, offset)]
+export function wrapIndex(index, count) {
+  if (!Number.isSafeInteger(index) || !Number.isSafeInteger(count) || count < 1) return 0
+  return ((index % count) + count) % count
 }
 
-export function getLoopShift(scrollLeft, stride, itemCount, viewportWidth) {
+export function getCoverflowOffset(index, active, count) {
   if (
-    !Number.isFinite(scrollLeft) ||
-    !Number.isFinite(stride) ||
-    stride <= 0 ||
-    itemCount < 2 ||
-    itemCount * stride - viewportWidth < stride
+    !Number.isSafeInteger(index) ||
+    !Number.isSafeInteger(active) ||
+    !Number.isSafeInteger(count) ||
+    count < 1
   ) {
     return 0
   }
-  return Math.max(0, Math.floor(scrollLeft / stride))
+  const distance = wrapIndex(wrapIndex(index, count) - wrapIndex(active, count), count)
+  return distance > count / 2 ? distance - count : distance
 }
 
-export function getDragDistance(startX, startY, x, y) {
+export function getSwipeDirection(startX, startY, x, y, threshold = 40) {
+  if (![startX, startY, x, y, threshold].every(Number.isFinite) || threshold <= 0) return 0
   const distance = x - startX
-  return Math.abs(distance) >= 6 && Math.abs(distance) > Math.abs(y - startY) ? distance : 0
+  if (Math.abs(distance) < threshold || Math.abs(distance) <= Math.abs(y - startY) * 1.2) {
+    return 0
+  }
+  return distance < 0 ? 1 : -1
 }
