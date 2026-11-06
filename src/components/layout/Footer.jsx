@@ -11,7 +11,6 @@ export default function Footer() {
             {siteConfig.name}
             <span>.</span>
           </a>
-          <p>Quality. Code. Clarity.</p>
         </div>
         <nav aria-label="Footer navigation">
           <a href="#about">About</a>
@@ -27,7 +26,7 @@ export default function Footer() {
         <p>
           © {new Date().getFullYear()} {siteConfig.name}
         </p>
-        <p>Thoughtfully built in Sri Lanka.</p>
+        <p>Based in {siteConfig.location}.</p>
         <a href="#home">
           Back to top
           <ArrowUp size={15} aria-hidden="true" />

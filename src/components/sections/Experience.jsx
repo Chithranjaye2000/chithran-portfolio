@@ -2,17 +2,11 @@ import { ArrowUpRight, BriefcaseBusiness, CalendarDays } from 'lucide-react'
 import { SectionHeading } from '../ui/Primitives'
 import { TimelineRail } from '../ui/MotionDecor'
 
-const start = '2026-06-09'
-const end = '2026-12-09'
+const start = '2026-05-09'
+const end = '2026-11-09'
+const status = 'Completed QA Internship'
 
 export default function Experience() {
-  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Colombo' })
-  const status =
-    today < start
-      ? 'Upcoming internship'
-      : today <= end
-        ? 'Internship in progress'
-        : 'Internship period ended'
   return (
     <section id="experience" className="experience-section" aria-labelledby="experience-title">
       <div className="container experience-grid">
@@ -29,8 +23,8 @@ export default function Experience() {
             id="experience-title"
             light
           >
-            Applying a testing mindset to real software, with care for the details and the people
-            behind them.
+            Applied a testing mindset to real software at Sri Lanka Telecom (SLT), with care for the
+            details and the people behind them.
           </SectionHeading>
           <a className="experience-contact" href="#contact">
             Let’s connect
@@ -49,7 +43,7 @@ export default function Experience() {
                 {status}
               </span>
             </div>
-            <p className="experience-company">Sri Lanka Telecom</p>
+            <p className="experience-company">Sri Lanka Telecom (SLT)</p>
             <h3>Quality Assurance Intern</h3>
             <p className="experience-team">
               <BriefcaseBusiness size={15} aria-hidden="true" />
@@ -57,17 +51,17 @@ export default function Experience() {
             </p>
             <p className="experience-date">
               <CalendarDays size={15} aria-hidden="true" />
-              <time dateTime={start}>09 Jun 2026</time>
-              <span>—</span>
-              <time dateTime={end}>09 Dec 2026</time>
+              <time dateTime={start}>09 May 2026</time>
+              <span> – </span>
+              <time dateTime={end}>09 Nov 2026</time>
             </p>
             <ul className="experience-activities">
-              <li>API testing and software validation.</li>
-              <li>Test case design for expected behavior and user workflows.</li>
-              <li>Bug reporting and documentation of reproducible issues.</li>
+              <li>Tested APIs and validated software behavior.</li>
+              <li>Designed test cases for expected behavior and user workflows.</li>
+              <li>Reported bugs and documented reproducible issues.</li>
             </ul>
             <p className="experience-discretion">
-              A public overview of my internship responsibilities.
+              A public overview of responsibilities I carried out during my QA internship.
             </p>
           </article>
         </div>

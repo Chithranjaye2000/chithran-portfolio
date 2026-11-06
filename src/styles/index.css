@@ -131,11 +131,6 @@ ul {
   line-height: 1.5;
   margin-bottom: 21px;
 }
-.eyebrow-line {
-  width: 25px;
-  height: 2px;
-  background: var(--blue);
-}
 .button {
   display: inline-flex;
   justify-content: center;
@@ -1470,11 +1465,6 @@ a.contact-row:hover strong {
 .footer-name > span {
   color: var(--blue);
 }
-.footer-top p {
-  color: var(--muted);
-  font-size: 10px;
-  margin-top: 6px;
-}
 .footer-top nav {
   display: flex;
   flex-wrap: wrap;
@@ -1730,9 +1720,6 @@ a.contact-row:hover strong {
   .hero h1 {
     font-size: clamp(47px, 11.5vw, 70px);
     margin-bottom: 21px;
-  }
-  .hero .eyebrow {
-    font-size: 10px;
   }
   .hero-headline {
     max-width: 350px;

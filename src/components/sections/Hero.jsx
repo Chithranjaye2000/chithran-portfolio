@@ -28,10 +28,6 @@ export default function Hero() {
       <AmbientBackground />
       <div className="container hero-grid">
         <div className="hero-copy">
-          <p className="eyebrow" data-hero-step="0">
-            <span className="eyebrow-line" />
-            Quality. Code. Clarity.
-          </p>
           <h1 id="hero-title">
             <span className="hero-name-line" data-hero-step="1">
               Chithran
@@ -115,8 +111,8 @@ export default function Hero() {
                 <MapPin size={17} aria-hidden="true" />
               </span>
               <div>
-                <strong>Based in Sri Lanka</strong>
-                <span>Ratnapura · Open to connecting</span>
+                <strong>{siteConfig.location}</strong>
+                <span>Open to connecting</span>
               </div>
               <span className="sri-lanka-code" aria-hidden="true">
                 LK

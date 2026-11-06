@@ -1,5 +1,6 @@
 import { MessageSquareText, ScanLine, Workflow } from 'lucide-react'
 import { SectionHeading, TextLink } from '../ui/Primitives'
+import { siteConfig } from '../../data/siteConfig'
 import Education from './Education'
 
 const approaches = [
@@ -35,13 +36,15 @@ export default function About() {
           />
           <div className="about-copy" data-reveal>
             <p className="about-lead">
-              I’m Chithran, an Industrial Information Technology undergraduate focused on software
-              quality, test automation, and clear technical communication.
+              I’m Chithran, an Industrial Information Technology undergraduate based in{' '}
+              {siteConfig.location}, focused on software quality, test automation, and clear
+              technical communication.
             </p>
             <p>
               At Uva Wellassa University, I’m building a foundation in software quality and
-              development. As a Quality Assurance Intern at Sri Lanka Telecom, I put that learning
-              into practice through workflow validation, test design, and defect documentation.
+              development. I completed my Quality Assurance internship at Sri Lanka Telecom (SLT),
+              where I applied that learning through workflow validation, test design, and defect
+              documentation.
             </p>
             <p>
               I work with automation tools to make checks repeatable, and create technical demos,

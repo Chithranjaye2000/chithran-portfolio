@@ -2,7 +2,7 @@
 export const siteConfig = {
   name: 'Chithran Jayathunga',
   headline: 'Quality Assurance | Software Development | Technical Content Creation',
-  location: 'Ratnapura, Sri Lanka',
+  location: 'Maharagama, Sri Lanka',
   email: 'chithrajayathunga@gmail.com',
   phone: '+94 70 398 8927',
   phoneHref: 'tel:+94703988927',

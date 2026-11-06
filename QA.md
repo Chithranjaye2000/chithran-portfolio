@@ -1,6 +1,6 @@
 # Local verification — 18 October 2026
 
-The original implementation checks below are a historical snapshot. See the asset, motion, and certification updates at the end for the latest verification.
+The original implementation checks below are a historical snapshot. See the asset, motion, certification, and profile updates at the end for the latest verification.
 
 ## Environment and checks
 
@@ -31,7 +31,7 @@ Used the Codex in-app Chromium browser, including viewport emulation and screens
 - Confirmed the profile placeholder loads with an explicit placeholder caption and alt text.
 - Confirmed there is **no download anchor** while the CV file is absent.
 - Confirmed the video portfolio button is disabled while the Drive URL is `null`.
-- Confirmed the internship displays **Internship in progress** for the October 2026 date.
+- The original date-based internship status check has been superseded by the owner-specified completed status and corrected dates in the current profile.
 - Verified every internal fragment link resolves to an element. Inspected mailto, tel, LinkedIn, and GitHub destinations against the supplied values.
 - Verified external links include `noopener noreferrer`.
 - Confirmed one page-level h1, image alt attributes, and named buttons.
@@ -157,3 +157,13 @@ No dependency changes, repository creation, Git push, or deployment were perform
 - Download CV triggered a real download; its SHA-256 matches public/documents/Chithran-CV.pdf. Email and telephone hrefs were checked without sending email or placing a call. Reading progress reaches scaleX(1) at the footer; Contact now exposes its active location.
 - Five Node tests cover bounds, tilt, reading/timeline progress, and integral bounded counters. Lint, tests, formatting, and the Vite production build are run against the final code. See docs/motion-upgrade.md for the full file inventory and verification limits.
 - The five portfolio data modules are byte-for-byte unchanged from the start of this task. Pre-existing image replacements/data edits remain intact. No commit, push, dependency install, or deployment was performed.
+
+## Profile content update — 6 November 2026
+
+- The owner-specified internship period is **09 May 2026 – 09 Nov 2026**, with HTML `datetime` values `2026-05-09` and `2026-11-09`.
+- The status is explicitly **Completed QA Internship**, independent of the browser's current date. About and Experience describe completed work at Sri Lanka Telecom (SLT), with responsibilities in past tense.
+- The central location is **Maharagama, Sri Lanka**, used by Hero, About, Contact, and Footer. Page and sharing metadata were updated too; no structured-data block exists.
+- Removed the previous tagline, its decorative line and wrapper, its sharing-title variation, and unused styling. A case-insensitive source/documentation search found no remaining references or old location/date/status values.
+- `npm run lint`, `npm run build`, and all **73 frontend tests** passed. Changed source files passed the formatting check.
+- Browser layout checks at **320, 375, 768, and 1440px** found no horizontal overflow or clipped dates/status. Visually inspected the hero, completed internship card, updated introduction, Contact, and Footer. Also inspected the updated content in Light Mode at 375px. No browser warnings or errors were logged.
+- No dependency changes, commits, pushes, or deployments were performed.
