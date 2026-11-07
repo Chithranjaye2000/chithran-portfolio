@@ -13,8 +13,10 @@ export default function Footer() {
           </a>
         </div>
         <nav aria-label="Footer navigation">
+          <a href="#qa-evidence">QA Work</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Other Projects</a>
           <a href="#about">About</a>
-          <a href="#projects">Projects</a>
           <a href="#education">Education</a>
           <a href="#ai-literacy">AI Literacy</a>
           <a href="#certifications">Certifications</a>

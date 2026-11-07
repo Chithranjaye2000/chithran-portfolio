@@ -19,7 +19,7 @@ export default function Content() {
       <div className="container">
         <div className="section-header-row">
           <SectionHeading
-            eyebrow="05 / Video portfolio"
+            eyebrow="06 / Video portfolio"
             title="Technical videos"
             id="content-title"
           >

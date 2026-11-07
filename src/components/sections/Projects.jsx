@@ -148,10 +148,10 @@ export default function Projects() {
       <div className="container">
         <div className="section-header-row">
           <SectionHeading
-            eyebrow="03 / Selected work"
+            eyebrow="03 / Other projects"
             title={
               <>
-                Academic projects
+                Other projects
                 <br />
                 <span className="text-blue">& research.</span>
               </>

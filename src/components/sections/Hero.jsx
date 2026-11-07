@@ -3,20 +3,20 @@ import {
   ArrowDown,
   ArrowUpRight,
   Check,
-  Code2,
+  Braces,
   Download,
   MapPin,
   ShieldCheck,
-  Video,
+  Workflow,
 } from 'lucide-react'
 import { siteConfig } from '../../data/siteConfig'
 import { SocialLinks } from '../ui/Primitives'
 import { AmbientBackground } from '../ui/MotionDecor'
 
 const disciplines = [
-  { Icon: ShieldCheck, title: 'Quality assurance', subtitle: 'API testing and automation' },
-  { Icon: Code2, title: 'Software development', subtitle: 'Web and mobile projects' },
-  { Icon: Video, title: 'Technical content', subtitle: 'Demos and system walkthroughs' },
+  { Icon: Workflow, title: 'QA automation', subtitle: 'UI workflows and browser tests' },
+  { Icon: Braces, title: 'API testing', subtitle: 'Requests, responses, and validation' },
+  { Icon: ShieldCheck, title: 'Manual testing', subtitle: 'Test cases and defect reporting' },
 ]
 
 export default function Hero() {
@@ -48,33 +48,34 @@ export default function Hero() {
             ))}
           </p>
           <p className="hero-intro" data-hero-step="4">
-            I’m an Industrial Information Technology undergraduate with QA internship experience at
-            SLT. I test software, build academic projects, and create technical videos.
+            I’m an Industrial Information Technology undergraduate with completed QA internship
+            experience at SLT. I write test cases, automate UI workflows, and validate API
+            responses.
           </p>
           <div className="hero-actions" data-hero-step="5">
-            <a className="button" href="#projects">
-              View projects
+            <a className="button" href="#qa-evidence">
+              View QA Work
               <ArrowUpRight size={18} aria-hidden="true" />
             </a>
-            <a className="button button--outline" href="#contact">
-              Contact me
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
+            {__CV_AVAILABLE__ ? (
+              <a className="button button--outline" href={siteConfig.cvPath} download>
+                Download CV
+                <Download size={18} aria-hidden="true" />
+              </a>
+            ) : (
+              <span className="cv-pending">
+                <Download size={18} aria-hidden="true" />
+                CV coming soon
+              </span>
+            )}
           </div>
           <div className="hero-secondary" data-hero-step="6">
             <SocialLinks />
             <span className="vertical-divider" aria-hidden="true" />
-            {__CV_AVAILABLE__ ? (
-              <a className="download-link" href={siteConfig.cvPath} download>
-                <Download size={16} aria-hidden="true" />
-                Download CV
-              </a>
-            ) : (
-              <span className="cv-pending">
-                <Download size={16} aria-hidden="true" />
-                CV coming soon
-              </span>
-            )}
+            <a className="text-link" href="#contact">
+              Contact me
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
           </div>
         </div>
         <div className="hero-visual" data-hero-step="2">
@@ -83,7 +84,7 @@ export default function Hero() {
               <span className="small-cross" aria-hidden="true">
                 +
               </span>
-              <span>Software QA · Development · Technical videos</span>
+              <span>QA Automation · API Testing</span>
               <span className="small-cross" aria-hidden="true">
                 +
               </span>
@@ -141,7 +142,7 @@ export default function Hero() {
             </div>
           </div>
         ))}
-        <a className="explore-link" href="#about" aria-label="Explore more about Chithran">
+        <a className="explore-link" href="#qa-evidence" aria-label="Explore featured QA work">
           <ArrowDown size={21} aria-hidden="true" />
         </a>
       </div>

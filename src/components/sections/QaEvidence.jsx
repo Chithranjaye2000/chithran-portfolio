@@ -35,8 +35,8 @@ export default function QaEvidence() {
     <section id="qa-evidence" className="section qa-section" aria-labelledby="qa-evidence-title">
       <div className="container">
         <SectionHeading
-          eyebrow="Testing work"
-          title="QA Reports & Testing Evidence"
+          eyebrow="01 / QA reports & testing evidence"
+          title="Featured QA Work"
           id="qa-evidence-title"
         >
           These reports cover testing work I’ve done with automation, APIs, performance tools, and

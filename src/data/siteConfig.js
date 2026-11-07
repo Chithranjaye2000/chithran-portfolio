@@ -1,7 +1,7 @@
 // All personal links and manually supplied assets live here. No secrets belong here.
 export const siteConfig = {
   name: 'Chithran Jayathunga',
-  headline: 'Quality Assurance | Software Development | Technical Content Creation',
+  headline: 'QA Automation | API Testing',
   location: 'Maharagama, Sri Lanka',
   email: 'chithrajayathunga@gmail.com',
   phone: '+94 70 398 8927',
@@ -18,10 +18,10 @@ export const siteConfig = {
 }
 
 export const navigation = [
-  { id: 'about', label: 'About' },
+  { id: 'qa-evidence', label: 'QA Work' },
   { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'qa-evidence', label: 'QA Evidence' },
+  { id: 'projects', label: 'Other Projects' },
+  { id: 'about', label: 'About' },
   { id: 'skills', label: 'Skills' },
   { id: 'ai-literacy', label: 'AI Literacy' },
   { id: 'content', label: 'Content' },

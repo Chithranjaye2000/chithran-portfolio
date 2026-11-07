@@ -26,11 +26,11 @@ export default function App() {
       <Header />
       <main id="main-content" ref={mainRef} tabIndex={-1}>
         <Hero />
-        <QaTools />
-        <About />
+        <QaEvidence />
         <Experience />
         <Projects />
-        <QaEvidence />
+        <About />
+        <QaTools />
         <Skills />
         <AiLiteracy />
         <Content />

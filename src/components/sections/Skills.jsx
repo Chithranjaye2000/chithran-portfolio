@@ -37,7 +37,7 @@ export default function Skills() {
     <section id="skills" className="section skills-section" aria-labelledby="skills-title">
       <div className="container">
         <SectionHeading
-          eyebrow="04 / Skills & tools"
+          eyebrow="05 / Skills & tools"
           title="Tools I’ve worked with"
           id="skills-title"
         >

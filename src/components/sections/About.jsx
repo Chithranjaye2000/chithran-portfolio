@@ -23,7 +23,7 @@ export default function About() {
     <section id="about" className="section" aria-labelledby="about-title">
       <div className="container about-grid">
         <div className="about-introduction">
-          <SectionHeading eyebrow="01 / About me" title="My background" id="about-title" />
+          <SectionHeading eyebrow="04 / About me" title="My background" id="about-title" />
           <div className="about-copy" data-reveal>
             <p className="about-lead">
               I’m Chithran, an Industrial Information Technology undergraduate at Uva Wellassa
