@@ -35,12 +35,12 @@ export default function QaEvidence() {
     <section id="qa-evidence" className="section qa-section" aria-labelledby="qa-evidence-title">
       <div className="container">
         <SectionHeading
-          eyebrow="Quality in practice"
+          eyebrow="Testing work"
           title="QA Reports & Testing Evidence"
           id="qa-evidence-title"
         >
-          I approach quality assurance through structured test design, repeatable automation,
-          evidence-based analysis, and clear defect investigation.
+          These reports cover testing work I’ve done with automation, APIs, performance tools, and
+          code analysis. Each entry includes the scope, recorded results, and limitations.
         </SectionHeading>
         <ul className="qa-focus-areas" aria-label="QA areas of focus" data-reveal>
           {qaCategories
@@ -57,9 +57,12 @@ export default function QaEvidence() {
         </ul>
         <div className="qa-approach" data-reveal>
           <div>
-            <p className="eyebrow">My testing approach</p>
-            <h3>Understand. Validate. Investigate.</h3>
-            <p>A personal framework for making checks repeatable and findings useful.</p>
+            <p className="eyebrow">Testing process</p>
+            <h3>How I approach a test</h3>
+            <p>
+              I start with the requirements, run the checks, and document the results and any
+              issues.
+            </p>
           </div>
           <ol>
             {testingApproach.map((step, index) => (

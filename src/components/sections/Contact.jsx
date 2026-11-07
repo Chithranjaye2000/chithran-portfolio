@@ -11,14 +11,11 @@ export default function Contact() {
         <div data-reveal>
           <p className="eyebrow">08 / Let’s connect</p>
           <h2 id="contact-title">
-            Have something
+            Get in
             <br />
-            in mind<span>?</span>
+            touch<span>.</span>
           </h2>
-          <p>
-            Let’s talk about software quality, a development opportunity, or a technical story worth
-            telling.
-          </p>
+          <p>For QA or development opportunities, or questions about my work, send me a message.</p>
           <a className="button button--white" href={`mailto:${siteConfig.email}`}>
             Say hello
             <ArrowUpRight size={18} aria-hidden="true" />

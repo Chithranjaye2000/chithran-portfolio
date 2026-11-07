@@ -37,10 +37,10 @@ export default function AiLiteracy() {
             data-reveal
           >
             <ShieldCheck size={28} strokeWidth={1.5} aria-hidden="true" />
-            <h3 id="ai-verification-title">Human verification comes first.</h3>
+            <h3 id="ai-verification-title">Checking the output</h3>
             <p>
-              AI supports the workflow. Human review remains essential for correctness, security,
-              and privacy.
+              AI suggestions need the same checks as any other test or code change. Credentials and
+              private project data stay out of prompts.
             </p>
           </aside>
         </div>

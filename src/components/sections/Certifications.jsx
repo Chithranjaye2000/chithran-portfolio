@@ -29,16 +29,15 @@ export default function Certifications() {
           eyebrow="07 / Certifications"
           title={
             <>
-              Continuous learning.
+              Courses &
               <br />
-              <span className="text-blue">Applied with purpose.</span>
+              <span className="text-blue">certifications.</span>
             </>
           }
           id="certifications-title"
         >
-          Learning across software quality, project delivery, and emerging tools. Dates follow the
-          original certificates where shown, with month-level dates from my CV for the other
-          records.
+          Courses I’ve completed in testing, development, project management, data analysis, and AI.
+          Open a certificate for details.
         </SectionHeading>
         {missingImages && (
           <p className="certificate-assets-notice">
@@ -61,9 +60,8 @@ export default function Certifications() {
           ))}
         </div>
         <p className="certificate-course-note">
-          Simplilearn SkillUp entries are course-completion acknowledgements, not official Microsoft
-          certifications. University of Moratuwa entries link to the university’s general
-          verification portal.
+          Simplilearn SkillUp certificates acknowledge course completion; they are not Microsoft
+          certifications. University of Moratuwa links open the general verification portal.
         </p>
       </div>
       {selected && (

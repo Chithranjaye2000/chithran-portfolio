@@ -14,9 +14,9 @@ import { SocialLinks } from '../ui/Primitives'
 import { AmbientBackground } from '../ui/MotionDecor'
 
 const disciplines = [
-  { Icon: ShieldCheck, title: 'Quality assurance', subtitle: 'Confidence in every release' },
-  { Icon: Code2, title: 'Software development', subtitle: 'Ideas turned into experiences' },
-  { Icon: Video, title: 'Technical content', subtitle: 'Complexity made clear' },
+  { Icon: ShieldCheck, title: 'Quality assurance', subtitle: 'API testing and automation' },
+  { Icon: Code2, title: 'Software development', subtitle: 'Web and mobile projects' },
+  { Icon: Video, title: 'Technical content', subtitle: 'Demos and system walkthroughs' },
 ]
 
 export default function Hero() {
@@ -48,8 +48,8 @@ export default function Hero() {
             ))}
           </p>
           <p className="hero-intro" data-hero-step="4">
-            I build thoughtful software, test the details that matter, and turn technical ideas into
-            stories people understand.
+            I’m an Industrial Information Technology undergraduate with QA internship experience at
+            SLT. I test software, build academic projects, and create technical videos.
           </p>
           <div className="hero-actions" data-hero-step="5">
             <a className="button" href="#projects">
@@ -83,7 +83,7 @@ export default function Hero() {
               <span className="small-cross" aria-hidden="true">
                 +
               </span>
-              <span>A little about the person behind the work</span>
+              <span>Software QA · Development · Technical videos</span>
               <span className="small-cross" aria-hidden="true">
                 +
               </span>
@@ -124,9 +124,9 @@ export default function Hero() {
               <Check size={17} strokeWidth={3} aria-hidden="true" />
             </span>
             <div>
-              Built with curiosity.
+              Completed QA internship
               <br />
-              <strong>Refined through testing.</strong>
+              <strong>Sri Lanka Telecom (SLT)</strong>
             </div>
           </div>
         </div>

@@ -19,21 +19,16 @@ export default function Content() {
       <div className="container">
         <div className="section-header-row">
           <SectionHeading
-            eyebrow="05 / Beyond the code"
-            title={
-              <>
-                Good technology deserves
-                <br />a clear story.
-              </>
-            }
+            eyebrow="05 / Video portfolio"
+            title="Technical videos"
             id="content-title"
           >
-            Software demonstrations, onboarding walkthroughs, capability videos, and launches.
-            Explore the stories behind the systems.
+            I create software demos, onboarding walkthroughs, capability videos, and launch videos.
+            You can find the full collection on Google Drive.
           </SectionHeading>
           <p className="editing-note">
             <Scissors size={15} aria-hidden="true" />
-            Edited with tools such as CapCut.
+            Video editing: CapCut
           </p>
         </div>
         <p className="video-collection-note" id="video-collection-note" data-reveal>

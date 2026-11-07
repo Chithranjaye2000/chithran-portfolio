@@ -59,12 +59,11 @@ export default function QaTools() {
       <div className="container">
         <div className="qa-tools-heading">
           <SectionHeading
-            eyebrow="The testing toolkit"
+            eyebrow="Testing tools"
             title="QA Tools & Technologies"
             id="qa-tools-title"
           >
-            Tools I use across test automation, API testing, quality analysis, and delivery
-            workflows.
+            Tools I use for browser tests, API checks, load testing, and code analysis.
           </SectionHeading>
           <button
             type="button"

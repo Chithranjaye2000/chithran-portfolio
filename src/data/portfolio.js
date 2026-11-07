@@ -2,7 +2,7 @@ export const projects = [
   {
     id: 'soil-monitoring',
     number: '01',
-    title: 'Smarter insights. Healthier soil.',
+    title: 'Sensor data and wireless communication',
     fullTitle:
       'LoRaWAN-Based Energy-Efficient Soil Nutrient Monitoring System for Bell Pepper Cultivation',
     label: 'Soil Nutrient Monitoring',
@@ -11,24 +11,24 @@ export const projects = [
     context: 'Final year research project',
     image: '/images/projects/soil-monitoring.png',
     summary:
-      'Exploring reliable, energy-efficient soil monitoring for bell pepper cultivation through sensor validation and wireless communication testing.',
+      'My final year research focuses on soil nutrient monitoring for bell pepper cultivation. I test sensor readings and wireless data transmission.',
     technologies: ['ESP32', 'LoRa / LoRaWAN concepts', 'TCP/IP'],
     overview:
-      'A final year research project investigating soil nutrient monitoring, sensor data collection, energy saving, and a monitoring dashboard for bell pepper cultivation.',
+      'I’m testing a soil nutrient monitoring system for bell pepper cultivation. The work covers sensor data collection, wireless transmission, deep-sleep energy saving, and a monitoring dashboard.',
     contributions: [
-      'Validate sensor data accuracy and observe system performance.',
-      'Design and execute scenarios for data transmission between ESP32 devices and a cloud platform.',
-      'Identify and document network stability and data inconsistency issues.',
-      'Explore deep-sleep energy saving and sensor collection with ESP32 and RA-02 SX1278 modules at 433 MHz.',
+      'Checking sensor data accuracy and system performance.',
+      'Testing data transmission between ESP32 devices and a cloud platform.',
+      'Documenting network stability and data inconsistency issues.',
+      'Exploring deep-sleep energy saving and sensor collection with ESP32 and RA-02 SX1278 modules at 433 MHz.',
     ],
-    note: 'The research LoRaWAN. The implemented radio communication is LoRaWAN',
+    note: 'The wireless testing uses ESP32 devices and RA-02 SX1278 LoRa modules at 433 MHz.',
     repositoryUrl: null, // TODO: add only a verified, public, shareable URL.
     demoUrl: null,
   },
   {
     id: 'quickjob',
     number: '02',
-    title: 'Connecting people to opportunity.',
+    title: 'A web and mobile part-time job platform',
     fullTitle: 'QuickJob — Part-Time Job Offering Platform',
     label: 'QuickJob',
     date: 'May 2025 – Sep 2025',
@@ -36,23 +36,23 @@ export const projects = [
     context: 'Academic project',
     image: '/images/projects/quickjob.png',
     summary:
-      'A cross-platform job offering platform, with a focus on validating matching, real-time conversations, and financial transaction workflows.',
+      'A web and mobile platform for part-time jobs. I tested job matching, real-time chat, and financial transaction workflows.',
     technologies: ['React', 'React Native + Expo', 'Node.js', 'MySQL + Azure', 'OpenRouter API'],
     overview:
-      'A web and mobile platform connecting people with part-time job opportunities. The project brings together job matching, real-time chat, and financial transaction workflows.',
+      'QuickJob connects people with part-time jobs through web and mobile apps. It includes job matching, real-time chat, and financial transaction workflows.',
     contributions: [
-      'Validate job matching and real-time chat across key user journeys.',
-      'Assess financial transaction workflows through functional test scenarios.',
-      'Design scenarios to identify potential issues in core functionality and user workflows.',
+      'Tested job matching and real-time chat across key user journeys.',
+      'Assessed financial transaction workflows through functional test scenarios.',
+      'Designed test scenarios to find issues in core functionality and user workflows.',
     ],
-    note: 'This case study describes the project scope and validation work. No production deployment, public repository, or quantified test results are claimed.',
+    note: 'Academic project. Repository and demo links are not listed yet.',
     repositoryUrl: null,
     demoUrl: null,
   },
   {
     id: 'innovation',
     number: '03',
-    title: 'A space for ideas to move forward.',
+    title: 'A PHP platform for managing ideas',
     fullTitle: 'Innovation Management System',
     label: 'Innovation Management',
     date: 'May 2024 – Oct 2024',
@@ -60,23 +60,23 @@ export const projects = [
     context: 'Academic project',
     image: '/images/projects/innovation.svg',
     summary:
-      'A PHP and MySQL platform for innovation and collaboration, with validation of core workflows and the Gemini API integration.',
+      'An innovation platform built with PHP and MySQL. I checked CRUD operations, collaboration workflows, and the Gemini API integration.',
     technologies: ['PHP', 'MySQL', 'Bootstrap', 'JavaScript', 'Gemini API'],
     overview:
-      'An innovation platform built with HTML, PHP, MySQL, Bootstrap, and JavaScript, with a Gemini API integration to support the platform experience.',
+      'This academic project uses HTML, PHP, MySQL, Bootstrap, and JavaScript to manage ideas and collaboration, with Gemini API integration.',
     contributions: [
-      'Validate create, read, update, and delete functionality against expected behavior.',
-      'Test the Gemini API integration and review its behavior within the platform.',
-      'Check collaboration workflows and document functional issues.',
+      'Validated create, read, update, and delete operations against expected behavior.',
+      'Tested the Gemini API integration within the platform.',
+      'Checked collaboration workflows and documented functional issues.',
     ],
-    note: 'The case study focuses on functional validation. Repository and demonstration links are pending confirmation.',
+    note: 'The testing covered CRUD operations, collaboration, and the Gemini API integration.',
     repositoryUrl: null,
     demoUrl: null,
   },
   {
     id: 'task-tracker',
     number: '04',
-    title: 'Clearer tasks. Connected teams.',
+    title: 'Role-based waste-collection tracking',
     fullTitle: 'Task Tracker for Team Collaboration — Web Application',
     label: 'Team Task Tracker',
     date: 'Jul 2024 – Aug 2024',
@@ -84,16 +84,16 @@ export const projects = [
     context: 'Academic project',
     image: '/images/projects/task-tracker.png',
     summary:
-      'A role-based waste-collection and task-tracking web application, connecting Admin, Driver, and User workflows in one responsive interface.',
+      'A waste-collection and task-tracking web app with Admin, Driver, and User roles, CRUD operations, and a MySQL database.',
     technologies: ['Java', 'JSP / Servlets', 'MySQL', 'JavaScript', 'Bootstrap'],
     overview:
-      'A full-stack web application for waste-collection and task tracking. Admin, Driver, and User roles support distinct workflows with database integration and a responsive interface.',
+      'I built a web application for waste-collection and task tracking using JSP, Servlets, and MySQL. It has separate Admin, Driver, and User workflows and a responsive interface.',
     contributions: [
-      'Develop role-based workflows for Admin, Driver, and User access.',
-      'Implement CRUD operations and MySQL database integration using JSP and Servlets.',
-      'Build a responsive interface with JavaScript and Bootstrap.',
+      'Developed role-based workflows for Admin, Driver, and User access.',
+      'Implemented CRUD operations and MySQL database integration using JSP and Servlets.',
+      'Built a responsive interface with JavaScript and Bootstrap.',
     ],
-    note: 'This is an academic application. Public repository and demo links will be added once verified.',
+    note: 'Built as an academic project using JSP, Servlets, and MySQL.',
     repositoryUrl: null,
     demoUrl: null,
   },
@@ -104,31 +104,31 @@ export const skillGroups = [
   {
     icon: 'testing',
     title: 'Test automation',
-    description: 'Making repeatable checks part of the workflow.',
+    description: 'Browser and mobile automation, with test reports.',
     skills: ['Selenium', 'Playwright', 'Appium', 'Cucumber', 'Allure Reports'],
   },
   {
     icon: 'api',
     title: 'API & performance',
-    description: 'Checking behavior across services and under load.',
+    description: 'API requests, response checks, and load tests.',
     skills: ['Postman', 'REST Assured', 'Apache JMeter'],
   },
   {
     icon: 'security',
     title: 'Security & code quality',
-    description: 'Looking beyond functional behavior.',
+    description: 'Security scans and static code analysis.',
     skills: ['OWASP ZAP', 'SonarQube'],
   },
   {
     icon: 'management',
     title: 'Testing & reporting',
-    description: 'Organizing coverage, findings, and browser checks.',
+    description: 'Test cases, bug reports, and browser testing.',
     skills: ['BrowserStack', 'JIRA', 'Zephyr', 'Test case design', 'Bug reporting'],
   },
   {
     icon: 'code',
     title: 'Development',
-    description: 'Building across the web and mobile.',
+    description: 'Languages and frameworks for web and mobile projects.',
     skills: [
       'Java',
       'JavaScript',
@@ -142,7 +142,7 @@ export const skillGroups = [
   {
     icon: 'layers',
     title: 'Interfaces & data',
-    description: 'Connecting useful interfaces with structured data.',
+    description: 'Frontend styling, databases, and API integrations.',
     skills: [
       'HTML',
       'CSS',
@@ -157,13 +157,13 @@ export const skillGroups = [
   {
     icon: 'workflow',
     title: 'Tools & workflow',
-    description: 'Keeping development and testing connected.',
+    description: 'Version control, builds, and CI/CD.',
     skills: ['Git', 'GitHub', 'Maven', 'CI/CD Pipelines', 'VS Code'],
   },
   {
     icon: 'research',
     title: 'Research & communication',
-    description: 'Making technical ideas tangible and understandable.',
+    description: 'Sensor projects, wireless communication, and technical videos.',
     skills: [
       'ESP32',
       'LoRa / LoRaWAN concepts',

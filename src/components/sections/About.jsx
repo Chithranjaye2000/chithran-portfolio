@@ -23,32 +23,20 @@ export default function About() {
     <section id="about" className="section" aria-labelledby="about-title">
       <div className="container about-grid">
         <div className="about-introduction">
-          <SectionHeading
-            eyebrow="01 / About me"
-            title={
-              <>
-                Curious by nature.
-                <br />
-                Precise by practice.
-              </>
-            }
-            id="about-title"
-          />
+          <SectionHeading eyebrow="01 / About me" title="My background" id="about-title" />
           <div className="about-copy" data-reveal>
             <p className="about-lead">
-              I’m Chithran, an Industrial Information Technology undergraduate based in{' '}
-              {siteConfig.location}, focused on software quality, test automation, and clear
-              technical communication.
+              I’m Chithran, an Industrial Information Technology undergraduate at Uva Wellassa
+              University. I’m based in {siteConfig.location}.
             </p>
             <p>
-              At Uva Wellassa University, I’m building a foundation in software quality and
-              development. I completed my Quality Assurance internship at Sri Lanka Telecom (SLT),
-              where I applied that learning through workflow validation, test design, and defect
-              documentation.
+              My main interest is software QA, especially test automation and API testing. I
+              completed my QA internship at Sri Lanka Telecom (SLT), where I tested workflows, wrote
+              test cases, and documented defects.
             </p>
             <p>
-              I work with automation tools to make checks repeatable, and create technical demos,
-              walkthroughs, and explainers that help people understand how systems work.
+              I also build web and mobile projects and make software demos, onboarding videos, and
+              technical walkthroughs.
             </p>
           </div>
           <ul className="about-focus" aria-label="Professional focus" data-stagger>
@@ -59,7 +47,7 @@ export default function About() {
               </li>
             ))}
           </ul>
-          <TextLink href="#experience">Get to know my experience</TextLink>
+          <TextLink href="#experience">Read about my internship</TextLink>
         </div>
         <Education />
       </div>

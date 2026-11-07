@@ -95,7 +95,7 @@ function ProjectDialog({ project, onClose }) {
           <h2 id="case-study-title">{project.fullTitle}</h2>
           <p className="dialog-date">{project.date} · Concept illustration above</p>
           <p>{project.overview}</p>
-          <h3>Focus & contributions</h3>
+          <h3>My work on this project</h3>
           <ul className="contribution-list">
             {project.contributions.map((item) => (
               <li key={item}>
@@ -151,20 +151,20 @@ export default function Projects() {
             eyebrow="03 / Selected work"
             title={
               <>
-                Ideas built.
+                Academic projects
                 <br />
-                <span className="text-blue">Details tested.</span>
+                <span className="text-blue">& research.</span>
               </>
             }
             id="projects-title"
           >
-            A selection of academic projects and research, viewed through development and quality
-            assurance.
+            Projects I’ve worked on during my degree, including web and mobile applications and my
+            final year research.
           </SectionHeading>
           <p className="section-side-note">
-            From connected devices
+            Web, mobile
             <br />
-            to connected experiences.
+            and IoT projects.
           </p>
         </div>
         <div className="project-filters" role="group" aria-label="Filter projects by category">

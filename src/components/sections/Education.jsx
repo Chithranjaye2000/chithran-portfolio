@@ -11,7 +11,7 @@ export default function Education() {
       data-reveal
     >
       <div className="education-card-top">
-        <p className="micro-label">MY FOUNDATION</p>
+        <p className="micro-label">UNIVERSITY EDUCATION</p>
         <GraduationCap
           className="education-card-icon"
           size={27}
@@ -35,7 +35,7 @@ export default function Education() {
             ))}
           </ul>
         </div>
-        <TextLink href="#projects">Explore my academic work</TextLink>
+        <TextLink href="#projects">View academic projects</TextLink>
       </div>
     </article>
   )

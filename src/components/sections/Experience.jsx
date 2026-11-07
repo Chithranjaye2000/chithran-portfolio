@@ -15,16 +15,16 @@ export default function Experience() {
             eyebrow="02 / Experience"
             title={
               <>
-                Learning in practice.
+                My QA internship
                 <br />
-                Growing through quality.
+                at SLT.
               </>
             }
             id="experience-title"
             light
           >
-            Applied a testing mindset to real software at Sri Lanka Telecom (SLT), with care for the
-            details and the people behind them.
+            My internship at Sri Lanka Telecom focused on API testing, test case design, software
+            validation, and bug reporting.
           </SectionHeading>
           <a className="experience-contact" href="#contact">
             Let’s connect
@@ -61,7 +61,7 @@ export default function Experience() {
               <li>Reported bugs and documented reproducible issues.</li>
             </ul>
             <p className="experience-discretion">
-              A public overview of responsibilities I carried out during my QA internship.
+              My work covered test preparation, execution, and defect documentation.
             </p>
           </article>
         </div>

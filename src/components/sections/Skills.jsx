@@ -38,11 +38,10 @@ export default function Skills() {
       <div className="container">
         <SectionHeading
           eyebrow="04 / Skills & tools"
-          title="A connected set of skills."
+          title="Tools I’ve worked with"
           id="skills-title"
         >
-          The technologies and practices behind my project work, research, and technical
-          communication.
+          I’ve used these tools in my QA work, academic projects, and research.
         </SectionHeading>
         <div className="skills-grid" data-stagger>
           {skillGroups.map((group) => {
@@ -62,7 +61,7 @@ export default function Skills() {
           })}
         </div>
         <p className="skills-footnote">
-          A hands-on toolkit, with a testing mindset. Always learning, always refining.
+          My main focus is software QA, API testing, and test automation.
         </p>
         <div className="portfolio-collections" data-reveal>
           <p className="micro-label">In this portfolio</p>

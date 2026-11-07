@@ -31,8 +31,8 @@ export default function QaEvidenceCarousel({ reports }) {
       {...regionEvents}
     >
       <div className="qa-coverflow-heading">
-        <p className="eyebrow">Evidence in focus</p>
-        <p>Explore the tools. Inspect the work.</p>
+        <p className="eyebrow">Testing reports</p>
+        <p>Select a report to read the details.</p>
       </div>
       <p className="sr-only" id="qa-coverflow-help">
         Use the left and right arrow keys to change reports, or Home and End to reach the first and
