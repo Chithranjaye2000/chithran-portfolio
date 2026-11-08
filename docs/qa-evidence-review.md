@@ -30,23 +30,35 @@ On 20 October 2026, the owner supplied nine individual Google Drive URLs and req
 - **Allure (16 pages):** the stack and negative-login scope are documented on pages 4–6, with overview, suite, graph, and diagnostic screenshots on pages 7–15. Three negative-login checks are recorded as passed. The overview includes retry history, so no first-attempt pass rate is asserted. These results demonstrate the reported rejection checks, not successful Facebook authentication, comprehensive cross-browser coverage, a security audit, or a deployed CI gate.
 - Only the two new summaries are marked `sourceReviewed: true`. Credentials, configuration values, local paths, private session identifiers, and test inputs are not reproduced on the site. Report source notes distinguish PDF review from independent execution. Rendered pages and extracted text stayed in ignored, dev-server-blocked `tmp/pdfs/` during review; no source PDFs or report screenshots were added to `public/`.
 
+### Jira source review — 8 November 2026
+
+The owner supplied the 12-page `3767_Chithran_Jayathunga_JIRA_Practical_Training_Report.pdf` and an individual Google Drive link. Its text and relevant screenshots were reviewed locally. A tenth case study, **Jira Defect Tracking & Workflow Practice**, uses the existing Additional Reports category and reusable card. The previous nine records are unchanged; no database migration is involved.
+
+The summary covers the QA Testing practice space, Bug work type, simulated SCRUM-5 issue, priority and workflow history, Scrum board/backlog, and dashboard exploration. It retains the unresolved sprint assignment, empty burndown, and incomplete gadget verification stated in the report. Although screenshots include Created vs Resolved and Pie Chart displays, the narrative still marks final configuration as unconfirmed, so the card does not claim fully validated reporting. The simulated bug is not presented as a production defect or fix. No test pass rate, browser/OS version, or completion date is inferred. The PDF was reviewed, not independently repeated; the remote Drive file was not verified. Review images remain in ignored `tmp/pdfs/` and are not published.
+
+### CI/CD source review — 8 November 2026
+
+The owner supplied the 15-page `3767_CI_CD_Pipeline_Report.pdf` and its Google Drive link. The report text and workflow, job-result, artifact, and Cucumber screenshots were reviewed locally. **CI/CD Pipeline GitHub Actions** is the eleventh card, under Additional Reports; the preceding ten records remain unchanged.
+
+The card describes GitHub Actions CI with Node.js 22, Oxlint, Vite, Playwright Chromium, Cucumber, and report artifacts. Pages 11–14 support the workflow stages, headless-runner fix, removal of an obsolete deliberately failing scenario, and the final successful build-and-test run of approximately 1 minute 19 seconds. The report explicitly excludes automatic deployment. The summary does not claim a complete CD implementation, full application coverage, or a warning-free run. No repository, workflow, database, or deployment was changed as part of adding this card. The run was not repeated, and the remote Drive file was not verified. Rendered review pages remain in ignored `tmp/pdfs/`.
+
 ## Record fields and link controls
 
-| Field                         | Meaning                                                                                    |
-| ----------------------------- | ------------------------------------------------------------------------------------------ |
-| `id`, `title`                 | Stable identifier and accurate case-study title                                            |
-| `category`                    | `automation`, `api`, `performance`, `mobile`, `security`, or `analysis`                    |
-| `primaryTool`, `technologies` | Primary tool name and supporting-technology array                                          |
-| `context`                     | Confirmed application/environment; do not infer employment attribution                     |
-| `summary`, `scope`, `result`  | Concise work, actual scope, and contextual historical result                               |
-| `implementation`              | Array of supplied or source-verified activities and investigations                         |
-| `limitations`, `sourceNote`   | Evidence limits and explicit provenance                                                    |
-| `summaryApproved`             | `true` to publish the owner-approved summary                                               |
-| `sourceReviewed`              | `true` for the reviewed BrowserStack and Allure PDFs; `false` for the seven original cards |
-| `reportUrl`                   | Exact owner-supplied HTTPS URL, or approved local PDF path                                 |
-| `publicReportApproved`        | Owner authorisation to display the report link; does not imply independent review          |
+| Field                         | Meaning                                                                                     |
+| ----------------------------- | ------------------------------------------------------------------------------------------- |
+| `id`, `title`                 | Stable identifier and accurate case-study title                                             |
+| `category`                    | `automation`, `api`, `performance`, `mobile`, `security`, `analysis`, or `reports`          |
+| `primaryTool`, `technologies` | Primary tool name and supporting-technology array                                           |
+| `context`                     | Confirmed application/environment; do not infer employment attribution                      |
+| `summary`, `scope`, `result`  | Concise work, actual scope, and contextual historical result                                |
+| `implementation`              | Array of supplied or source-verified activities and investigations                          |
+| `limitations`, `sourceNote`   | Evidence limits and explicit provenance                                                     |
+| `summaryApproved`             | `true` to publish the owner-approved summary                                                |
+| `sourceReviewed`              | `true` for BrowserStack, Allure, Jira, and CI/CD PDFs; `false` for the seven original cards |
+| `reportUrl`                   | Exact owner-supplied HTTPS URL, or approved local PDF path                                  |
+| `publicReportApproved`        | Owner authorisation to display the report link; does not imply independent review           |
 
-All nine full case-study cards have keyboard-accessible native **View Details** disclosures, scope, recorded results, limitations, and the supplied Google Drive URL. Only BrowserStack and Allure have `sourceReviewed: true`; all nine have `publicReportApproved: true`. Every entry displays **View Report**; the unavailable message remains only as a fallback for future records without approved links.
+All eleven full case-study cards have keyboard-accessible native **View Details** disclosures, scope, recorded results, limitations, and the supplied Google Drive URL. BrowserStack, Allure, Jira, and CI/CD have `sourceReviewed: true`; all eleven have `publicReportApproved: true`. Every entry displays **View Report**; the unavailable message remains only as a fallback for future records without approved links.
 
 Owner-authorised HTTPS links open with `target="_blank"` and `rel="noopener noreferrer"`; they do not require or imply independent source review. Local links still require source review, public approval, and an existing PDF with a valid header in `public/documents/qa-reports/`, using a lowercase hyphenated filename. Vite checks local file availability at startup/build. Restart the development server or rebuild after adding/removing an approved local report. Existence and a PDF signature do not establish sanitisation or authorisation.
 

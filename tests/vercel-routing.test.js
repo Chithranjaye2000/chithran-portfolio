@@ -179,9 +179,9 @@ test('existing catalogue API response fields and approval metadata survive servi
   const qaResponse = await fetch(`${harness.origin}/api/qa-evidence`)
   assert.equal(qaResponse.status, 200)
   const qaBody = await qaResponse.json()
-  assert.equal(qaBody.pagination.total, 9)
-  assert.equal(qaBody.data.filter((record) => record.sourceReviewed).length, 2)
-  assert.equal(qaBody.data.filter((record) => record.summaryApproved).length, 9)
+  assert.equal(qaBody.pagination.total, 11)
+  assert.equal(qaBody.data.filter((record) => record.sourceReviewed).length, 4)
+  assert.equal(qaBody.data.filter((record) => record.summaryApproved).length, 11)
 })
 
 test('frontend static assets and the real CV retain their MIME types and content', async (t) => {

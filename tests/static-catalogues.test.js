@@ -57,7 +57,7 @@ test('all four static projects render immediately with their original visible co
   assert.equal(projectMarkup.includes('could not be loaded'), false)
 })
 
-test('all nine approved static QA entries retain complete details, report links, and review metadata', () => {
+test('all eleven approved static QA entries retain complete details, report links, and review metadata', () => {
   assert.deepEqual(
     qaReports.map((report) => report.id),
     [
@@ -70,12 +70,14 @@ test('all nine approved static QA entries retain complete details, report links,
       'selenium-data-driven-login',
       'browserstack-report',
       'allure-report',
+      'jira-practical-training',
+      'github-actions-qa-pipeline',
     ],
   )
-  assert.equal(qaReports.filter((report) => report.sourceReviewed).length, 2)
+  assert.equal(qaReports.filter((report) => report.sourceReviewed).length, 4)
   assert.ok(qaReports.every((report) => report.summaryApproved && report.publicReportApproved))
-  assert.equal((qaMarkup.match(/class="qa-report-card"/g) ?? []).length, 9)
-  assert.equal((qaMarkup.match(/<details class="qa-report-details">/g) ?? []).length, 9)
+  assert.equal((qaMarkup.match(/class="qa-report-card"/g) ?? []).length, 11)
+  assert.equal((qaMarkup.match(/<details class="qa-report-details">/g) ?? []).length, 11)
   for (const report of qaReports) {
     for (const value of [
       report.title,
@@ -93,7 +95,7 @@ test('all nine approved static QA entries retain complete details, report links,
     }
     assert.ok(qaMarkup.includes(`href="${escapeHtml(report.reportUrl)}"`))
   }
-  assert.equal((qaMarkup.match(/target="_blank" rel="noopener noreferrer"/g) ?? []).length, 9)
+  assert.equal((qaMarkup.match(/target="_blank" rel="noopener noreferrer"/g) ?? []).length, 11)
   assert.equal(qaMarkup.includes('Public report not available'), false)
   assert.equal(qaMarkup.includes('Loading QA evidence'), false)
   assert.equal(qaMarkup.includes('could not be loaded'), false)

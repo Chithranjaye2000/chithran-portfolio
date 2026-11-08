@@ -252,4 +252,64 @@ export const qaReports = [
     reportUrl:
       'https://drive.google.com/file/d/1vkCMdseZSlUQACUEZ209lRM6zVGy1Hlu/view?usp=drive_link',
   },
+  {
+    id: 'jira-practical-training',
+    title: 'Jira Defect Tracking & Workflow Practice',
+    category: 'reports',
+    primaryTool: 'Jira Cloud',
+    technologies: ['Bug reports', 'Issue history', 'Scrum board', 'Backlog', 'Dashboards'],
+    context: 'QA Testing practice project / simulated bug workflow',
+    summary:
+      'Created a practice bug report in Jira, tracked its priority and status changes, and explored the Scrum board, backlog, and dashboard gadgets.',
+    scope:
+      'Bug work-type setup, structured defect documentation, issue ownership, workflow transitions, sprint-planning views, and dashboard exploration.',
+    result:
+      'Documented the sample bug SCRUM-5, changed its priority from Medium to Highest, and moved it through To Do, In Progress, In Review, and Done before reopening it.',
+    implementation: [
+      'Created the QA Testing practice space and added the Bug work type.',
+      'Wrote a simulated login bug with preconditions, reproduction steps, and separate expected and actual results.',
+      'Assigned the issue to myself and reviewed priority and status changes in its history.',
+      'Reopened the issue from Done to In Progress; the report records its resolution changing from Done to None.',
+      'Explored the Scrum board, backlog, and sprint-planning views.',
+      'Created the QA Testing Dashboard and explored Average Age, Sprint Burndown, Created vs Resolved, and Pie Chart gadgets.',
+    ],
+    limitations:
+      'This was a simulated learning exercise, not a confirmed production defect or fix. Sprint assignment remained inconsistent, the burndown had no plotted data, and final gadget configuration was not fully confirmed in the report.',
+    summaryApproved: true,
+    sourceReviewed: true,
+    sourceNote:
+      'Based on the supplied Jira practical training PDF and its screenshots. The documented exercise was reviewed, not independently repeated.',
+    publicReportApproved: true,
+    reportUrl: 'https://drive.google.com/file/d/1SQbzRbnXF_ADKqiczJEICm1zCXJo63MW/view?usp=sharing',
+  },
+  {
+    id: 'github-actions-qa-pipeline',
+    title: 'CI/CD Pipeline GitHub Actions',
+    category: 'reports',
+    primaryTool: 'GitHub Actions',
+    technologies: ['Node.js 22', 'Playwright Chromium', 'Cucumber', 'Vite', 'Oxlint', 'YAML'],
+    context: 'CI/CD training / automated QA workflow',
+    summary:
+      'Set up a GitHub Actions workflow to lint and build Bell Pepper Monitor, run browser tests with Playwright and Cucumber, and upload the test reports.',
+    scope:
+      'CI checks on pushes and pull requests to main, plus manual runs on an Ubuntu runner. Includes application startup, login UI checks, and Cucumber report artifacts.',
+    result:
+      'The report records a successful build-and-test run lasting approximately 1 minute 19 seconds, including Cucumber execution and report upload.',
+    implementation: [
+      'Configured source checkout, Node.js 22, npm caching, and dependency installation with npm ci.',
+      'Ran Oxlint checks and the Vite production build before installing Playwright Chromium and its system dependencies.',
+      'Started Vite, waited for the login route, and passed the CI server address to the Cucumber tests.',
+      'Fixed workflow YAML syntax and switched Chromium to headless mode on the Linux runner after an X server error.',
+      'Removed an obsolete, deliberately failing scenario and its step definition before the recorded successful run.',
+      'Configured report upload even after test failure and reviewed the cucumber-test-reports artifact and login scenario evidence.',
+    ],
+    limitations:
+      'CI validation only; automatic deployment was not configured. The recorded success followed setup fixes and removal of an obsolete deliberate-failure scenario. It does not establish full application test coverage.',
+    summaryApproved: true,
+    sourceReviewed: true,
+    sourceNote:
+      'Based on the supplied CI/CD Pipeline Report and its workflow and Cucumber screenshots. The recorded run was reviewed, not independently rerun.',
+    publicReportApproved: true,
+    reportUrl: 'https://drive.google.com/file/d/1R2wj_3eiHCKT_RfLgT93HyIsjiSV84PP/view?usp=sharing',
+  },
 ]
