@@ -280,7 +280,7 @@ export const qaReports = [
     sourceNote:
       'Based on the supplied Jira practical training PDF and its screenshots. The documented exercise was reviewed, not independently repeated.',
     publicReportApproved: true,
-    reportUrl: 'https://drive.google.com/file/d/1SQbzRbnXF_ADKqiczJEICm1zCXJo63MW/view?usp=sharing',
+    reportUrl: 'https://drive.google.com/file/d/1Ejvxk0oWqX5IzKnbvBC3GXMCrQtspv8I/view?usp=sharing',
   },
   {
     id: 'github-actions-qa-pipeline',
@@ -311,5 +311,63 @@ export const qaReports = [
       'Based on the supplied CI/CD Pipeline Report and its workflow and Cucumber screenshots. The recorded run was reviewed, not independently rerun.',
     publicReportApproved: true,
     reportUrl: 'https://drive.google.com/file/d/1R2wj_3eiHCKT_RfLgT93HyIsjiSV84PP/view?usp=sharing',
+  },
+  {
+    id: 'postman-python-crud',
+    title: 'API CRUD Testing with Postman & Python',
+    category: 'api',
+    primaryTool: 'Postman',
+    technologies: ['Python', 'requests', 'JSONPlaceholder', 'JSON', 'VS Code'],
+    context: 'JSONPlaceholder sample API / CRUD practice',
+    summary:
+      'Tested CRUD requests manually in Postman, then wrote Python scripts with the requests library to send the same operations and inspect status codes and JSON responses.',
+    scope:
+      'POST, GET, PUT, and DELETE requests against the sample posts resource, with JSON request bodies and response inspection.',
+    result:
+      'Postman screenshots record 201 for POST and 200 for GET, PUT, and DELETE. Python execution screenshots show 201 for POST and 200 for GET and PUT.',
+    implementation: [
+      'Configured Postman requests for the JSONPlaceholder posts resource and supplied JSON bodies for POST and PUT.',
+      'Compared returned HTTP status codes and JSON data with the expected CRUD responses.',
+      'Created separate create.py, read.py, update.py, and delete.py scripts using the Python requests library.',
+      'Printed response status codes and parsed JSON output in the terminal for inspection.',
+    ],
+    limitations:
+      'JSONPlaceholder simulates writes without permanent storage. The Python DELETE screenshot shows earlier update output, so it does not independently demonstrate a delete execution. This is a sample API exercise, not production API or security coverage.',
+    summaryApproved: true,
+    sourceReviewed: true,
+    sourceNote:
+      'Based on the supplied Postman and Python PDF, including its request and terminal screenshots. Requests were not independently rerun.',
+    publicReportApproved: true,
+    reportUrl: 'https://drive.google.com/file/d/1KqD5lnOJtHRfR0QbtuJNloWMuQQNV1Up/view?usp=sharing',
+  },
+  {
+    id: 'cucumber-bell-pepper-login',
+    title: 'Bell Pepper Monitor BDD Login Testing',
+    category: 'automation',
+    primaryTool: 'Cucumber.js',
+    technologies: ['JavaScript', 'Gherkin', 'Playwright', 'Chromium', 'Node.js', 'HTML reports'],
+    context: 'Bell Pepper Monitor demo login / historical UI test execution',
+    summary:
+      'Used Gherkin scenarios and Playwright browser interactions to check the login UI, native form validation, and dashboard navigation, with HTML reports and failure screenshots.',
+    scope:
+      'Six functional login scenarios covering page controls, demo login, invalid email format, empty fields, password input type, and submit-button state, plus a failure-capture diagnostic.',
+    result:
+      'The saved run of 20 October 2026 records 6 passed functional scenarios and 1 intentionally failed diagnostic. The full run remained unsuccessful; all 7 After hooks passed.',
+    implementation: [
+      'Connected Gherkin steps to JavaScript definitions, with Cucumber.js as the runner and Playwright controlling Chromium.',
+      'Reused login helpers and opened a separate browser for each scenario.',
+      'Checked DOM validity, required-field flags, focus, URL navigation, the password input type, and submit-button state.',
+      'Captured and attached a failure PNG before browser cleanup in the After hook.',
+      'Generated an HTML report; the supplied PDF documents a matching saved PNG and diagnostic attachment.',
+      'The historical results contain 19 passed functional steps, plus 1 passed and 1 intentionally failed diagnostic step. No separate functional-only run is evidenced.',
+    ],
+    limitations:
+      'The demo login does not verify passwords against an authentication service. Coverage is limited to Chromium login UI checks, not production authentication, dashboard data, or cross-browser testing. The diagnostic failure is not an application defect.',
+    summaryApproved: true,
+    sourceReviewed: true,
+    sourceNote:
+      'Based on the supplied Cucumber PDF and its historical result tables and screenshots. Tests were not independently rerun; the original HTML and PNG artifacts were not reviewed.',
+    publicReportApproved: true,
+    reportUrl: 'https://drive.google.com/file/d/1SQbzRbnXF_ADKqiczJEICm1zCXJo63MW/view?usp=sharing',
   },
 ]

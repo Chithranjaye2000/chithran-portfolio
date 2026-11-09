@@ -42,23 +42,32 @@ The owner supplied the 15-page `3767_CI_CD_Pipeline_Report.pdf` and its Google D
 
 The card describes GitHub Actions CI with Node.js 22, Oxlint, Vite, Playwright Chromium, Cucumber, and report artifacts. Pages 11–14 support the workflow stages, headless-runner fix, removal of an obsolete deliberately failing scenario, and the final successful build-and-test run of approximately 1 minute 19 seconds. The report explicitly excludes automatic deployment. The summary does not claim a complete CD implementation, full application coverage, or a warning-free run. No repository, workflow, database, or deployment was changed as part of adding this card. The run was not repeated, and the remote Drive file was not verified. Rendered review pages remain in ignored `tmp/pdfs/`.
 
+### Postman and Cucumber source review — 9 November 2026
+
+Two owner-supplied PDFs were reviewed through extracted text and rendered result pages. The existing card components are reused for **API CRUD Testing with Postman & Python** (API Testing) and **Bell Pepper Monitor BDD Login Testing** (Test Automation). No database or test-project files were changed.
+
+- **Postman/Python (17 pages):** pages 8–13 document JSONPlaceholder CRUD requests and outputs. Postman captures show POST 201 and GET/PUT/DELETE 200; Python captures demonstrate POST, GET, and PUT output. The figure labelled as a Python DELETE result instead shows `update.py` terminal output. The card retains this evidence limit, describes status/JSON inspection rather than inventing an assertion-based pass count, and notes that the sample API does not persist writes.
+- **Cucumber (29 pages):** pages 4–15 describe the JavaScript/Gherkin/Playwright setup; pages 17–29 describe login scope, diagnostics, and historical results. The recorded 20 October 2026 run has six passed functional scenarios and one intentionally failed screenshot diagnostic; the full run is unsuccessful. The result tables distinguish 21 Gherkin steps (20 passed, one failed) from seven passed After hooks. The card does not infer production authentication, dashboard-data validation, cross-browser coverage, or a separate functional-only execution. Original HTML/PNG artifacts were not inspected or rerun; the PDF tables and screenshots are the reviewed sources.
+
+The owner clarified the report links: Postman uses Drive ID `1KqD5lnOJtHRfR0QbtuJNloWMuQQNV1Up`, Cucumber uses `1SQbzRbnXF_ADKqiczJEICm1zCXJo63MW`, and Jira is corrected to `1Ejvxk0oWqX5IzKnbvBC3GXMCrQtspv8I`. Remote Drive access was not verified. The other existing fields and reports are unchanged. Rendered review pages remain in ignored `tmp/pdfs/`.
+
 ## Record fields and link controls
 
-| Field                         | Meaning                                                                                     |
-| ----------------------------- | ------------------------------------------------------------------------------------------- |
-| `id`, `title`                 | Stable identifier and accurate case-study title                                             |
-| `category`                    | `automation`, `api`, `performance`, `mobile`, `security`, `analysis`, or `reports`          |
-| `primaryTool`, `technologies` | Primary tool name and supporting-technology array                                           |
-| `context`                     | Confirmed application/environment; do not infer employment attribution                      |
-| `summary`, `scope`, `result`  | Concise work, actual scope, and contextual historical result                                |
-| `implementation`              | Array of supplied or source-verified activities and investigations                          |
-| `limitations`, `sourceNote`   | Evidence limits and explicit provenance                                                     |
-| `summaryApproved`             | `true` to publish the owner-approved summary                                                |
-| `sourceReviewed`              | `true` for BrowserStack, Allure, Jira, and CI/CD PDFs; `false` for the seven original cards |
-| `reportUrl`                   | Exact owner-supplied HTTPS URL, or approved local PDF path                                  |
-| `publicReportApproved`        | Owner authorisation to display the report link; does not imply independent review           |
+| Field                         | Meaning                                                                                                                       |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `id`, `title`                 | Stable identifier and accurate case-study title                                                                               |
+| `category`                    | `automation`, `api`, `performance`, `mobile`, `security`, `analysis`, or `reports`                                            |
+| `primaryTool`, `technologies` | Primary tool name and supporting-technology array                                                                             |
+| `context`                     | Confirmed application/environment; do not infer employment attribution                                                        |
+| `summary`, `scope`, `result`  | Concise work, actual scope, and contextual historical result                                                                  |
+| `implementation`              | Array of supplied or source-verified activities and investigations                                                            |
+| `limitations`, `sourceNote`   | Evidence limits and explicit provenance                                                                                       |
+| `summaryApproved`             | `true` to publish the owner-approved summary                                                                                  |
+| `sourceReviewed`              | `true` for six reviewed PDFs (BrowserStack, Allure, Jira, CI/CD, Postman, Cucumber); `false` for the seven original summaries |
+| `reportUrl`                   | Exact owner-supplied HTTPS URL, or approved local PDF path                                                                    |
+| `publicReportApproved`        | Owner authorisation to display the report link; does not imply independent review                                             |
 
-All eleven full case-study cards have keyboard-accessible native **View Details** disclosures, scope, recorded results, limitations, and the supplied Google Drive URL. BrowserStack, Allure, Jira, and CI/CD have `sourceReviewed: true`; all eleven have `publicReportApproved: true`. Every entry displays **View Report**; the unavailable message remains only as a fallback for future records without approved links.
+All thirteen full case-study cards have keyboard-accessible native **View Details** disclosures, scope, recorded results, limitations, and the supplied Google Drive URL. Six have `sourceReviewed: true`; all thirteen have `publicReportApproved: true`. Every entry displays **View Report**; the unavailable message remains only as a fallback for future records without approved links.
 
 Owner-authorised HTTPS links open with `target="_blank"` and `rel="noopener noreferrer"`; they do not require or imply independent source review. Local links still require source review, public approval, and an existing PDF with a valid header in `public/documents/qa-reports/`, using a lowercase hyphenated filename. Vite checks local file availability at startup/build. Restart the development server or rebuild after adding/removing an approved local report. Existence and a PDF signature do not establish sanitisation or authorisation.
 

@@ -10,10 +10,10 @@ const records = qaReports.map((report, index) => ({
   reportOnly: false,
 }))
 
-test('QA DTO validation preserves all eleven approved records and their separate review states', () => {
-  assert.equal(records.length, 11)
+test('QA DTO validation preserves all thirteen approved records and their separate review states', () => {
+  assert.equal(records.length, 13)
   assert.ok(records.every(isQaEvidenceRecord))
-  assert.equal(records.filter((record) => record.sourceReviewed).length, 4)
+  assert.equal(records.filter((record) => record.sourceReviewed).length, 6)
   assert.equal(records.filter((record) => !record.sourceReviewed).length, 7)
 })
 
