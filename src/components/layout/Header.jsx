@@ -7,7 +7,7 @@ import ThemeToggle from '../ui/ThemeToggle'
 export default function Header() {
   const headerRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 960px)').matches)
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 1200px)').matches)
   const [activeSection, setActiveSection] = useState('home')
   useAnchorNavigation(headerRef)
 
@@ -52,7 +52,7 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    const mobile = window.matchMedia('(max-width: 960px)')
+    const mobile = window.matchMedia('(max-width: 1200px)')
     const update = (event) => {
       setIsMobile(event.matches)
       if (!event.matches) setMenuOpen(false)

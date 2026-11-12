@@ -22,6 +22,7 @@ export const navigation = [
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Other Projects' },
   { id: 'about', label: 'About' },
+  { id: 'qa-tools', label: 'QA Tools' },
   { id: 'skills', label: 'Skills' },
   { id: 'ai-literacy', label: 'AI Literacy' },
   { id: 'content', label: 'Content' },

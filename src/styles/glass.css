@@ -199,7 +199,7 @@
   box-shadow: inset 0 1px 0 var(--glass-highlight);
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1200px) {
   .primary-nav {
     background: var(--glass-surface-strong);
     border-color: var(--glass-border);

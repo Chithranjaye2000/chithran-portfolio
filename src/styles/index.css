@@ -1504,9 +1504,6 @@ a.contact-row:hover strong {
   .container {
     width: calc(100% - 64px);
   }
-  .primary-nav {
-    gap: 15px;
-  }
   .hero-grid {
     gap: 40px;
   }
@@ -1536,7 +1533,8 @@ a.contact-row:hover strong {
     padding-left: 0;
   }
 }
-@media (max-width: 960px) {
+/* Keep the complete navigation clear of the brand on compact desktop screens. */
+@media (max-width: 1200px) {
   html {
     scroll-padding-top: var(--header-height, 76px);
   }
@@ -1570,6 +1568,8 @@ a.contact-row:hover strong {
   .primary-nav .button {
     margin-top: 8px;
   }
+}
+@media (max-width: 960px) {
   .hero-grid {
     gap: 25px;
     padding-block: 57px;

@@ -207,7 +207,7 @@
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1200px) {
   .header-controls {
     gap: 10px;
   }
