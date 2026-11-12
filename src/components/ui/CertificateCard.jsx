@@ -48,8 +48,6 @@ export default function CertificateCard({ certificate, imageAvailable, onSelect 
   return (
     <article
       className={`certificate-card${certificate.imagePath ? '' : ' certificate-card--text'}`}
-      data-reveal
-      data-timeline-entry
     >
       {certificate.imagePath ? (
         <div className="certificate-media">

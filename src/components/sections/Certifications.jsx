@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { Info } from 'lucide-react'
 import { certifications } from '../../data/certifications'
-import CertificateCard from '../ui/CertificateCard'
+import CertificateRing from '../ui/CertificateRing'
 import CertificateLightbox from '../ui/CertificateLightbox'
 import { SectionHeading } from '../ui/Primitives'
-import { TimelineRail } from '../ui/MotionDecor'
 
 const availableImages = new Set(__CERTIFICATE_IMAGES__)
 
@@ -48,17 +47,11 @@ export default function Certifications() {
             </span>
           </p>
         )}
-        <div className="certification-grid milestone-track" data-timeline data-stagger>
-          <TimelineRail />
-          {certifications.map((certificate) => (
-            <CertificateCard
-              key={certificate.id}
-              certificate={certificate}
-              imageAvailable={availableImages.has(certificate.imagePath)}
-              onSelect={openCertificate}
-            />
-          ))}
-        </div>
+        <CertificateRing
+          certificates={certifications}
+          availableImages={availableImages}
+          onSelect={openCertificate}
+        />
         <p className="certificate-course-note">
           Simplilearn SkillUp certificates acknowledge course completion; they are not Microsoft
           certifications. University of Moratuwa links open the general verification portal.
