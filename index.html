@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-startup="pending">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -22,6 +22,19 @@
           .setAttribute('content', theme === 'dark' ? '#0b1220' : '#215be2')
       })()
     </script>
+    <style id="startup-canvas">
+      :root[data-startup='pending'] {
+        background: #080f1e;
+        color-scheme: dark !important;
+        overflow: hidden;
+        scrollbar-gutter: stable;
+        overscroll-behavior: none;
+      }
+      :root[data-startup='pending'] body {
+        background: transparent;
+        overscroll-behavior: none;
+      }
+    </style>
     <meta
       name="description"
       content="Chithran Jayathunga’s portfolio: software QA, academic development projects, and technical videos. Completed QA internship at SLT; based in Maharagama, Sri Lanka."

@@ -49,13 +49,11 @@ export default function Certifications() {
         )}
         <CertificateRing
           certificates={certifications}
+          initialCertificateId="software-quality-assurance"
           availableImages={availableImages}
           onSelect={openCertificate}
+          dialogOpen={selected !== null}
         />
-        <p className="certificate-course-note">
-          Simplilearn SkillUp certificates acknowledge course completion; they are not Microsoft
-          certifications. University of Moratuwa links open the general verification portal.
-        </p>
       </div>
       {selected && (
         <CertificateLightbox

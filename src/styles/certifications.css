@@ -3,14 +3,17 @@
   border-top: 1px solid var(--border);
 }
 .certificate-carousel {
-  --certificate-width: 350px;
-  --certificate-radius: 510px;
+  --certificate-width: 360px;
+  --certificate-radius: 550px;
+  --certificate-z: 185px;
+  --certificate-lift: 260px;
   margin-top: 30px;
 }
 .certificate-ring-stage {
-  perspective: 1400px;
+  perspective: 1500px;
+  perspective-origin: 50% 56%;
   overflow: clip;
-  padding: 36px 0 42px;
+  padding: 175px 0 40px;
   touch-action: pan-y pinch-zoom;
   cursor: grab;
   border-radius: 20px;
@@ -28,27 +31,30 @@
   width: var(--certificate-width);
   margin-inline: auto;
   transform-style: preserve-3d;
-  transform: translateZ(calc(-1 * var(--certificate-radius)))
-    rotateY(calc(var(--certificate-turn) + var(--certificate-drag, 0deg)));
-  transition: transform 850ms cubic-bezier(0.22, 0.68, 0.2, 1);
 }
-.certificate-ring-stage[data-dragging='true'] .certificate-ring {
+.certificate-ring-stage[data-dragging='true'] .certificate-ring-slide {
   transition: none;
 }
 .certificate-ring-slide {
   grid-area: 1 / 1;
   min-width: 0;
   position: relative;
-  transform: rotateY(var(--certificate-angle)) translateZ(var(--certificate-radius));
-  backface-visibility: hidden;
-  opacity: 0.25;
-  transition: opacity 650ms ease;
+  transform: translate3d(
+      calc(var(--certificate-x) * var(--certificate-radius)),
+      calc(var(--certificate-rise) * var(--certificate-lift) * -1),
+      calc(var(--certificate-depth) * var(--certificate-z, 185px))
+    )
+    rotateY(calc(var(--certificate-rotation) * 1deg)) scale(var(--certificate-scale));
+  border-radius: 18px;
+  background: var(--surface);
+  filter: brightness(var(--certificate-brightness));
+  transition:
+    transform 900ms cubic-bezier(0.22, 0.68, 0.2, 1),
+    filter 900ms ease;
 }
-.certificate-ring-slide[data-near='true'] {
-  opacity: 0.65;
-}
-.certificate-ring-slide[data-active='true'] {
-  opacity: 1;
+.certificate-ring-content {
+  opacity: var(--certificate-opacity);
+  transition: opacity 900ms ease;
 }
 .certificate-ring-content,
 .certificate-ring .certificate-card {
@@ -78,6 +84,7 @@
   align-items: center;
   justify-content: center;
   gap: 24px;
+  flex-wrap: wrap;
 }
 .certificate-ring-controls button {
   display: grid;
@@ -101,11 +108,17 @@
   font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
-.certificate-ring-hint {
-  text-align: center;
-  color: var(--muted);
+.certificate-ring-controls .certificate-play {
+  display: inline-flex;
+  gap: 8px;
+  width: auto;
+  padding-inline: 16px;
   font-size: 11px;
-  margin-top: 16px;
+  border-radius: 24px;
+}
+.certificate-ring-controls button:disabled {
+  opacity: 0.55;
+  cursor: default;
 }
 .certificate-card {
   display: flex;
@@ -276,13 +289,6 @@
   margin-top: 3px;
   color: var(--blue);
 }
-.certificate-course-note {
-  color: var(--muted);
-  font-size: 11px;
-  max-width: 900px;
-  margin-top: 28px;
-  line-height: 1.9;
-}
 .certificate-dialog {
   width: min(1080px, calc(100% - 36px));
 }
@@ -384,17 +390,28 @@
 @media (max-width: 960px) {
   .certificate-carousel {
     --certificate-width: 310px;
-    --certificate-radius: 440px;
+    --certificate-radius: 380px;
+    --certificate-z: 150px;
+    --certificate-lift: 235px;
   }
 }
 @media (max-width: 680px) {
   .certificate-carousel {
     --certificate-width: min(290px, calc(100vw - 64px));
-    --certificate-radius: 360px;
+    --certificate-radius: 235px;
+    --certificate-z: 120px;
+    --certificate-lift: 210px;
   }
   .certificate-ring-stage {
     perspective: 1000px;
     margin-inline: -10px;
+    padding-top: 150px;
+  }
+  .certificate-ring-controls {
+    gap: 16px;
+  }
+  .certificate-ring-controls .certificate-play {
+    margin-inline: calc(50% - 80px);
   }
   .certificate-body {
     padding: 23px;
@@ -428,10 +445,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .certificate-ring,
-  .certificate-ring-slide {
+  .certificate-ring-slide,
+  .certificate-ring-content {
     transition: none;
-  }
-  .certificate-ring {
-    transform: translateZ(calc(-1 * var(--certificate-radius))) rotateY(var(--certificate-turn));
   }
 }
