@@ -6,14 +6,16 @@
   --certificate-width: 360px;
   --certificate-radius: 550px;
   --certificate-z: 185px;
-  --certificate-lift: 260px;
+  --certificate-lift: 180px;
+  --certificate-clearance: 72px;
   margin-top: 30px;
 }
 .certificate-ring-stage {
   perspective: 1500px;
   perspective-origin: 50% 56%;
   overflow: clip;
-  padding: 175px 0 40px;
+  /* Clearance follows the lifted rear cards; keep clipping horizontal overflow safely. */
+  padding: var(--certificate-clearance) 0 24px;
   touch-action: pan-y pinch-zoom;
   cursor: grab;
   border-radius: 20px;
@@ -392,7 +394,8 @@
     --certificate-width: 310px;
     --certificate-radius: 380px;
     --certificate-z: 150px;
-    --certificate-lift: 235px;
+    --certificate-lift: 165px;
+    --certificate-clearance: 64px;
   }
 }
 @media (max-width: 680px) {
@@ -400,12 +403,12 @@
     --certificate-width: min(290px, calc(100vw - 64px));
     --certificate-radius: 235px;
     --certificate-z: 120px;
-    --certificate-lift: 210px;
+    --certificate-lift: 150px;
+    --certificate-clearance: 60px;
   }
   .certificate-ring-stage {
     perspective: 1000px;
     margin-inline: -10px;
-    padding-top: 150px;
   }
   .certificate-ring-controls {
     gap: 16px;

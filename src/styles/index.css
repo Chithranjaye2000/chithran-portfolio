@@ -9,6 +9,7 @@
   -webkit-font-smoothing: antialiased;
   --heading: 'Manrope', 'Segoe UI', sans-serif;
   --radius: 14px;
+  --section-space: clamp(52px, 6vw, 80px);
 }
 
 * {
@@ -89,7 +90,7 @@ ul {
   margin-inline: auto;
 }
 .section {
-  padding: 105px 0;
+  padding: var(--section-space) 0;
 }
 .sr-only {
   position: absolute;
@@ -323,7 +324,7 @@ ul {
   grid-template-columns: 1.19fr 1fr;
   align-items: center;
   gap: 80px;
-  padding-block: 72px 68px;
+  padding-block: 72px 40px;
 }
 .hero h1 {
   font-size: clamp(52px, 5.7vw, 77px);
@@ -496,7 +497,7 @@ ul {
   grid-template-columns: repeat(3, 1fr) 45px;
   gap: 20px;
   border-top: 1px solid var(--border);
-  padding-block: 27px;
+  padding-block: 22px;
 }
 .discipline {
   display: flex;
@@ -574,7 +575,7 @@ ul {
 }
 .experience-section {
   background: var(--experience-bg);
-  padding: 82px 0;
+  padding: var(--section-space) 0;
   color: var(--on-button);
 }
 .experience-grid {
@@ -1003,7 +1004,7 @@ ul {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 29px;
-  margin-top: 43px;
+  margin-top: 32px;
 }
 .skill-group {
   display: grid;
@@ -1345,7 +1346,7 @@ ul {
   line-height: 1.9;
 }
 .contact-section {
-  padding: 80px 0;
+  padding: var(--section-space) 0;
   background: var(--contact-bg);
   color: var(--on-button);
 }
@@ -1497,7 +1498,7 @@ a.contact-row:hover strong {
 
 @media (min-width: 1500px) {
   .hero-grid {
-    padding-block: 90px;
+    padding-block: 90px 48px;
   }
 }
 @media (max-width: 1100px) {
@@ -1572,7 +1573,7 @@ a.contact-row:hover strong {
 @media (max-width: 960px) {
   .hero-grid {
     gap: 25px;
-    padding-block: 57px;
+    padding-block: 57px 36px;
   }
   .hero h1 {
     font-size: clamp(45px, 6.7vw, 64px);
@@ -1625,9 +1626,6 @@ a.contact-row:hover strong {
   }
   .explore-link {
     display: none;
-  }
-  .section {
-    padding-block: 80px;
   }
   .about-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -1692,9 +1690,6 @@ a.contact-row:hover strong {
   }
   .container {
     width: calc(100% - 40px);
-  }
-  .section {
-    padding-block: 65px;
   }
   .header-inner {
     height: 70px;
@@ -1811,9 +1806,6 @@ a.contact-row:hover strong {
   }
   .about-copy .about-lead {
     font-size: 17px;
-  }
-  .experience-section {
-    padding-block: 58px;
   }
   .experience-grid {
     grid-template-columns: 1fr;
