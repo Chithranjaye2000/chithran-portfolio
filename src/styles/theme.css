@@ -23,7 +23,8 @@
   --header-scrolled-bg: #fffffff5;
   --header-shadow: 0 5px 22px #17243b0a;
   --hero-bg: linear-gradient(110deg, #fff 53%, #f5f8ff 100%);
-  --name-gradient: linear-gradient(100deg, #1648bc, #176eab, #215be2);
+  --name-gradient: linear-gradient(100deg, #1648bc, #067a9b, #6542c5, #215be2);
+  --name-glow: #215be233;
   --name-underline: linear-gradient(90deg, #215be2, #36a6ca, transparent);
   --orb-blue: radial-gradient(circle, #b8d2ff5c, #dfebff1a 55%, transparent 72%);
   --orb-cyan: radial-gradient(circle, #5ed3ec38, #c6eeff1a 58%, transparent 72%);
@@ -95,7 +96,8 @@
   --header-scrolled-bg: #0b1220f5;
   --header-shadow: 0 5px 22px #00000040;
   --hero-bg: linear-gradient(110deg, #0b1220 53%, #111f37 100%);
-  --name-gradient: linear-gradient(100deg, #8ab4ff, #7ed5ee, #a7c6ff);
+  --name-gradient: linear-gradient(100deg, #8ab4ff, #71e2ee, #c0a2ff, #8ab4ff);
+  --name-glow: #7ed5ee33;
   --name-underline: linear-gradient(90deg, #8eb6ff, #62c6e5, transparent);
   --orb-blue: radial-gradient(circle, #3269e829, #244d8b12 55%, transparent 72%);
   --orb-cyan: radial-gradient(circle, #229bbf1f, #174a6312 58%, transparent 72%);

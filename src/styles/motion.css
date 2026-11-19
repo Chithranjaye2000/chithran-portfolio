@@ -192,8 +192,18 @@ html[data-motion-paused='true'] .hero-ambient > span {
   padding-bottom: 0.16em;
   margin-bottom: -0.16em;
   background: var(--name-gradient);
+  background-size: 240% 100%;
+  background-position: 0% 50%;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 18px var(--name-glow);
+  animation: hero-gradient-flow 8s ease-in-out infinite alternate;
+}
+
+@keyframes hero-gradient-flow {
+  to {
+    background-position: 100% 50%;
+  }
 }
 
 .hero-name-accent::after {
@@ -492,6 +502,7 @@ main > section[id] {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-ambient,
+  .hero-name-accent,
   .hero-name-accent::after,
   .about-focus svg,
   .education-card,
