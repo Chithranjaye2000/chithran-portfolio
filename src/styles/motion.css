@@ -191,6 +191,9 @@ html[data-motion-paused='true'] .hero-ambient > span {
   /* Extend the gradient paint area for descenders without shifting the layout. */
   padding-bottom: 0.16em;
   margin-bottom: -0.16em;
+}
+
+.hero-name-gradient {
   background: var(--name-gradient);
   background-size: 240% 100%;
   background-position: 0% 50%;
@@ -502,7 +505,7 @@ main > section[id] {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-ambient,
-  .hero-name-accent,
+  .hero-name-gradient,
   .hero-name-accent::after,
   .about-focus svg,
   .education-card,
@@ -532,9 +535,10 @@ main > section[id] {
 }
 
 @media (forced-colors: active) {
-  .hero-name-accent {
+  .hero-name-gradient {
     background: none;
     -webkit-text-fill-color: currentColor;
+    text-shadow: none;
   }
 
   .hero-ambient,

@@ -30,11 +30,11 @@ export default function Hero() {
       <div className="container hero-grid">
         <div className="hero-copy">
           <h1 id="hero-title">
-            <span className="hero-name-line" data-hero-step="1">
+            <span className="hero-name-line hero-name-gradient" data-hero-step="1">
               Chithran
             </span>
             <br />
-            <span className="hero-name-line hero-name-accent" data-hero-step="2">
+            <span className="hero-name-line hero-name-gradient hero-name-accent" data-hero-step="2">
               Jayathunga.
             </span>
           </h1>
