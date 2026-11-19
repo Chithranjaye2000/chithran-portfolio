@@ -342,6 +342,42 @@ ul {
   line-height: 1.8;
   color: var(--text-secondary);
 }
+.hero-headline .hero-typewriter {
+  display: inline-grid;
+  grid-template-areas: 'role';
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+.hero-typewriter-reserve,
+.hero-typewriter-line {
+  grid-area: role;
+}
+.hero-typewriter-line {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+.hero-typewriter-reserve {
+  visibility: hidden;
+  padding-right: 5px;
+}
+.hero-typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 3px;
+  border-radius: 2px;
+  background: currentColor;
+  animation: hero-cursor-blink 900ms steps(2, start) infinite;
+}
+@keyframes hero-cursor-blink {
+  to {
+    visibility: hidden;
+  }
+}
+.hero-typewriter--static .hero-typewriter-cursor {
+  display: none;
+}
 .hero-intro {
   font-size: 15px;
   max-width: 460px;

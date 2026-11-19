@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import {
   ArrowDown,
   ArrowUpRight,
@@ -12,6 +12,7 @@ import {
 import { siteConfig } from '../../data/siteConfig'
 import { SocialLinks } from '../ui/Primitives'
 import { AmbientBackground } from '../ui/MotionDecor'
+import TypewriterText from '../ui/TypewriterText'
 
 const disciplines = [
   { Icon: Workflow, title: 'QA automation', subtitle: 'UI workflows and browser tests' },
@@ -37,15 +38,13 @@ export default function Hero() {
               Jayathunga.
             </span>
           </h1>
-          <p className="hero-headline">
-            {siteConfig.headline.split(' | ').map((role, index, roles) => (
-              <Fragment key={role}>
-                <span className="hero-role" data-hero-step={3 + index * 0.5}>
-                  {role}
-                </span>
-                {index < roles.length - 1 && ' | '}
-              </Fragment>
-            ))}
+          <p
+            className="hero-headline"
+            aria-label="QA Automation, API Testing, Manual Testing, Performance Testing"
+          >
+            <span data-hero-step="3">
+              <TypewriterText />
+            </span>
           </p>
           <p className="hero-intro" data-hero-step="4">
             I’m an Industrial Information Technology undergraduate with completed QA internship
